@@ -172,5 +172,32 @@
     },
     "whatsapp_label": "Send us a message on WhatsApp",
     "back_to_top_label": "Back to top",
-    "map_title": "Office Map"
+    "map_title": "Office Map",
+    "cookie": {
+        "message": "This website uses cookies to improve your browsing experience.",
+        "link_text": "Privacy Policy",
+        "link_url": "#",
+        "accept": "I understand and agree"
+    },
+    "accessibility": {
+        "btn_label": "Accessibility Menu",
+        "panel_title": "Accessibility",
+        "font_increase": "Increase Text",
+        "font_decrease": "Decrease Text",
+        "grayscale": "Grayscale",
+        "high_contrast": "High Contrast",
+        "invert_colors": "Invert Colors",
+        "highlight_links": "Highlight Links",
+        "readable_font": "Readable Font",
+        "stop_animations": "Stop Animations",
+        "big_cursor": "Big Cursor",
+        "keyboard_nav": "Keyboard Navigation",
+        "reset": "Reset",
+        "statement_link": "Accessibility Statement",
+        "close": "Close",
+        "statement_title": "Accessibility Statement",
+        "statement_body": "<h3>Accessibility Statement</h3><p><strong>Asor & Co. – Attorneys at Law</strong> is committed to enabling every person, including people with disabilities, to use this website equally, fully, and with dignity.</p><h4>Accessibility Standard</h4><p>This website complies with the Israeli Equal Rights for Persons with Disabilities Regulations (Accessibility Adjustments for Services), 2013, in accordance with Israeli Standard SI 5568 at WCAG 2.0 Level AA.</p><h4>Accessibility Features</h4><ul><li>Text size adjustment</li><li>Color contrast modification</li><li>Link highlighting</li><li>Animation pause</li><li>Readable font</li><li>Large cursor</li><li>Full keyboard navigation</li><li>Screen reader support</li></ul><h4>Accessibility Inquiries</h4><p>If you encounter an accessibility issue on this website, please contact us:</p><p>Phone: 02-5000275<br>Email: office@asor-law.com<br>Address: 17 Nachum Haftzadi St., Ram Tower - Floor 11, Jerusalem</p><p><strong>Statement last updated:</strong> April 2026</p>",
+        "statement_close": "Close",
+        "keyboard_info": "<strong>Keyboard Navigation:</strong><br>Tab - Move between elements<br>Shift+Tab - Move to previous element<br>Enter - Activate button/link<br>Escape - Close window/menu<br>Arrows - Navigate lists"
+    }
 }

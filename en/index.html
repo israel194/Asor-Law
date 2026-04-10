@@ -712,7 +712,7 @@
             </div>
             <div class="footer-bottom">
                 <span>&copy; 2025 Asor & Co. – Attorneys at Law. All rights reserved.</span>
-                <a href="#">Accessibility Statement</a>
+                <a href="#" id="footerA11yLink">Accessibility Statement</a>
             </div>
         </div>
     </footer>
@@ -726,6 +726,92 @@
     <button class="back-to-top" id="backToTop" aria-label="Back to top">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
     </button>
+
+    <!-- ===== Cookie Consent ===== -->
+    <div class="cookie-consent" id="cookieConsent">
+        <div class="cookie-consent-inner">
+            <p>This website uses cookies to improve your browsing experience. <a href="#">Privacy Policy</a></p>
+            <button class="cookie-consent-btn" id="cookieAccept">I understand and agree</button>
+        </div>
+    </div>
+
+    <!-- ===== Accessibility Widget ===== -->
+    <button class="a11y-btn" id="accessibilityBtn" aria-label="Accessibility Menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="4" r="2"/><path d="M19 13v-2c-1.54.02-3.09-.75-4.07-1.83l-1.29-1.43c-.17-.19-.38-.34-.61-.45-.01 0-.01-.01-.02-.01H13c-.35-.2-.75-.3-1.19-.26C10.76 7.11 10 8.04 10 9.09V15c0 1.1.9 2 2 2h5v5h2v-5.5c0-1.1-.9-2-2-2h-3v-3.45c1.29 1.07 3.25 1.94 5 1.95zm-6.17 5c-.41 1.16-1.52 2-2.83 2-1.66 0-3-1.34-3-3 0-1.31.84-2.41 2-2.83V12.1c-2.28.46-4 2.48-4 4.9 0 2.76 2.24 5 5 5 2.42 0 4.44-1.72 4.9-4h-2.07z"/></svg>
+    </button>
+
+    <div class="a11y-panel" id="accessibilityPanel" role="dialog" aria-label="Accessibility" aria-hidden="true">
+        <div class="a11y-panel-header">
+            <h2>Accessibility</h2>
+            <button class="a11y-panel-close" id="a11yClose" aria-label="Close">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+        </div>
+        <div class="a11y-panel-body">
+            <div class="a11y-options">
+                <button class="a11y-option" data-action="font-increase" aria-label="Increase Text">
+                    <span class="a11y-option-icon">A+</span>
+                    <span>Increase Text</span>
+                </button>
+                <button class="a11y-option" data-action="font-decrease" aria-label="Decrease Text">
+                    <span class="a11y-option-icon">A-</span>
+                    <span>Decrease Text</span>
+                </button>
+                <button class="a11y-option" data-action="grayscale" aria-label="Grayscale">
+                    <span class="a11y-option-icon"><svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2a10 10 0 0 1 0 20V2z"/></svg></span>
+                    <span>Grayscale</span>
+                </button>
+                <button class="a11y-option" data-action="high-contrast" aria-label="High Contrast">
+                    <span class="a11y-option-icon"><svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><circle cx="12" cy="12" r="10"/></svg></span>
+                    <span>High Contrast</span>
+                </button>
+                <button class="a11y-option" data-action="invert-colors" aria-label="Invert Colors">
+                    <span class="a11y-option-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="2" x2="12" y2="22"/></svg></span>
+                    <span>Invert Colors</span>
+                </button>
+                <button class="a11y-option" data-action="highlight-links" aria-label="Highlight Links">
+                    <span class="a11y-option-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></span>
+                    <span>Highlight Links</span>
+                </button>
+                <button class="a11y-option" data-action="readable-font" aria-label="Readable Font">
+                    <span class="a11y-option-icon">Aa</span>
+                    <span>Readable Font</span>
+                </button>
+                <button class="a11y-option" data-action="stop-animations" aria-label="Stop Animations">
+                    <span class="a11y-option-icon"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg></span>
+                    <span>Stop Animations</span>
+                </button>
+                <button class="a11y-option" data-action="big-cursor" aria-label="Big Cursor">
+                    <span class="a11y-option-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 3l14 8-6.5 1.5L11 19z"/></svg></span>
+                    <span>Big Cursor</span>
+                </button>
+                <button class="a11y-option" data-action="keyboard-nav" aria-label="Keyboard Navigation">
+                    <span class="a11y-option-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="6" y1="8" x2="6" y2="8"/><line x1="10" y1="8" x2="10" y2="8"/><line x1="14" y1="8" x2="14" y2="8"/><line x1="18" y1="8" x2="18" y2="8"/><line x1="8" y1="16" x2="16" y2="16"/><line x1="6" y1="12" x2="6" y2="12"/><line x1="10" y1="12" x2="10" y2="12"/><line x1="14" y1="12" x2="14" y2="12"/><line x1="18" y1="12" x2="18" y2="12"/></svg></span>
+                    <span>Keyboard Navigation</span>
+                </button>
+            </div>
+            <div class="a11y-keyboard-info" id="a11yKeyboardInfo" style="display:none;">
+                <strong>Keyboard Navigation:</strong><br>Tab - Move between elements<br>Shift+Tab - Move to previous element<br>Enter - Activate button/link<br>Escape - Close window/menu<br>Arrows - Navigate lists
+            </div>
+            <button class="a11y-reset" data-action="reset" aria-label="Reset">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+                Reset
+            </button>
+            <a href="#" class="a11y-statement-link" id="a11yStatementLink">Accessibility Statement</a>
+        </div>
+    </div>
+
+    <!-- ===== Accessibility Statement Modal ===== -->
+    <div class="a11y-statement-overlay" id="a11yStatementOverlay" aria-hidden="true">
+        <div class="a11y-statement-modal" role="dialog" aria-label="Accessibility Statement">
+            <button class="a11y-statement-close" id="a11yStatementClose" aria-label="Close">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+            <div class="a11y-statement-content">
+                <h3>Accessibility Statement</h3><p><strong>Asor & Co. – Attorneys at Law</strong> is committed to enabling every person, including people with disabilities, to use this website equally, fully, and with dignity.</p><h4>Accessibility Standard</h4><p>This website complies with the Israeli Equal Rights for Persons with Disabilities Regulations (Accessibility Adjustments for Services), 2013, in accordance with Israeli Standard SI 5568 at WCAG 2.0 Level AA.</p><h4>Accessibility Features</h4><ul><li>Text size adjustment</li><li>Color contrast modification</li><li>Link highlighting</li><li>Animation pause</li><li>Readable font</li><li>Large cursor</li><li>Full keyboard navigation</li><li>Screen reader support</li></ul><h4>Accessibility Inquiries</h4><p>If you encounter an accessibility issue on this website, please contact us:</p><p>Phone: 02-5000275<br>Email: office@asor-law.com<br>Address: 17 Nachum Haftzadi St., Ram Tower - Floor 11, Jerusalem</p><p><strong>Statement last updated:</strong> April 2026</p>
+            </div>
+        </div>
+    </div>
 
     <!-- ===== JavaScript ===== -->
     <script src="../js/main.js"></script>

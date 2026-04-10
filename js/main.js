@@ -251,3 +251,235 @@ const heroObserver = new IntersectionObserver((entries) => {
     }
 });
 heroObserver.observe(document.querySelector('.hero'));
+
+// Cookie consent
+(function() {
+    const banner = document.getElementById('cookieConsent');
+    const acceptBtn = document.getElementById('cookieAccept');
+    if (!banner || !acceptBtn) return;
+
+    if (!localStorage.getItem('cookieConsent')) {
+        setTimeout(() => banner.classList.add('visible'), 1000);
+    }
+
+    acceptBtn.addEventListener('click', () => {
+        localStorage.setItem('cookieConsent', 'accepted');
+        banner.classList.remove('visible');
+    });
+})();
+
+// ===== Accessibility Widget =====
+(function() {
+    const a11yBtn = document.getElementById('accessibilityBtn');
+    const a11yPanel = document.getElementById('accessibilityPanel');
+    const a11yClose = document.getElementById('a11yClose');
+    const a11yStatementLink = document.getElementById('a11yStatementLink');
+    const a11yStatementOverlay = document.getElementById('a11yStatementOverlay');
+    const a11yStatementClose = document.getElementById('a11yStatementClose');
+    const footerA11yLink = document.getElementById('footerA11yLink');
+    const a11yKeyboardInfo = document.getElementById('a11yKeyboardInfo');
+
+    if (!a11yBtn || !a11yPanel) return;
+
+    const STORAGE_KEY = 'a11y-prefs';
+    const FONT_LEVELS = [null, 'a11y-font-120', 'a11y-font-140'];
+    let fontLevel = 0;
+
+    const toggleClasses = {
+        'grayscale': 'a11y-grayscale',
+        'high-contrast': 'a11y-high-contrast',
+        'invert-colors': 'a11y-invert',
+        'highlight-links': 'a11y-highlight-links',
+        'readable-font': 'a11y-readable-font',
+        'stop-animations': 'a11y-stop-animations',
+        'big-cursor': 'a11y-big-cursor'
+    };
+
+    // State tracking
+    const state = {};
+    Object.keys(toggleClasses).forEach(k => state[k] = false);
+
+    function savePrefs() {
+        const prefs = { ...state, fontLevel };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(prefs));
+    }
+
+    function loadPrefs() {
+        try {
+            const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+            if (!saved) return;
+
+            Object.keys(toggleClasses).forEach(key => {
+                if (saved[key]) {
+                    state[key] = true;
+                    document.body.classList.add(toggleClasses[key]);
+                    const btn = a11yPanel.querySelector('[data-action="' + key + '"]');
+                    if (btn) btn.classList.add('active');
+                }
+            });
+
+            if (saved.fontLevel) {
+                fontLevel = saved.fontLevel;
+                FONT_LEVELS.forEach(c => { if (c) document.documentElement.classList.remove(c); });
+                if (FONT_LEVELS[fontLevel]) {
+                    document.documentElement.classList.add(FONT_LEVELS[fontLevel]);
+                }
+                updateFontButtons();
+            }
+        } catch (e) { /* ignore corrupt data */ }
+    }
+
+    function updateFontButtons() {
+        const incBtn = a11yPanel.querySelector('[data-action="font-increase"]');
+        const decBtn = a11yPanel.querySelector('[data-action="font-decrease"]');
+        if (incBtn) incBtn.classList.toggle('active', fontLevel > 0);
+        if (decBtn) decBtn.classList.toggle('active', fontLevel > 0);
+    }
+
+    // Panel open/close
+    function openPanel() {
+        a11yPanel.classList.add('open');
+        a11yPanel.setAttribute('aria-hidden', 'false');
+        a11yBtn.setAttribute('aria-expanded', 'true');
+        a11yClose.focus();
+    }
+
+    function closePanel() {
+        a11yPanel.classList.remove('open');
+        a11yPanel.setAttribute('aria-hidden', 'true');
+        a11yBtn.setAttribute('aria-expanded', 'false');
+        a11yBtn.focus();
+    }
+
+    a11yBtn.addEventListener('click', () => {
+        if (a11yPanel.classList.contains('open')) {
+            closePanel();
+        } else {
+            openPanel();
+        }
+    });
+
+    a11yClose.addEventListener('click', closePanel);
+
+    // Close on Escape
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            if (a11yStatementOverlay && a11yStatementOverlay.classList.contains('open')) {
+                closeStatement();
+            } else if (a11yPanel.classList.contains('open')) {
+                closePanel();
+            }
+        }
+    });
+
+    // Handle option clicks
+    a11yPanel.querySelectorAll('.a11y-option').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const action = btn.dataset.action;
+
+            if (action === 'font-increase') {
+                if (fontLevel < FONT_LEVELS.length - 1) {
+                    FONT_LEVELS.forEach(c => { if (c) document.documentElement.classList.remove(c); });
+                    fontLevel++;
+                    if (FONT_LEVELS[fontLevel]) {
+                        document.documentElement.classList.add(FONT_LEVELS[fontLevel]);
+                    }
+                }
+                updateFontButtons();
+                savePrefs();
+                return;
+            }
+
+            if (action === 'font-decrease') {
+                if (fontLevel > 0) {
+                    FONT_LEVELS.forEach(c => { if (c) document.documentElement.classList.remove(c); });
+                    fontLevel--;
+                    if (FONT_LEVELS[fontLevel]) {
+                        document.documentElement.classList.add(FONT_LEVELS[fontLevel]);
+                    }
+                }
+                updateFontButtons();
+                savePrefs();
+                return;
+            }
+
+            if (action === 'keyboard-nav') {
+                if (a11yKeyboardInfo) {
+                    const visible = a11yKeyboardInfo.style.display !== 'none';
+                    a11yKeyboardInfo.style.display = visible ? 'none' : 'block';
+                    btn.classList.toggle('active', !visible);
+                }
+                return;
+            }
+
+            // Toggle actions
+            if (toggleClasses[action] !== undefined) {
+                state[action] = !state[action];
+                document.body.classList.toggle(toggleClasses[action]);
+                btn.classList.toggle('active');
+                savePrefs();
+            }
+        });
+    });
+
+    // Reset
+    a11yPanel.querySelector('[data-action="reset"]').addEventListener('click', () => {
+        // Remove all body classes
+        Object.values(toggleClasses).forEach(c => document.body.classList.remove(c));
+        Object.keys(state).forEach(k => state[k] = false);
+
+        // Reset font
+        FONT_LEVELS.forEach(c => { if (c) document.documentElement.classList.remove(c); });
+        fontLevel = 0;
+
+        // Reset active buttons
+        a11yPanel.querySelectorAll('.a11y-option.active').forEach(b => b.classList.remove('active'));
+
+        // Hide keyboard info
+        if (a11yKeyboardInfo) a11yKeyboardInfo.style.display = 'none';
+
+        localStorage.removeItem(STORAGE_KEY);
+    });
+
+    // Accessibility Statement modal
+    function openStatement() {
+        if (a11yStatementOverlay) {
+            a11yStatementOverlay.classList.add('open');
+            a11yStatementOverlay.setAttribute('aria-hidden', 'false');
+        }
+    }
+
+    function closeStatement() {
+        if (a11yStatementOverlay) {
+            a11yStatementOverlay.classList.remove('open');
+            a11yStatementOverlay.setAttribute('aria-hidden', 'true');
+        }
+    }
+
+    if (a11yStatementLink) {
+        a11yStatementLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            openStatement();
+        });
+    }
+
+    if (footerA11yLink) {
+        footerA11yLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            openStatement();
+        });
+    }
+
+    if (a11yStatementClose) {
+        a11yStatementClose.addEventListener('click', closeStatement);
+    }
+
+    if (a11yStatementOverlay) {
+        a11yStatementOverlay.addEventListener('click', (e) => {
+            if (e.target === a11yStatementOverlay) closeStatement();
+        });
+    }
+
+    // Load saved preferences on page load
+    loadPrefs();
+})();
