@@ -988,39 +988,164 @@ section {
 
 .commitment-card {
     background: var(--off-white);
-    border-radius: 12px;
-    padding: 32px 24px;
+    border-radius: 14px;
+    padding: 40px 28px;
     text-align: center;
     transition: var(--transition);
+    border: 1px solid transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+.commitment-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 .commitment-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow);
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
+    border-color: rgba(184, 148, 63, 0.25);
+    background: var(--white);
+}
+
+.commitment-card:hover::before {
+    opacity: 1;
 }
 
 .commitment-icon {
-    width: 56px;
-    height: 56px;
+    width: 68px;
+    height: 68px;
     background: var(--navy);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 16px;
+    margin: 0 auto 20px;
+    transition: var(--transition);
+}
+
+.commitment-card:hover .commitment-icon {
+    background: var(--gold);
+    transform: scale(1.05);
 }
 
 .commitment-icon svg {
-    width: 28px;
-    height: 28px;
+    width: 32px;
+    height: 32px;
     color: var(--gold);
+    transition: color 0.3s ease;
+}
+
+.commitment-card:hover .commitment-icon svg {
+    color: var(--white);
 }
 
 .commitment-card h4 {
     color: var(--navy);
-    font-size: 1rem;
+    font-size: 1.02rem;
     font-weight: 600;
-    line-height: 1.5;
+    line-height: 1.55;
+}
+
+/* ===== Approach (firm philosophy & writings) ===== */
+.approach {
+    background: var(--off-white);
+    position: relative;
+    overflow: hidden;
+}
+
+.approach::before {
+    content: '"';
+    position: absolute;
+    top: -80px;
+    inset-inline-start: -40px;
+    font-family: 'Frank Ruhl Libre', Georgia, serif;
+    font-size: 28rem;
+    line-height: 1;
+    color: var(--gold);
+    opacity: 0.04;
+    pointer-events: none;
+    user-select: none;
+    font-weight: 700;
+}
+
+.approach-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+    max-width: 1080px;
+    margin: 0 auto;
+}
+
+.approach-card {
+    background: var(--white);
+    border-radius: 14px;
+    padding: 56px 40px 32px;
+    position: relative;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    border: 1px solid rgba(184, 148, 63, 0.15);
+}
+
+.approach-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: rgba(184, 148, 63, 0.4);
+}
+
+.approach-quote-mark {
+    position: absolute;
+    top: 12px;
+    inset-inline-start: 28px;
+    font-family: 'Frank Ruhl Libre', Georgia, serif;
+    font-size: 5.5rem;
+    line-height: 1;
+    color: var(--gold);
+    opacity: 0.32;
+    user-select: none;
+    font-weight: 700;
+    pointer-events: none;
+}
+
+.approach-text {
+    font-size: 1.08rem;
+    line-height: 1.75;
+    color: var(--navy-dark);
+    margin-bottom: 1.75rem;
+    font-style: italic;
+    position: relative;
+    z-index: 1;
+}
+
+.approach-attribution {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(184, 148, 63, 0.22);
+}
+
+.approach-attr-source {
+    color: var(--gold-dark);
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.3px;
+}
+
+.approach-attr-tag {
+    color: var(--text-light);
+    font-size: 0.85rem;
+    padding-inline-start: 10px;
+    border-inline-start: 1px solid rgba(184, 148, 63, 0.3);
 }
 
 /* ===== Articles ===== */
@@ -2120,6 +2245,15 @@ body.a11y-stop-animations *::after {
         grid-template-columns: repeat(2, 1fr);
     }
 
+    .approach-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .approach-card {
+        padding: 48px 28px 28px;
+    }
+
     .articles-grid {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -2213,6 +2347,19 @@ body.a11y-stop-animations *::after {
 
     .commitments-grid {
         grid-template-columns: 1fr;
+    }
+
+    .approach-card {
+        padding: 44px 24px 24px;
+    }
+
+    .approach-quote-mark {
+        font-size: 4.5rem;
+        top: 8px;
+    }
+
+    .approach-text {
+        font-size: 1rem;
     }
 
     .contact-form {
