@@ -1480,9 +1480,88 @@ section {
     height: 18px;
 }
 
+@media (max-width: 768px) {
+    /* On mobile: native horizontal scroll with snap, swipe-to-browse */
+    .projects-slider {
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        scroll-padding-inline: 24px;
+        cursor: grab;
+    }
+
+    .projects-slider::-webkit-scrollbar {
+        display: none;
+    }
+
+    .projects-slider:active {
+        cursor: grabbing;
+    }
+
+    .projects-track {
+        animation: none !important;
+        transform: none !important;
+        gap: 16px;
+        padding-inline: 24px;
+        width: max-content;
+    }
+
+    .projects-track .project-card {
+        scroll-snap-align: center;
+        scroll-snap-stop: always;
+    }
+
+    .projects-slider::before,
+    .projects-slider::after {
+        width: 24px;
+    }
+
+    .projects-slider-controls {
+        margin-top: 18px;
+    }
+
+    .projects-slider-hint {
+        display: flex;
+    }
+}
+
 @media (max-width: 600px) {
     .projects-track .project-card { width: 280px; flex: 0 0 280px; }
-    .projects-track { animation-duration: 45s; }
+}
+
+/* Swipe hint for mobile (hidden by default, shown on mobile) */
+.projects-slider-hint {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 16px auto 0;
+    color: var(--text-light);
+    font-size: 0.85rem;
+    letter-spacing: 0.3px;
+}
+
+.projects-slider-hint svg {
+    width: 18px;
+    height: 18px;
+    color: var(--gold);
+    animation: hintSwipe 1.6s ease-in-out infinite;
+}
+
+@keyframes hintSwipe {
+    0%, 100% { transform: translateX(0); opacity: 0.6; }
+    50%      { transform: translateX(-6px); opacity: 1; }
+}
+
+[dir="rtl"] .projects-slider-hint svg {
+    transform: scaleX(-1);
+}
+
+[dir="rtl"] @keyframes hintSwipe {
+    0%, 100% { transform: scaleX(-1) translateX(0); opacity: 0.6; }
+    50%      { transform: scaleX(-1) translateX(6px); opacity: 1; }
 }
 
 .project-card {

@@ -45,47 +45,86 @@ window.addEventListener('scroll', () => {
     });
 });
 
-// Projects slider — clone cards for seamless loop + manual nudge controls
+// Projects slider — desktop: marquee + manual nudge; mobile: native swipe scroll
 (function() {
     const slider = document.getElementById('projectsSlider');
     const track = document.getElementById('projectsTrack');
     if (!slider || !track) return;
 
-    // Clone all originals once for seamless 50% translateX loop
-    const originals = Array.from(track.children);
-    originals.forEach(card => {
-        const clone = card.cloneNode(true);
-        clone.setAttribute('aria-hidden', 'true');
-        clone.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
-        track.appendChild(clone);
-    });
+    const isMobile = () => window.matchMedia('(max-width: 768px)').matches;
 
-    // Manual nudge: temporarily pause animation and translate
-    let manualOffset = 0;
-    const cardWidth = () => {
+    // Clone all originals only on desktop, where the marquee loop runs.
+    // On mobile we keep the native list (no duplicates) for clean swipe browsing.
+    if (!isMobile()) {
+        const originals = Array.from(track.children);
+        originals.forEach(card => {
+            const clone = card.cloneNode(true);
+            clone.setAttribute('aria-hidden', 'true');
+            clone.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
+            track.appendChild(clone);
+        });
+    } else {
+        // Make sure all cards are visible (skip fade-in waiting on viewport)
+        track.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
+    }
+
+    const cardStep = () => {
         const c = track.querySelector('.project-card');
-        return c ? c.getBoundingClientRect().width + 22 : 360;
+        if (!c) return 320;
+        const style = getComputedStyle(track);
+        const gap = parseInt(style.gap || style.columnGap || '0', 10) || 16;
+        return c.getBoundingClientRect().width + gap;
+    };
+
+    // Manual nudge for desktop (paused animation + transform)
+    let manualOffset = 0;
+    const desktopNudge = (dir) => {
+        const isRtl = document.documentElement.dir === 'rtl';
+        const sign = (dir === 'next' ? -1 : 1) * (isRtl ? -1 : 1);
+        manualOffset += sign * cardStep();
+        track.style.animationPlayState = 'paused';
+        track.style.transition = 'transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1)';
+        track.style.transform = `translateX(${manualOffset}px)`;
+        clearTimeout(track._resumeTimer);
+        track._resumeTimer = setTimeout(() => {
+            track.style.transition = '';
+            track.style.transform = '';
+            manualOffset = 0;
+            track.style.animationPlayState = '';
+        }, 4000);
+    };
+
+    // Mobile: scroll the slider container (native, with snap)
+    const mobileScroll = (dir) => {
+        const isRtl = document.documentElement.dir === 'rtl';
+        // In RTL the visual "next" (toward the start of content visually) = positive scrollLeft
+        const sign = (dir === 'next' ? -1 : 1) * (isRtl ? -1 : 1);
+        slider.scrollBy({ left: sign * cardStep(), behavior: 'smooth' });
     };
 
     slider.querySelectorAll('.projects-slider-btn').forEach(btn => {
         btn.addEventListener('click', () => {
-            const dir = btn.dataset.dir;
-            const isRtl = document.documentElement.dir === 'rtl';
-            // In RTL, "next" feels like moving content right; in LTR, left.
-            const sign = (dir === 'next' ? -1 : 1) * (isRtl ? -1 : 1);
-            manualOffset += sign * cardWidth();
-            track.style.animationPlayState = 'paused';
-            track.style.transition = 'transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1)';
-            track.style.transform = `translateX(${manualOffset}px)`;
-            clearTimeout(track._resumeTimer);
-            track._resumeTimer = setTimeout(() => {
-                track.style.transition = '';
-                track.style.transform = '';
-                manualOffset = 0;
-                track.style.animationPlayState = '';
-            }, 4000);
+            if (isMobile()) {
+                mobileScroll(btn.dataset.dir);
+            } else {
+                desktopNudge(btn.dataset.dir);
+            }
         });
     });
+
+    // Hide swipe hint after first user interaction on mobile
+    const hint = slider.parentElement.querySelector('.projects-slider-hint');
+    if (hint) {
+        const dismissHint = () => {
+            hint.style.transition = 'opacity 0.4s ease';
+            hint.style.opacity = '0';
+            setTimeout(() => { hint.style.display = 'none'; }, 500);
+            slider.removeEventListener('scroll', dismissHint);
+            slider.removeEventListener('touchstart', dismissHint);
+        };
+        slider.addEventListener('scroll', dismissHint, { passive: true, once: true });
+        slider.addEventListener('touchstart', dismissHint, { passive: true, once: true });
+    }
 })();
 
 // About section photo slideshow
