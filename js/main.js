@@ -45,86 +45,184 @@ window.addEventListener('scroll', () => {
     });
 });
 
-// Projects slider — desktop: marquee + manual nudge; mobile: native swipe scroll
+// Projects 3D coverflow carousel — drag with mouse or touch
 (function() {
+    const stage = document.getElementById('projectsTrack');
     const slider = document.getElementById('projectsSlider');
-    const track = document.getElementById('projectsTrack');
-    if (!slider || !track) return;
+    if (!stage || !slider) return;
 
-    const isMobile = () => window.matchMedia('(max-width: 768px)').matches;
+    const cards = Array.from(stage.children).filter(el => el.classList.contains('project-card'));
+    if (cards.length === 0) return;
 
-    // Clone all originals only on desktop, where the marquee loop runs.
-    // On mobile we keep the native list (no duplicates) for clean swipe browsing.
-    if (!isMobile()) {
-        const originals = Array.from(track.children);
-        originals.forEach(card => {
-            const clone = card.cloneNode(true);
-            clone.setAttribute('aria-hidden', 'true');
-            clone.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
-            track.appendChild(clone);
+    // Reveal all cards immediately (skip viewport-based fade-in)
+    cards.forEach(c => c.classList.add('visible'));
+
+    const isRtl = () => document.documentElement.dir === 'rtl';
+    const isMobile = () => window.matchMedia('(max-width: 600px)').matches;
+
+    let current = Math.floor(cards.length / 2);
+    let dragOffset = 0;
+    let isDragging = false;
+    let startX = 0;
+    let lastX = 0;
+    let lastT = 0;
+    let velocity = 0;
+
+    // Build pagination dots
+    const dotsEl = document.getElementById('projectsDots');
+    const dots = [];
+    if (dotsEl) {
+        cards.forEach((_, i) => {
+            const dot = document.createElement('button');
+            dot.type = 'button';
+            dot.className = 'projects-3d-dot';
+            dot.setAttribute('aria-label', `פרויקט ${i + 1}`);
+            dot.addEventListener('click', () => { current = i; dragOffset = 0; render(); });
+            dotsEl.appendChild(dot);
+            dots.push(dot);
         });
-    } else {
-        // Make sure all cards are visible (skip fade-in waiting on viewport)
-        track.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
     }
 
-    const cardStep = () => {
-        const c = track.querySelector('.project-card');
-        if (!c) return 320;
-        const style = getComputedStyle(track);
-        const gap = parseInt(style.gap || style.columnGap || '0', 10) || 16;
-        return c.getBoundingClientRect().width + gap;
-    };
+    function render() {
+        const dir = isRtl() ? -1 : 1;
+        const spacing = isMobile() ? 150 : 220;
+        const tilt = 38;
+        const depth = 240;
 
-    // Manual nudge for desktop (paused animation + transform)
-    let manualOffset = 0;
-    const desktopNudge = (dir) => {
-        const isRtl = document.documentElement.dir === 'rtl';
-        const sign = (dir === 'next' ? -1 : 1) * (isRtl ? -1 : 1);
-        manualOffset += sign * cardStep();
-        track.style.animationPlayState = 'paused';
-        track.style.transition = 'transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1)';
-        track.style.transform = `translateX(${manualOffset}px)`;
-        clearTimeout(track._resumeTimer);
-        track._resumeTimer = setTimeout(() => {
-            track.style.transition = '';
-            track.style.transform = '';
-            manualOffset = 0;
-            track.style.animationPlayState = '';
-        }, 4000);
-    };
+        cards.forEach((card, i) => {
+            const offset = (i - current - dragOffset) * dir;
+            const abs = Math.abs(offset);
+            const tx = offset * spacing;
+            const tz = -abs * depth;
+            const rotY = -offset * tilt;
+            let opacity, scale;
+            if (abs < 0.5)      { opacity = 1; scale = 1; }
+            else if (abs < 1.5) { opacity = 0.78; scale = 0.94; }
+            else if (abs < 2.5) { opacity = 0.45; scale = 0.86; }
+            else if (abs < 3.5) { opacity = 0.2;  scale = 0.78; }
+            else                { opacity = 0;    scale = 0.7; }
 
-    // Mobile: scroll the slider container (native, with snap)
-    const mobileScroll = (dir) => {
-        const isRtl = document.documentElement.dir === 'rtl';
-        // In RTL the visual "next" (toward the start of content visually) = positive scrollLeft
-        const sign = (dir === 'next' ? -1 : 1) * (isRtl ? -1 : 1);
-        slider.scrollBy({ left: sign * cardStep(), behavior: 'smooth' });
-    };
+            card.style.setProperty('--tx', tx + 'px');
+            card.style.setProperty('--tz', tz + 'px');
+            card.style.setProperty('--rotY', rotY + 'deg');
+            card.style.setProperty('--opacity', opacity);
+            card.style.setProperty('--scale', scale);
+            card.style.zIndex = 100 - Math.round(abs * 10);
+            card.classList.toggle('is-active', Math.abs(i - current) === 0 && Math.abs(dragOffset) < 0.5);
+            card.setAttribute('aria-hidden', abs > 1.5 ? 'true' : 'false');
+        });
 
-    slider.querySelectorAll('.projects-slider-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            if (isMobile()) {
-                mobileScroll(btn.dataset.dir);
-            } else {
-                desktopNudge(btn.dataset.dir);
-            }
+        dots.forEach((d, i) => d.classList.toggle('is-active', i === current));
+    }
+
+    function clamp(n) {
+        return Math.max(0, Math.min(cards.length - 1, n));
+    }
+
+    function getX(e) {
+        return e.touches ? e.touches[0].clientX : e.clientX;
+    }
+
+    function onDragStart(e) {
+        // Don't start drag if clicking on a button inside a card (e.g. CTA)
+        if (e.target.closest('a, button')) return;
+        isDragging = true;
+        slider.classList.add('is-dragging');
+        startX = lastX = getX(e);
+        lastT = performance.now();
+        velocity = 0;
+    }
+
+    function onDragMove(e) {
+        if (!isDragging) return;
+        const x = getX(e);
+        const now = performance.now();
+        const dt = Math.max(1, now - lastT);
+        velocity = (x - lastX) / dt;
+        lastX = x;
+        lastT = now;
+        const dx = x - startX;
+        // Drag distance / spacing = how many cards we've shifted
+        const spacing = isMobile() ? 150 : 220;
+        dragOffset = -dx / spacing * (isRtl() ? -1 : 1);
+        render();
+        if (e.cancelable) e.preventDefault();
+    }
+
+    function onDragEnd() {
+        if (!isDragging) return;
+        isDragging = false;
+        slider.classList.remove('is-dragging');
+        // Apply momentum from velocity (pixels/ms) to determine final snap
+        const spacing = isMobile() ? 150 : 220;
+        const flick = -velocity * 220 / spacing * (isRtl() ? -1 : 1);
+        const target = current + Math.round(dragOffset + flick);
+        current = clamp(target);
+        dragOffset = 0;
+        render();
+    }
+
+    // Mouse
+    slider.addEventListener('mousedown', onDragStart);
+    window.addEventListener('mousemove', onDragMove);
+    window.addEventListener('mouseup', onDragEnd);
+    slider.addEventListener('mouseleave', () => { if (isDragging) onDragEnd(); });
+    // Touch
+    slider.addEventListener('touchstart', onDragStart, { passive: true });
+    slider.addEventListener('touchmove', onDragMove, { passive: false });
+    slider.addEventListener('touchend', onDragEnd);
+    slider.addEventListener('touchcancel', onDragEnd);
+
+    // Click on a side card moves it to center
+    cards.forEach((card, i) => {
+        card.addEventListener('click', (e) => {
+            // Don't move if user dragged or if clicking actual link/button
+            if (Math.abs(dragOffset) > 0.05) return;
+            if (e.target.closest('a, button')) return;
+            if (i === current) return;
+            current = i;
+            render();
         });
     });
 
-    // Hide swipe hint after first user interaction on mobile
-    const hint = slider.parentElement.querySelector('.projects-slider-hint');
+    // Buttons
+    document.querySelectorAll('.projects-3d-controls .projects-slider-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const dir = btn.dataset.dir;
+            const sign = dir === 'next' ? 1 : -1;
+            current = clamp(current + sign);
+            render();
+        });
+    });
+
+    // Keyboard
+    slider.addEventListener('keydown', (e) => {
+        const isRtlNow = isRtl();
+        if (e.key === 'ArrowLeft') {
+            current = clamp(current + (isRtlNow ? 1 : -1));
+            render();
+        } else if (e.key === 'ArrowRight') {
+            current = clamp(current + (isRtlNow ? -1 : 1));
+            render();
+        }
+    });
+
+    // Hide hint after first interaction
+    const hint = document.querySelector('.projects-3d-hint');
     if (hint) {
         const dismissHint = () => {
-            hint.style.transition = 'opacity 0.4s ease';
             hint.style.opacity = '0';
-            setTimeout(() => { hint.style.display = 'none'; }, 500);
-            slider.removeEventListener('scroll', dismissHint);
-            slider.removeEventListener('touchstart', dismissHint);
+            setTimeout(() => { hint.style.display = 'none'; }, 600);
         };
-        slider.addEventListener('scroll', dismissHint, { passive: true, once: true });
-        slider.addEventListener('touchstart', dismissHint, { passive: true, once: true });
+        slider.addEventListener('mousedown', dismissHint, { once: true });
+        slider.addEventListener('touchstart', dismissHint, { once: true, passive: true });
     }
+
+    // Recalculate on resize
+    window.addEventListener('resize', render);
+
+    // Initial render
+    render();
 })();
 
 // About section photo slideshow
