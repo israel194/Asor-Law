@@ -6,6 +6,10 @@
  *     Receives form submission, creates a SUMIT payment redirect, returns the URL.
  *     Frontend: digital/rental-agreement/form.js
  *
+ *   POST /api/agent/chat
+ *     Multi-turn AI intake agent — Anthropic-backed triage that recommends a
+ *     product from the catalog. See src/agent.js. Frontend: digital/agent.js
+ *
  *   GET /healthz
  *     Liveness check.
  *
@@ -16,6 +20,7 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { createPaymentRedirect } from "./sumit.js";
+import { runAgent } from "./agent.js";
 
 const app = new Hono();
 
@@ -71,6 +76,44 @@ app.post("/api/rental/create-payment", async c => {
     } catch (err) {
         console.error("create-payment failed", err);
         return c.json({ error: "Payment provider error", detail: err.message }, 502);
+    }
+});
+
+// ===== AI intake agent =====
+// Stateless: client sends the full message history each turn.
+// Body: { messages: [{ role: "user"|"assistant", content: string }, ...] }
+app.post("/api/agent/chat", async c => {
+    if (!c.env.ANTHROPIC_API_KEY) {
+        return c.json({ error: "Agent not configured" }, 503);
+    }
+
+    let payload;
+    try {
+        payload = await c.req.json();
+    } catch {
+        return c.json({ error: "Invalid JSON body" }, 400);
+    }
+
+    const messages = payload.messages;
+    if (!Array.isArray(messages) || messages.length === 0) {
+        return c.json({ error: "messages array required" }, 400);
+    }
+    // Sanity: cap message length so a single 1MB paste can't blow up cost
+    for (const m of messages) {
+        if (typeof m.content !== "string" || m.content.length > 4000) {
+            return c.json({ error: "message content must be string under 4000 chars" }, 400);
+        }
+        if (m.role !== "user" && m.role !== "assistant") {
+            return c.json({ error: "role must be 'user' or 'assistant'" }, 400);
+        }
+    }
+
+    try {
+        const result = await runAgent(c.env, messages);
+        return c.json(result);
+    } catch (err) {
+        console.error("agent chat failed", err);
+        return c.json({ error: "Agent error", detail: err.message }, err.status === 401 ? 502 : 500);
     }
 });
 

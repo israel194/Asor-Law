@@ -13,4 +13,5 @@ RETURN_URL_BASE = "https://asor-law.com"
 
 # Secrets are set via:  npx wrangler secret put SUMIT_COMPANY_ID
 #                       npx wrangler secret put SUMIT_API_KEY
+#                       npx wrangler secret put ANTHROPIC_API_KEY    # for /api/agent/chat
 # (not stored in this file)

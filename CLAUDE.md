@@ -56,10 +56,19 @@ Separate landing page (`digital/index.html`) and product flows under `digital/<p
 
 ### 3. Backend Worker — `worker/` (Cloudflare Worker, Hono)
 
-- `worker/src/index.js` — Hono app. CORS allowlist comes from `CORS_ORIGINS` env var (comma-separated). Routes: `POST /api/rental/create-payment`, `GET /healthz`.
+- `worker/src/index.js` — Hono app. CORS allowlist comes from `CORS_ORIGINS` env var (comma-separated). Routes: `POST /api/rental/create-payment`, `POST /api/agent/chat`, `GET /healthz`.
 - `worker/src/sumit.js` — wraps SUMIT's `beginredirect` endpoint. **SUMIT always returns HTTP 200**; success is determined by `json.Status === 0`. Errors are surfaced via `UserErrorMessage` / `TechnicalErrorDetails`. The order's `ExternalReference` is our internal UUID, echoed back through SUMIT's redirect for verification.
 - Currency code `1` = ILS. `Content-Language: he` header is required.
 - Order persistence is **not yet wired** (see TODO in `index.js`); the worker currently trusts SUMIT's redirect parameters until KV/D1 storage is added.
+
+### 4. AI intake agent — `worker/src/agent.js` + `digital/agent.js`
+
+Stateless triage chat that maps a customer's free-text case description to a product from the catalog.
+
+- **Catalog source of truth:** `worker/src/products.js` (`PRODUCTS` array — id, title, category, status, price, url, description). Mirror it whenever you add/remove a product card in `digital/index.html`.
+- **Worker** (`agent.js`) calls Anthropic's `/v1/messages` with `claude-sonnet-4-6`, forces tool use on a single `respond_to_user` tool so the response is structured (reply, case_summary, recommended_product_id, needs_more_info, refer_to_office). Prompt caching is applied to system+tool blocks. Requires `ANTHROPIC_API_KEY` secret.
+- **Frontend** (`digital/agent.js`) is stateless — sends the full `messages[]` history each turn. The chat container `#agentChat` reads its API base from `data-api` (empty → `http://localhost:8787` for `wrangler dev`; set to the deployed Worker URL before going live).
+- `coming-soon` products are intentionally still recommended by the agent — the response copy explains that the office handles them via direct contact until the digital flow ships.
 
 ## Conventions
 
