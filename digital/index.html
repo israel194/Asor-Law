@@ -8,8 +8,25 @@
     <meta name="robots" content="noindex, nofollow"><!-- TODO: remove before launch -->
 
     <link rel="icon" href="../images/logo-mark.png" type="image/png">
-    <link rel="stylesheet" href="../css/style.css?v=2026043001">
-    <link rel="stylesheet" href="styles.css?v=2026043001">
+    <link rel="stylesheet" href="../css/style.css?v=2026043002">
+    <link rel="stylesheet" href="styles.css?v=2026043002">
+
+    <!-- ===== Google Analytics 4 (Consent Mode v2 — gated on cookie consent) ===== -->
+    <!-- TODO: replace G-XXXXXXXXXX with the real Measurement ID from analytics.google.com -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('consent', 'default', {
+            'ad_storage': 'denied',
+            'ad_user_data': 'denied',
+            'ad_personalization': 'denied',
+            'analytics_storage': 'denied',
+            'wait_for_update': 500
+        });
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX', { anonymize_ip: true });
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
 </head>
 <body>
 
@@ -621,12 +638,17 @@
             </div>
             <div class="footer-bottom">
                 <span>&copy; 2025 ישראל עשור, משרד עורכי דין · ח.פ. 515843571 · כל הזכויות שמורות.</span>
+                <span class="footer-bottom-links">
+                    <a href="/he/privacy.html">מדיניות פרטיות</a>
+                    <span aria-hidden="true">·</span>
+                    <a href="/he/terms.html">תקנון ותנאי שימוש</a>
+                </span>
             </div>
         </div>
     </footer>
 
-    <script src="../js/main.js?v=2026043001"></script>
-    <script src="agent.js?v=2026043001"></script>
+    <script src="../js/main.js?v=2026043002"></script>
+    <script src="agent.js?v=2026043002"></script>
     <script>
     (function(){
       const pills = document.querySelectorAll('.dig-cat-pill');

@@ -200,7 +200,11 @@
         "contact_heading": "اتصل بنا",
         "footer_address": "شارع نحوم حفتسادي 17، القدس",
         "copyright": "&copy; جميع الحقوق محفوظة لإسرائيل عشور، مكتب محاماة · 2026",
-        "accessibility": "بيان إمكانية الوصول"
+        "accessibility": "بيان إمكانية الوصول",
+        "privacy_label": "سياسة الخصوصية",
+        "privacy_url": "/ar/privacy.html",
+        "terms_label": "شروط الاستخدام",
+        "terms_url": "/ar/terms.html"
     },
     "whatsapp_label": "أرسل لنا رسالة عبر واتساب",
     "back_to_top_label": "العودة إلى الأعلى",
@@ -208,7 +212,7 @@
     "cookie": {
         "message": "يستخدم هذا الموقع ملفات تعريف الارتباط (cookies) لتحسين تجربة التصفح.",
         "link_text": "سياسة الخصوصية",
-        "link_url": "#",
+        "link_url": "/ar/privacy.html",
         "accept": "أفهم وأوافق"
     },
     "accessibility": {

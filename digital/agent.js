@@ -127,6 +127,19 @@
 
             if (data.recommended_product || data.refer_to_office) {
                 appendRecommendation(data.recommended_product, data.refer_to_office);
+                // GA4: track that the agent surfaced a product (or referred to office)
+                if (typeof window.gtag === 'function') {
+                    if (data.recommended_product) {
+                        window.gtag('event', 'view_item', {
+                            item_id: data.recommended_product.id,
+                            item_name: data.recommended_product.title,
+                            item_category: data.recommended_product.category,
+                            recommendation_source: 'ai_agent'
+                        });
+                    } else if (data.refer_to_office) {
+                        window.gtag('event', 'agent_referral', { destination: 'office' });
+                    }
+                }
             }
         } catch (err) {
             typing.remove();

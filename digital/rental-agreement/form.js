@@ -4,6 +4,8 @@
     const STORAGE_KEY = 'asor-rental-form-v1';
     const TOTAL_STEPS = 6;
     let currentStep = 1;
+    // Fire GA4 begin_checkout exactly once per session, on the first 1→2 transition
+    let beginCheckoutSent = false;
 
     const form = document.getElementById('rentalForm');
     const steps = form.querySelectorAll('.form-step');
@@ -54,6 +56,22 @@
     // ===== Step Navigation =====
     function goToStep(n) {
         if (n < 1 || n > TOTAL_STEPS) return;
+
+        // GA4 conversion intent — user crossed step 1 = serious intent to buy
+        if (n >= 2 && !beginCheckoutSent && typeof window.gtag === 'function') {
+            window.gtag('event', 'begin_checkout', {
+                currency: 'ILS',
+                value: 500,
+                items: [{
+                    item_id: 'rental-agreement',
+                    item_name: 'הסכם שכירות דירת מגורים',
+                    price: 500,
+                    quantity: 1
+                }]
+            });
+            beginCheckoutSent = true;
+        }
+
         currentStep = n;
 
         steps.forEach(s => s.classList.toggle('active', Number(s.dataset.step) === currentStep));
