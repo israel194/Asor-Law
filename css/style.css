@@ -189,12 +189,13 @@ section {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 92px;
+    gap: 18px;
+    height: 84px;
     transition: var(--transition);
 }
 
 .header.scrolled .header-inner {
-    height: 76px;
+    height: 72px;
 }
 
 .logo {
@@ -202,10 +203,11 @@ section {
     align-items: center;
     gap: 12px;
     text-decoration: none;
+    flex: none;
 }
 
 .logo img {
-    height: 78px;
+    height: 64px;
     width: auto;
     transition: var(--transition);
     filter: drop-shadow(0 1px 2px rgba(8, 22, 39, 0.08));
@@ -217,7 +219,7 @@ section {
 }
 
 .header.scrolled .logo img {
-    height: 64px;
+    height: 56px;
 }
 
 /* "Online Service" featured nav item */
@@ -264,13 +266,20 @@ section {
 .nav-links {
     display: flex;
     align-items: center;
-    gap: 22px;
+    flex-wrap: nowrap;
+    gap: 18px;
     list-style: none;
 }
 
 @media (min-width: 1280px) {
-    .nav-links { gap: 28px; }
+    .nav-links { gap: 26px; }
 }
+
+@media (max-width: 1100px) {
+    .nav-links { gap: 14px; }
+}
+
+.nav-links li { flex: none; }
 
 .nav-links a {
     text-decoration: none;
@@ -279,6 +288,11 @@ section {
     font-weight: 500;
     position: relative;
     transition: var(--transition);
+    white-space: nowrap;
+}
+
+@media (max-width: 1100px) {
+    .nav-links a { font-size: 0.88rem; }
 }
 
 .nav-links a::after {
