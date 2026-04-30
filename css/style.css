@@ -1376,206 +1376,197 @@ section {
     gap: 24px;
 }
 
-/* ===== Projects 3D Coverflow Carousel ===== */
-/* === 3D cylindrical carousel ===
-   Stage rotates around Y axis. Each card sits on the cylinder at its own
-   --angle. Drag rotates the stage; on release we snap to the nearest card.
-   JS sets --rotation on the stage and per-card visibility classes. */
+/* ===== Projects slideshow — single full-width card with side arrows ===== */
 .projects-3d {
-    --card-w: 380px;
-    --card-h: 540px;
-    --radius: 520px;
     position: relative;
-    width: 100vw;
-    margin-inline: calc(50% - 50vw);
-    height: 680px;
-    perspective: 2200px;
-    perspective-origin: center 50%;
-    overflow: hidden;
-    cursor: grab;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: pan-y;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 100%;
+    height: 460px;
+    margin-top: 16px;
 }
 
 .projects-3d:focus-visible {
     outline: 2px solid var(--gold);
     outline-offset: 4px;
-    border-radius: 12px;
+    border-radius: 16px;
 }
 
-.projects-3d.is-dragging { cursor: grabbing; }
-
-/* Block native image drag so it doesn't swallow our mousemove */
-.projects-3d img,
-.projects-3d-stage * {
-    -webkit-user-drag: none;
-    user-drag: none;
-}
-
-.projects-3d-glow {
-    position: absolute;
-    inset: 0;
-    background:
-        radial-gradient(ellipse 50% 60% at 50% 50%, rgba(184, 148, 63, 0.10) 0%, transparent 60%),
-        radial-gradient(ellipse 30% 40% at 50% 95%, rgba(27, 58, 92, 0.10) 0%, transparent 60%);
-    pointer-events: none;
-    z-index: 0;
+.projects-3d-glow,
+.projects-3d-controls,
+.projects-3d-dots,
+.projects-3d-hint {
+    display: none !important;
 }
 
 .projects-3d-stage {
     position: relative;
-    width: var(--card-w);
-    height: var(--card-h);
-    transform-style: preserve-3d;
-    transform: rotateY(var(--rotation, 0deg));
-    transition: transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
-    z-index: 1;
-}
-
-.projects-3d.is-dragging .projects-3d-stage {
-    transition: none;
+    width: 100%;
+    height: 100%;
 }
 
 .projects-3d-stage .project-card {
     position: absolute;
     inset: 0;
     margin: 0;
-    transform: rotateY(var(--angle, 0deg)) translateZ(var(--radius));
-    backface-visibility: hidden;
-    transition:
-        opacity 0.45s ease,
-        box-shadow 0.45s ease,
-        filter 0.45s ease;
-    box-shadow: 0 14px 36px rgba(8, 22, 39, 0.12);
-    cursor: pointer;
-    filter: brightness(0.85) saturate(0.9);
-    opacity: 0.7;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    border-radius: 18px;
+    box-shadow:
+        0 20px 50px rgba(8, 22, 39, 0.16),
+        0 6px 18px rgba(184, 148, 63, 0.12);
+    border: 1px solid rgba(184, 148, 63, 0.18);
+    background: var(--white);
+    opacity: 0;
+    transform: translateY(12px);
+    pointer-events: none;
+    transition: opacity 0.45s ease, transform 0.45s ease;
 }
 
 .projects-3d-stage .project-card.is-active {
-    box-shadow:
-        0 30px 70px rgba(8, 22, 39, 0.32),
-        0 10px 28px rgba(184, 148, 63, 0.28),
-        0 0 0 1px rgba(184, 148, 63, 0.45);
-    cursor: default;
-    filter: brightness(1) saturate(1);
     opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    z-index: 2;
 }
 
-.projects-3d-stage .project-card.is-hidden {
-    opacity: 0;
-    pointer-events: none;
+.projects-3d-stage .project-card:hover {
+    /* Override the small grid hover-lift inherited from base .project-card */
+    transform: translateY(0);
+    box-shadow:
+        0 20px 50px rgba(8, 22, 39, 0.16),
+        0 6px 18px rgba(184, 148, 63, 0.12);
+    border-color: rgba(184, 148, 63, 0.18);
 }
 
-.projects-3d-stage .project-card .project-image {
-    height: 240px;
+/* Image takes the larger half on desktop */
+.projects-3d-stage .project-image {
+    flex: 1.15;
+    height: 100%;
+    margin: 0;
 }
 
-/* Controls row below stage — only the dot ring; arrow buttons removed */
-.projects-3d-controls {
+.projects-3d-stage .project-image img {
+    transition: none;
+    transform: none;
+}
+
+.projects-3d-stage .project-card:hover .project-image img {
+    transform: none;
+}
+
+.projects-3d-stage .project-info {
+    flex: 1;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
-    margin-top: 32px;
+    padding: 36px 44px;
+    gap: 6px;
 }
 
-.projects-slider-btn { display: none; }
-
-/* Circular pagination ring — dots arranged on a circle */
-.projects-3d-dots {
-    position: relative;
-    width: 140px;
-    height: 140px;
-    border-radius: 50%;
-    border: 1px dashed rgba(184, 148, 63, 0.35);
-    flex: none;
+.projects-3d-stage .project-info h4 {
+    font-size: 1.6rem;
+    line-height: 1.25;
+    margin-bottom: 4px;
 }
 
-.projects-3d-dot {
+.projects-3d-stage .project-location {
+    font-size: 0.95rem;
+    margin-bottom: 22px;
+}
+
+.projects-3d-stage .project-stats {
+    padding-top: 20px;
+    margin-bottom: 18px;
+}
+
+.projects-3d-stage .project-stat-value {
+    font-size: 1.6rem;
+}
+
+.projects-3d-stage .project-status {
+    margin-top: 4px;
+}
+
+/* ===== Side navigation arrows (overlay the slideshow) ===== */
+.projects-slider-btn {
     position: absolute;
     top: 50%;
-    left: 50%;
-    width: 12px;
-    height: 12px;
-    margin: -6px 0 0 -6px;
+    transform: translateY(-50%);
+    z-index: 5;
+    width: 56px;
+    height: 56px;
     border-radius: 50%;
-    border: 1px solid rgba(184, 148, 63, 0.55);
-    background: transparent;
-    cursor: pointer;
-    padding: 0;
-    transition: transform 0.35s ease, background 0.35s ease, border-color 0.35s ease;
-    transform: translate(var(--dot-x, 0), var(--dot-y, 0));
-}
-
-.projects-3d-dot:hover {
-    border-color: var(--gold);
-    background: rgba(184, 148, 63, 0.2);
-}
-
-.projects-3d-dot.is-active {
-    background: var(--gold);
-    border-color: var(--gold);
-    transform: translate(var(--dot-x, 0), var(--dot-y, 0)) scale(1.45);
-    box-shadow: 0 0 0 4px rgba(184, 148, 63, 0.18);
-}
-
-/* Drag/swipe hint */
-.projects-3d-hint {
-    display: flex;
+    border: 1px solid rgba(184, 148, 63, 0.45);
+    background: var(--white);
+    color: var(--navy);
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    margin: 18px auto 0;
-    color: var(--text-light);
-    font-size: 0.85rem;
-    letter-spacing: 0.3px;
-    transition: opacity 0.5s ease;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: var(--shadow);
+    flex: none;
+    padding: 0;
 }
 
-.projects-3d-hint svg {
+.projects-slider-btn:hover {
+    background: var(--gold);
+    color: var(--white);
+    border-color: var(--gold);
+    transform: translateY(-50%) scale(1.06);
+    box-shadow: var(--shadow-lg);
+}
+
+.projects-slider-btn svg {
     width: 22px;
     height: 22px;
-    color: var(--gold);
-    animation: hint3dSweep 2.4s ease-in-out infinite;
 }
 
-@keyframes hint3dSweep {
-    0%, 100% { transform: translateX(0); opacity: 0.55; }
-    50%      { transform: translateX(-8px); opacity: 1; }
+.projects-slider-btn[data-dir="prev"] {
+    inset-inline-start: -22px;
+}
+
+.projects-slider-btn[data-dir="next"] {
+    inset-inline-end: -22px;
 }
 
 @media (max-width: 992px) {
-    .projects-3d {
-        --card-w: 340px;
-        --card-h: 500px;
-        --radius: 460px;
-        height: 620px;
-    }
+    .projects-3d { height: 440px; }
+    .projects-3d-stage .project-info { padding: 28px 32px; }
+    .projects-3d-stage .project-info h4 { font-size: 1.35rem; }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
     .projects-3d {
-        --card-w: 280px;
-        --card-h: 440px;
-        --radius: 380px;
-        height: 540px;
-        perspective: 1600px;
+        height: auto;
+        min-height: 580px;
     }
-    .projects-3d-stage .project-card .project-image {
-        height: 200px;
+    .projects-3d-stage {
+        height: auto;
+        min-height: 580px;
     }
-    .projects-3d-dots {
-        width: 110px;
-        height: 110px;
+    .projects-3d-stage .project-card {
+        flex-direction: column;
+        height: auto;
+        min-height: 580px;
     }
+    .projects-3d-stage .project-image {
+        flex: none;
+        height: 240px;
+        width: 100%;
+    }
+    .projects-3d-stage .project-info {
+        flex: 1;
+        padding: 24px 24px 28px;
+    }
+    .projects-3d-stage .project-info h4 { font-size: 1.25rem; }
     .projects-slider-btn {
-        width: 46px;
-        height: 46px;
+        width: 44px;
+        height: 44px;
     }
+    .projects-slider-btn[data-dir="prev"] { inset-inline-start: 8px; }
+    .projects-slider-btn[data-dir="next"] { inset-inline-end: 8px; }
+    .projects-slider-btn svg { width: 18px; height: 18px; }
 }
 
 .project-card {

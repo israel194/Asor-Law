@@ -45,9 +45,7 @@ window.addEventListener('scroll', () => {
     });
 });
 
-// Projects 3D cylindrical carousel — mouse position drives a running wheel.
-// Mouse on the right half advances the wheel forward, left half rewinds it,
-// center pauses. Mouse off the slider also pauses. Touch keeps tap-to-focus.
+// Projects slideshow — single full-width card with side prev/next arrows
 (function() {
     const stage = document.getElementById('projectsTrack');
     const slider = document.getElementById('projectsSlider');
@@ -56,169 +54,60 @@ window.addEventListener('scroll', () => {
     const cards = Array.from(stage.children).filter(el => el.classList.contains('project-card'));
     const N = cards.length;
     if (N === 0) return;
-    const STEP_DEG = 360 / N;
-    const VISIBLE_HALF = 110;
 
     cards.forEach(c => c.classList.add('visible'));
-    cards.forEach((card, i) => {
-        card.style.setProperty('--angle', (i * STEP_DEG) + 'deg');
-    });
 
-    let current = 0;       // unbounded; modulo gives visible card
-    let direction = 0;     // -1 / 0 / +1, set by pointer position
-    let timer = null;
+    // Move the existing prev/next buttons (currently in .projects-3d-controls)
+    // into the slider area so they can overlay it on left/right edges.
+    const prevBtn = document.querySelector('.projects-3d-controls .projects-slider-btn[data-dir="prev"]');
+    const nextBtn = document.querySelector('.projects-3d-controls .projects-slider-btn[data-dir="next"]');
+    if (prevBtn) slider.appendChild(prevBtn);
+    if (nextBtn) slider.appendChild(nextBtn);
 
-    const norm = n => ((n % N) + N) % N;
-
-    function applyRotation() {
-        stage.style.setProperty('--rotation', (-current * STEP_DEG) + 'deg');
-    }
-
-    function paintActive() {
-        const activeIdx = norm(current);
-        cards.forEach((card, i) => {
-            const raw = i * STEP_DEG - activeIdx * STEP_DEG;
-            let rel = ((raw % 360) + 540) % 360 - 180;
-            const abs = Math.abs(rel);
-            card.classList.toggle('is-active', i === activeIdx);
-            card.classList.toggle('is-hidden', abs > VISIBLE_HALF);
-            card.setAttribute('aria-hidden', abs > 60 ? 'true' : 'false');
-        });
-        dots.forEach((d, i) => d.classList.toggle('is-active', i === activeIdx));
-    }
+    let current = 0;
 
     function render() {
-        applyRotation();
-        paintActive();
-    }
-
-    // ===== Pagination ring =====
-    const dotsEl = document.getElementById('projectsDots');
-    const dots = [];
-    if (dotsEl) {
-        const layout = () => {
-            const w = dotsEl.clientWidth || 140;
-            const r = w / 2 - 8;
-            cards.forEach((_, i) => {
-                const a = (-90 + i * STEP_DEG) * Math.PI / 180;
-                const x = Math.cos(a) * r;
-                const y = Math.sin(a) * r;
-                if (dots[i]) {
-                    dots[i].style.setProperty('--dot-x', x.toFixed(1) + 'px');
-                    dots[i].style.setProperty('--dot-y', y.toFixed(1) + 'px');
-                }
-            });
-        };
-        cards.forEach((_, i) => {
-            const dot = document.createElement('button');
-            dot.type = 'button';
-            dot.className = 'projects-3d-dot';
-            dot.setAttribute('aria-label', `פרויקט ${i + 1}`);
-            dot.addEventListener('click', () => goTo(i));
-            dotsEl.appendChild(dot);
-            dots.push(dot);
+        cards.forEach((card, i) => {
+            const isActive = i === current;
+            card.classList.toggle('is-active', isActive);
+            card.setAttribute('aria-hidden', isActive ? 'false' : 'true');
         });
-        layout();
-        window.addEventListener('resize', layout);
-    }
-
-    function goTo(target) {
-        let delta = ((target - norm(current)) % N + N) % N;
-        if (delta > N / 2) delta -= N;
-        current += delta;
-        render();
     }
 
     function step(sign) {
-        current += sign;
+        current = (current + sign + N) % N;
         render();
     }
 
-    // ===== Mouse-position auto-advance =====
-    // Tick interval: long enough that one card transition (~700ms CSS) finishes
-    // before the next step starts, but short enough for the wheel to feel alive.
-    const TICK_MS = 1100;
-    const DEADZONE = 0.18; // fraction of slider width around center where we pause
+    if (prevBtn) prevBtn.addEventListener('click', () => step(-1));
+    if (nextBtn) nextBtn.addEventListener('click', () => step(+1));
 
-    function setDirection(d) {
-        if (d === direction) return;
-        direction = d;
-        if (timer) { clearInterval(timer); timer = null; }
-        if (direction !== 0) {
-            // Take an immediate step so motion starts the moment the cursor enters a side
-            step(direction);
-            timer = setInterval(() => step(direction), TICK_MS);
-        }
-    }
-
-    function directionFromX(clientX) {
-        const rect = slider.getBoundingClientRect();
-        const relX = (clientX - rect.left) / rect.width; // 0..1
-        const offset = relX - 0.5;                       // -0.5..0.5
-        if (Math.abs(offset) < DEADZONE) return 0;
-        return offset > 0 ? 1 : -1;
-    }
-
-    slider.addEventListener('mousemove', e => setDirection(directionFromX(e.clientX)));
-    slider.addEventListener('mouseenter', e => setDirection(directionFromX(e.clientX)));
-    slider.addEventListener('mouseleave', () => setDirection(0));
-
-    // ===== Card click → bring to front =====
-    cards.forEach((card, i) => {
-        card.addEventListener('click', (e) => {
-            if (e.target.closest('a, button')) return;
-            if (i === norm(current)) return;
-            goTo(i);
-        });
+    // Keyboard navigation when slider has focus
+    slider.addEventListener('keydown', (e) => {
+        const rtl = document.documentElement.dir === 'rtl';
+        if (e.key === 'ArrowLeft')  step(rtl ? +1 : -1);
+        else if (e.key === 'ArrowRight') step(rtl ? -1 : +1);
     });
 
-    // ===== Touch: tap on left/right half to step ±1 =====
-    let touchStartX = null;
+    // Mobile swipe — distance > 40px in horizontal direction = step
+    let touchStartX = null, touchStartY = null;
     slider.addEventListener('touchstart', e => {
         touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
     }, { passive: true });
     slider.addEventListener('touchend', e => {
         if (touchStartX == null) return;
-        const endX = (e.changedTouches[0] || {}).clientX;
-        if (endX == null) { touchStartX = null; return; }
-        const dx = endX - touchStartX;
-        // Treat short distance as tap, long horizontal as swipe.
-        if (Math.abs(dx) < 30) {
-            // Tap: use position relative to slider center
-            const rect = slider.getBoundingClientRect();
-            const relX = (endX - rect.left) / rect.width;
-            if (Math.abs(relX - 0.5) > DEADZONE) {
-                step(relX > 0.5 ? 1 : -1);
-            }
-        } else {
-            // Swipe: each ~140px = one step
-            const stepsMoved = -Math.round(dx / 140);
-            if (stepsMoved !== 0) current += stepsMoved, render();
+        const t = e.changedTouches[0];
+        if (!t) { touchStartX = null; return; }
+        const dx = t.clientX - touchStartX;
+        const dy = t.clientY - touchStartY;
+        // Only react if the gesture is mostly horizontal
+        if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+            const rtl = document.documentElement.dir === 'rtl';
+            // Swipe right (positive dx) → previous in LTR, next in RTL
+            step(dx > 0 ? (rtl ? +1 : -1) : (rtl ? -1 : +1));
         }
-        touchStartX = null;
-    });
-
-    // ===== Keyboard =====
-    slider.addEventListener('keydown', (e) => {
-        const rtl = document.documentElement.dir === 'rtl';
-        if (e.key === 'ArrowLeft')  step(rtl ? 1 : -1);
-        else if (e.key === 'ArrowRight') step(rtl ? -1 : 1);
-    });
-
-    // ===== Hide hint after first interaction =====
-    const hint = document.querySelector('.projects-3d-hint');
-    if (hint) {
-        const dismissHint = () => {
-            hint.style.opacity = '0';
-            setTimeout(() => { hint.style.display = 'none'; }, 600);
-        };
-        slider.addEventListener('mouseenter', dismissHint, { once: true });
-        slider.addEventListener('touchstart', dismissHint, { once: true, passive: true });
-    }
-
-    // Pause when the document is hidden (saves CPU on background tabs)
-    document.addEventListener('visibilitychange', () => {
-        if (document.hidden) setDirection(0);
+        touchStartX = touchStartY = null;
     });
 
     render();
