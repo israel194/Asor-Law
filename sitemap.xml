@@ -7,7 +7,7 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.asor-law.com/en/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.asor-law.com/ar/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.asor-law.com/he/"/>
-    <lastmod>2026-03-23</lastmod>
+    <lastmod>2026-04-30</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
@@ -16,7 +16,7 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.asor-law.com/en/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.asor-law.com/ar/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.asor-law.com/he/"/>
-    <lastmod>2026-03-23</lastmod>
+    <lastmod>2026-04-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
@@ -25,7 +25,55 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.asor-law.com/en/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.asor-law.com/ar/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.asor-law.com/he/"/>
-    <lastmod>2026-03-23</lastmod>
+    <lastmod>2026-04-30</lastmod>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.asor-law.com/he/privacy.html</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.asor-law.com/he/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.asor-law.com/en/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.asor-law.com/ar/privacy.html"/>
+    <lastmod>2026-04-30</lastmod>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://www.asor-law.com/en/privacy.html</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.asor-law.com/he/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.asor-law.com/en/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.asor-law.com/ar/privacy.html"/>
+    <lastmod>2026-04-30</lastmod>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://www.asor-law.com/ar/privacy.html</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.asor-law.com/he/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.asor-law.com/en/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.asor-law.com/ar/privacy.html"/>
+    <lastmod>2026-04-30</lastmod>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://www.asor-law.com/he/terms.html</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.asor-law.com/he/terms.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.asor-law.com/en/terms.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.asor-law.com/ar/terms.html"/>
+    <lastmod>2026-04-30</lastmod>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://www.asor-law.com/en/terms.html</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.asor-law.com/he/terms.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.asor-law.com/en/terms.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.asor-law.com/ar/terms.html"/>
+    <lastmod>2026-04-30</lastmod>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://www.asor-law.com/ar/terms.html</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.asor-law.com/he/terms.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.asor-law.com/en/terms.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.asor-law.com/ar/terms.html"/>
+    <lastmod>2026-04-30</lastmod>
+    <priority>0.3</priority>
   </url>
 </urlset>

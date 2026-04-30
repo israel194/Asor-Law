@@ -27,7 +27,7 @@
     <meta name="twitter:image" content="https://www.asor-law.com/images/icon.jpeg">
 
     <link rel="icon" href="../images/logo-mark.png" type="image/png">
-    <link rel="stylesheet" href="../css/style.css?v=2026042905">
+    <link rel="stylesheet" href="../css/style.css?v=2026043002">
 
     <!-- Schema.org JSON-LD -->
     <script type="application/ld+json">
@@ -77,6 +77,25 @@
         "knowsAbout": ["Urban Renewal","Real Estate Taxation","Income Tax","VAT"]
     }
     </script>
+
+    <!-- ===== Google Analytics 4 (Consent Mode v2 — gated on cookie consent) ===== -->
+    <!-- TODO: replace G-XXXXXXXXXX with the real Measurement ID from analytics.google.com -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        // Consent defaults — denied until the user clicks "Accept" in the cookie banner.
+        // js/main.js#cookieAccept handler later flips these to "granted".
+        gtag('consent', 'default', {
+            'ad_storage': 'denied',
+            'ad_user_data': 'denied',
+            'ad_personalization': 'denied',
+            'analytics_storage': 'denied',
+            'wait_for_update': 500
+        });
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX', { anonymize_ip: true });
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
 </head>
 <body>
 
@@ -830,7 +849,13 @@
             </div>
             <div class="footer-bottom">
                 <span>&copy; All rights reserved to Israel Asor, Law Firm · 2026</span>
-                <a href="#" id="footerA11yLink">Accessibility Statement</a>
+                <span class="footer-bottom-links">
+                    <a href="/en/privacy.html">Privacy Policy</a>
+                    <span aria-hidden="true">·</span>
+                    <a href="/en/terms.html">Terms of Use</a>
+                    <span aria-hidden="true">·</span>
+                    <a href="#" id="footerA11yLink">Accessibility Statement</a>
+                </span>
             </div>
         </div>
     </footer>
@@ -848,7 +873,7 @@
     <!-- ===== Cookie Consent ===== -->
     <div class="cookie-consent" id="cookieConsent">
         <div class="cookie-consent-inner">
-            <p>This website uses cookies to improve your browsing experience. <a href="#">Privacy Policy</a></p>
+            <p>This website uses cookies to improve your browsing experience. <a href="/en/privacy.html">Privacy Policy</a></p>
             <button class="cookie-consent-btn" id="cookieAccept">I understand and agree</button>
         </div>
     </div>
@@ -932,6 +957,6 @@
     </div>
 
     <!-- ===== JavaScript ===== -->
-    <script src="../js/main.js?v=2026042905"></script>
+    <script src="../js/main.js?v=2026043002"></script>
 </body>
 </html>

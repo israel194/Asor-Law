@@ -419,6 +419,13 @@ async function handleSubmit(e) {
         if (data.success) {
             btn.textContent = btn.dataset.success || 'הפנייה נשלחה בהצלחה!';
             btn.style.background = '#27ae60';
+            // GA4 conversion event — Google Ads is configured to count this as a "lead"
+            if (typeof window.gtag === 'function') {
+                window.gtag('event', 'generate_lead', {
+                    form_location: 'contact_section',
+                    page_lang: pageLang
+                });
+            }
             form.reset();
             fields.forEach(f => {
                 f.classList.remove('invalid', 'valid');
@@ -479,10 +486,29 @@ const heroObserver = new IntersectionObserver((entries) => {
 });
 heroObserver.observe(document.querySelector('.hero'));
 
-// Cookie consent
+// Cookie consent — also flips Google Consent Mode v2 to "granted" so GA4/Ads
+// cookies fire only after the user accepts. The default state is set in
+// template.html before gtag.js loads.
 (function() {
     const banner = document.getElementById('cookieConsent');
     const acceptBtn = document.getElementById('cookieAccept');
+
+    function grantConsent() {
+        if (typeof window.gtag !== 'function') return;
+        window.gtag('consent', 'update', {
+            ad_storage: 'granted',
+            ad_user_data: 'granted',
+            ad_personalization: 'granted',
+            analytics_storage: 'granted'
+        });
+    }
+
+    // If the user already accepted in a prior visit, grant on every page load
+    // (the consent default in template.html resets to 'denied' each load).
+    if (localStorage.getItem('cookieConsent') === 'accepted') {
+        grantConsent();
+    }
+
     if (!banner || !acceptBtn) return;
 
     if (!localStorage.getItem('cookieConsent')) {
@@ -492,6 +518,7 @@ heroObserver.observe(document.querySelector('.hero'));
     acceptBtn.addEventListener('click', () => {
         localStorage.setItem('cookieConsent', 'accepted');
         banner.classList.remove('visible');
+        grantConsent();
     });
 })();
 

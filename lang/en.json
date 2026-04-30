@@ -200,7 +200,11 @@
         "contact_heading": "Contact Us",
         "footer_address": "17 Nachum Haftzadi St., Jerusalem",
         "copyright": "&copy; All rights reserved to Israel Asor, Law Firm · 2026",
-        "accessibility": "Accessibility Statement"
+        "accessibility": "Accessibility Statement",
+        "privacy_label": "Privacy Policy",
+        "privacy_url": "/en/privacy.html",
+        "terms_label": "Terms of Use",
+        "terms_url": "/en/terms.html"
     },
     "whatsapp_label": "Send us a message on WhatsApp",
     "back_to_top_label": "Back to top",
@@ -208,7 +212,7 @@
     "cookie": {
         "message": "This website uses cookies to improve your browsing experience.",
         "link_text": "Privacy Policy",
-        "link_url": "#",
+        "link_url": "/en/privacy.html",
         "accept": "I understand and agree"
     },
     "accessibility": {

@@ -200,7 +200,11 @@
         "contact_heading": "צרו קשר",
         "footer_address": "רח' נחום חפצדי 17, ירושלים",
         "copyright": "&copy; כל הזכויות שמורות לישראל עשור, משרד עורכי דין · 2026",
-        "accessibility": "הצהרת נגישות"
+        "accessibility": "הצהרת נגישות",
+        "privacy_label": "מדיניות פרטיות",
+        "privacy_url": "/he/privacy.html",
+        "terms_label": "תקנון ותנאי שימוש",
+        "terms_url": "/he/terms.html"
     },
     "whatsapp_label": "שלחו לנו הודעה בוואטסאפ",
     "back_to_top_label": "חזרה למעלה",
@@ -208,7 +212,7 @@
     "cookie": {
         "message": "אתר זה משתמש בעוגיות (cookies) לצורך שיפור חוויית הגלישה.",
         "link_text": "מדיניות פרטיות",
-        "link_url": "#",
+        "link_url": "/he/privacy.html",
         "accept": "הבנתי ואני מסכים/ה"
     },
     "accessibility": {

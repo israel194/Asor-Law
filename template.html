@@ -27,7 +27,7 @@
     <meta name="twitter:image" content="{{meta.twitter_image}}">
 
     <link rel="icon" href="../images/logo-mark.png" type="image/png">
-    <link rel="stylesheet" href="../css/style.css?v=2026042905">
+    <link rel="stylesheet" href="../css/style.css?v=2026043002">
 
     <!-- Schema.org JSON-LD -->
     <script type="application/ld+json">
@@ -77,6 +77,25 @@
         "knowsAbout": {{schema.knows_about}}
     }
     </script>
+
+    <!-- ===== Google Analytics 4 (Consent Mode v2 — gated on cookie consent) ===== -->
+    <!-- TODO: replace G-XXXXXXXXXX with the real Measurement ID from analytics.google.com -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        // Consent defaults — denied until the user clicks "Accept" in the cookie banner.
+        // js/main.js#cookieAccept handler later flips these to "granted".
+        gtag('consent', 'default', {
+            'ad_storage': 'denied',
+            'ad_user_data': 'denied',
+            'ad_personalization': 'denied',
+            'analytics_storage': 'denied',
+            'wait_for_update': 500
+        });
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX', { anonymize_ip: true });
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
 </head>
 <body>
 
@@ -830,7 +849,13 @@
             </div>
             <div class="footer-bottom">
                 <span>{{footer.copyright}}</span>
-                <a href="#" id="footerA11yLink">{{footer.accessibility}}</a>
+                <span class="footer-bottom-links">
+                    <a href="{{footer.privacy_url}}">{{footer.privacy_label}}</a>
+                    <span aria-hidden="true">·</span>
+                    <a href="{{footer.terms_url}}">{{footer.terms_label}}</a>
+                    <span aria-hidden="true">·</span>
+                    <a href="#" id="footerA11yLink">{{footer.accessibility}}</a>
+                </span>
             </div>
         </div>
     </footer>
@@ -932,6 +957,6 @@
     </div>
 
     <!-- ===== JavaScript ===== -->
-    <script src="../js/main.js?v=2026042905"></script>
+    <script src="../js/main.js?v=2026043002"></script>
 </body>
 </html>

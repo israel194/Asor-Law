@@ -8,8 +8,25 @@
     <meta name="robots" content="noindex, nofollow"><!-- TODO: remove before launch -->
 
     <link rel="icon" href="../images/logo-mark.png" type="image/png">
-    <link rel="stylesheet" href="../css/style.css?v=2026042905">
-    <link rel="stylesheet" href="styles.css?v=2026042905">
+    <link rel="stylesheet" href="../css/style.css?v=2026043002">
+    <link rel="stylesheet" href="styles.css?v=2026043002">
+
+    <!-- ===== Google Analytics 4 (Consent Mode v2 — gated on cookie consent) ===== -->
+    <!-- TODO: replace G-XXXXXXXXXX with the real Measurement ID from analytics.google.com -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('consent', 'default', {
+            'ad_storage': 'denied',
+            'ad_user_data': 'denied',
+            'ad_personalization': 'denied',
+            'analytics_storage': 'denied',
+            'wait_for_update': 500
+        });
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX', { anonymize_ip: true });
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
 </head>
 <body>
 
@@ -22,6 +39,7 @@
 
             <nav>
                 <ul class="nav-links" id="navLinks">
+                    <li><a href="#agent">סוכן AI</a></li>
                     <li><a href="#products">מוצרים</a></li>
                     <li><a href="#how">איך זה עובד</a></li>
                     <li><a href="#faq">שאלות נפוצות</a></li>
@@ -46,11 +64,11 @@
             <p class="lede">מסמכים משפטיים מקצועיים — מותאמים אישית, נשלחים למייל תוך דקות. מחיר קבוע, ללא הפתעות, ללא תורים, ללא פגישות. בכתיבת ובאחריות עורכי הדין של משרד עשור ושות׳.</p>
 
             <div class="dig-hero-cta">
-                <a href="#products" class="dig-hero-btn primary">
-                    צפו במוצרים
+                <a href="#agent" class="dig-hero-btn primary">
+                    תארו את המקרה שלכם
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
                 </a>
-                <a href="#how" class="dig-hero-btn ghost">איך זה עובד</a>
+                <a href="#products" class="dig-hero-btn ghost">קטלוג המוצרים</a>
             </div>
 
             <div class="dig-hero-trust">
@@ -70,6 +88,42 @@
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
                     מחיר קבוע מראש
                 </span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== AI intake agent ===== -->
+    <section class="dig-agent" id="agent">
+        <div class="container">
+            <div class="dig-agent-head">
+                <span class="dig-agent-eyebrow">סוכן משפטי חכם · בליווי עו״ד מהמשרד</span>
+                <h2>תארו את המקרה שלכם — נתאים לכם מוצר.</h2>
+                <p class="dig-agent-lede">תכתבו במילים שלכם מה קורה, נשקף לכם איך הבנו את המצב, ונציע את המוצר המשפטי הנכון מתוך הקטלוג. אם המקרה לא מתאים למוצר סטנדרטי — נחבר אתכם לעורכי הדין שלנו.</p>
+            </div>
+
+            <!-- data-api: Worker base URL. Leave empty for localhost wrangler dev,
+                 or set to the deployed Worker URL (e.g. https://asor-digital-api.<subdomain>.workers.dev) -->
+            <div class="agent-chat" id="agentChat" data-api="">
+                <div class="agent-thread" role="log" aria-live="polite" aria-label="שיחה עם הסוכן">
+                    <div class="agent-intro">
+                        <p class="agent-intro-greet">שלום 👋 אני הסוכן הדיגיטלי של עשור ושות׳. ספרו לי במשפט-שניים מה הסיטואציה — אני אעזור להבין מה דרוש.</p>
+                        <div class="agent-suggest">
+                            <button type="button" class="agent-suggest-pill" data-suggest="אני מתחיל לשכור דירה בירושלים, צריך הסכם שכירות ובעל הדירה לא הציע אחד.">דוגמה: שכירות דירה</button>
+                            <button type="button" class="agent-suggest-pill" data-suggest="אני ובן/בת הזוג רוצים לכתוב צוואה לפני טיול ארוך לחו״ל.">דוגמה: צוואה לזוג</button>
+                            <button type="button" class="agent-suggest-pill" data-suggest="הולך לפתוח עסק עם שותף, אנחנו רוצים להגדיר את הזכויות והחובות בכתב.">דוגמה: שותפות עסקית</button>
+                            <button type="button" class="agent-suggest-pill" data-suggest="קיבלתי הצעה לפינוי בינוי בבניין שלי ולא בטוח אם התנאים בסדר.">דוגמה: פינוי בינוי</button>
+                        </div>
+                    </div>
+                </div>
+
+                <form class="agent-form" autocomplete="off">
+                    <textarea class="agent-input" placeholder="ספרו לי מה קורה..." rows="1" maxlength="3500" aria-label="הודעה לסוכן"></textarea>
+                    <button type="submit" class="agent-send" aria-label="שלח">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                    </button>
+                </form>
+
+                <p class="agent-disclaimer">השיחה אנונימית ולא נשמרת לאחר סגירת החלון. הסוכן אינו תחליף לייעוץ משפטי אישי.</p>
             </div>
         </div>
     </section>
@@ -584,11 +638,17 @@
             </div>
             <div class="footer-bottom">
                 <span>&copy; 2025 ישראל עשור, משרד עורכי דין · ח.פ. 515843571 · כל הזכויות שמורות.</span>
+                <span class="footer-bottom-links">
+                    <a href="/he/privacy.html">מדיניות פרטיות</a>
+                    <span aria-hidden="true">·</span>
+                    <a href="/he/terms.html">תקנון ותנאי שימוש</a>
+                </span>
             </div>
         </div>
     </footer>
 
-    <script src="../js/main.js?v=2026042905"></script>
+    <script src="../js/main.js?v=2026043002"></script>
+    <script src="agent.js?v=2026043002"></script>
     <script>
     (function(){
       const pills = document.querySelectorAll('.dig-cat-pill');

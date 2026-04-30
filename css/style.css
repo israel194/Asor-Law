@@ -2361,6 +2361,19 @@ section {
     text-underline-offset: 3px;
 }
 
+.footer-bottom-links {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+.footer-bottom-links span {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.75rem;
+}
+
 /* ===== WhatsApp Float ===== */
 .whatsapp-float {
     position: fixed;
