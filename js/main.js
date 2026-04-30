@@ -156,6 +156,10 @@ window.addEventListener('scroll', () => {
 
     function onDragStart(e) {
         if (e.target.closest('a, button')) return;
+        // Mousedown on an <img> would otherwise trigger the browser's native
+        // drag-and-drop which swallows mousemove events. Suppress it for mouse;
+        // touchstart is registered as passive so we skip preventDefault there.
+        if (e.type === 'mousedown' && e.cancelable) e.preventDefault();
         isDragging = true;
         dragMoved = false;
         slider.classList.add('is-dragging');

@@ -1409,6 +1409,13 @@ section {
 
 .projects-3d.is-dragging { cursor: grabbing; }
 
+/* Block native image drag so it doesn't swallow our mousemove */
+.projects-3d img,
+.projects-3d-stage * {
+    -webkit-user-drag: none;
+    user-drag: none;
+}
+
 .projects-3d-glow {
     position: absolute;
     inset: 0;
