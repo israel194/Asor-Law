@@ -1390,13 +1390,6 @@ section {
     border-radius: 16px;
 }
 
-.projects-3d-glow,
-.projects-3d-controls,
-.projects-3d-dots,
-.projects-3d-hint {
-    display: none !important;
-}
-
 .projects-3d-stage {
     position: relative;
     width: 100%;

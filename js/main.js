@@ -57,12 +57,8 @@ window.addEventListener('scroll', () => {
 
     cards.forEach(c => c.classList.add('visible'));
 
-    // Move the existing prev/next buttons (currently in .projects-3d-controls)
-    // into the slider area so they can overlay it on left/right edges.
-    const prevBtn = document.querySelector('.projects-3d-controls .projects-slider-btn[data-dir="prev"]');
-    const nextBtn = document.querySelector('.projects-3d-controls .projects-slider-btn[data-dir="next"]');
-    if (prevBtn) slider.appendChild(prevBtn);
-    if (nextBtn) slider.appendChild(nextBtn);
+    const prevBtn = slider.querySelector('.projects-slider-btn[data-dir="prev"]');
+    const nextBtn = slider.querySelector('.projects-slider-btn[data-dir="next"]');
 
     let current = 0;
 
