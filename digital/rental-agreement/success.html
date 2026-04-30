@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>תשלום התקבל | עשור ושות׳</title>
+    <meta name="description" content="תודה על ההזמנה. החוזה יישלח אליכם במייל בקרוב.">
+    <meta name="robots" content="noindex, nofollow">
+
+    <link rel="icon" href="../../images/logo-mark.png" type="image/png">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="form.css">
+    <style>
+        .success-card {
+            max-width: 640px;
+            margin: 64px auto;
+            background: #fff;
+            border: 1px solid var(--gold-soft, #e8dfd2);
+            border-radius: 12px;
+            padding: 48px 40px;
+            text-align: center;
+            box-shadow: 0 4px 24px rgba(122, 92, 62, 0.08);
+        }
+        .success-icon {
+            width: 72px;
+            height: 72px;
+            margin: 0 auto 24px;
+            background: #e8f5e9;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .success-icon svg { width: 40px; height: 40px; color: #2e7d32; }
+        .success-card h1 {
+            font-size: 28px;
+            color: var(--gold-dark, #7a5c3e);
+            margin: 0 0 12px;
+        }
+        .success-card p { color: var(--ink-soft, #7c6a55); line-height: 1.7; margin: 0 0 12px; }
+        .success-meta {
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid var(--gold-soft, #e8dfd2);
+            font-size: 14px;
+        }
+        .success-meta strong { color: var(--gold-dark, #7a5c3e); }
+        .success-actions { margin-top: 32px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .success-loading { color: var(--ink-soft, #7c6a55); font-style: italic; }
+        .success-error { color: #c62828; background: #ffebee; padding: 12px 16px; border-radius: 6px; margin-top: 16px; }
+    </style>
+</head>
+<body class="form-body">
+
+    <header class="form-header">
+        <div class="container">
+            <a href="../../" class="form-logo">
+                <img src="../../images/logo-he.png" alt="עשור ושות׳ - עורכי דין">
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="success-card" id="successCard">
+                <div class="success-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                </div>
+                <h1>תשלום התקבל בהצלחה</h1>
+                <p id="successMessage" class="success-loading">מעדכן את ההזמנה...</p>
+
+                <div class="success-meta" id="successMeta" style="display:none;">
+                    <p><strong>מס׳ הזמנה:</strong> <span id="orderIdDisplay">—</span></p>
+                    <p>חשבונית מס/קבלה תישלח אליכם אוטומטית למייל שמסרתם.</p>
+                    <p>החוזה החתום יישלח אליכם במייל לאחר בדיקה אחרונה של המשרד.</p>
+                </div>
+
+                <div id="errorBox" class="success-error" style="display:none;"></div>
+
+                <div class="success-actions">
+                    <a href="../../" class="form-btn form-btn-secondary">חזרה לאתר הראשי</a>
+                    <a href="../" class="form-btn form-btn-primary">לאזור הדיגיטלי</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="form-footer">
+        <div class="container">
+            <p>שאלות? <a href="../../#contact">צרו קשר</a> – office@asor-law.com · 02-500-0275</p>
+            <p class="form-footer-meta">&copy; 2025 ישראל עשור, משרד עורכי דין · ח.פ. 515843571</p>
+        </div>
+    </footer>
+
+    <script>
+        (function() {
+            const API_BASE = (function() {
+                const override = localStorage.getItem('asor-api-base');
+                if (override) return override.replace(/\/$/, '');
+                if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+                    return 'http://localhost:8787';
+                }
+                return 'https://asor-digital-api.asor-law.workers.dev';
+            })();
+
+            const params = new URLSearchParams(location.search);
+            const orderId = params.get('orderId');
+
+            const msg = document.getElementById('successMessage');
+            const meta = document.getElementById('successMeta');
+            const idDisp = document.getElementById('orderIdDisplay');
+            const errBox = document.getElementById('errorBox');
+
+            if (!orderId) {
+                msg.textContent = '';
+                errBox.style.display = 'block';
+                errBox.textContent = 'לא נמצא מזהה הזמנה בכתובת. אם בוצע תשלום — צרו קשר עם המשרד.';
+                return;
+            }
+
+            idDisp.textContent = orderId;
+
+            fetch(API_BASE + '/api/rental/payment-callback?orderId=' + encodeURIComponent(orderId), {
+                method: 'POST',
+            })
+                .then(r => r.json().then(j => ({ ok: r.ok, json: j })))
+                .then(({ ok, json }) => {
+                    if (!ok) throw new Error(json.error || 'Callback failed');
+                    msg.textContent = 'תודה רבה. ההזמנה נרשמה והמשרד קיבל הודעה.';
+                    meta.style.display = 'block';
+                })
+                .catch(err => {
+                    msg.textContent = 'התשלום עבר, אבל נתקלנו בבעיה בעדכון ההזמנה. צרו קשר עם המשרד עם מספר ההזמנה.';
+                    errBox.style.display = 'block';
+                    errBox.textContent = err.message || 'שגיאה לא ידועה';
+                    meta.style.display = 'block';
+                });
+        })();
+    </script>
+</body>
+</html>

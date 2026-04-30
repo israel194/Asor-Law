@@ -5,6 +5,17 @@
     const TOTAL_STEPS = 6;
     let currentStep = 1;
 
+    // API base — local dev when running on localhost, production worker URL otherwise.
+    // Override in DevTools with: localStorage.setItem('asor-api-base', 'https://...');
+    const API_BASE = (function() {
+        const override = localStorage.getItem('asor-api-base');
+        if (override) return override.replace(/\/$/, '');
+        if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+            return 'http://localhost:8787';
+        }
+        return 'https://asor-digital-api.asor-law.workers.dev';
+    })();
+
     const form = document.getElementById('rentalForm');
     const steps = form.querySelectorAll('.form-step');
     const stepLabels = document.querySelectorAll('.form-progress-steps .step');
@@ -356,10 +367,11 @@
     }
 
     // ===== Submit =====
-    form.addEventListener('submit', e => {
+    const SUBMIT_BTN_HTML = 'המשך לתשלום <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>';
+
+    form.addEventListener('submit', async e => {
         e.preventDefault();
 
-        // Validate ALL steps before submission
         let allValid = true;
         for (let i = 1; i <= TOTAL_STEPS; i++) {
             if (!validateStep(i)) {
@@ -378,21 +390,31 @@
 
         if (!allValid) return;
 
-        // TODO: in next step, this will:
-        // 1. POST data to backend (Cloudflare Worker)
-        // 2. Backend creates SUMIT payment link with order ID
-        // 3. Redirect user to SUMIT
-        // 4. After payment, backend generates DOCX and emails it
         const data = serialize();
-        console.log('Form submission (placeholder):', data);
 
         submitBtn.disabled = true;
-        submitBtn.innerHTML = '<span>טוען מערכת תשלום...</span>';
+        submitBtn.innerHTML = '<span>מעביר לסליקה...</span>';
 
-        // Placeholder: in real flow we'll redirect to SUMIT
-        alert('פרטים נשמרו. בשלב הבא נחבר את מערכת התשלום SUMIT.\n\nהמסמך הסופי יישלח אליך במייל לאחר תשלום מוצלח.');
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = 'המשך לתשלום <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>';
+        try {
+            const res = await fetch(API_BASE + '/api/rental/create-payment', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
+            const json = await res.json();
+            if (!res.ok) {
+                throw new Error(json.error || 'Payment init failed');
+            }
+            // Form data is now persisted server-side; we can clear local draft.
+            localStorage.removeItem(STORAGE_KEY);
+            // Hand off to SUMIT
+            window.location.href = json.redirectUrl;
+        } catch (err) {
+            console.error('Submit failed:', err);
+            alert('אירעה שגיאה ביצירת התשלום:\n\n' + (err.message || 'נסו שוב או צרו קשר עם המשרד.'));
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = SUBMIT_BTN_HTML;
+        }
     });
 
     // ===== Init =====
