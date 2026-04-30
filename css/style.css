@@ -1475,43 +1475,15 @@ section {
     height: 240px;
 }
 
-/* Controls row below stage */
+/* Controls row below stage — only the dot ring; arrow buttons removed */
 .projects-3d-controls {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 18px;
     margin-top: 32px;
 }
 
-.projects-slider-btn {
-    width: 52px;
-    height: 52px;
-    border-radius: 50%;
-    border: 1px solid rgba(184, 148, 63, 0.4);
-    background: var(--white);
-    color: var(--navy);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: var(--transition);
-    box-shadow: var(--shadow-xs);
-    flex: none;
-}
-
-.projects-slider-btn:hover {
-    background: var(--gold);
-    color: var(--white);
-    border-color: var(--gold);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow);
-}
-
-.projects-slider-btn svg {
-    width: 20px;
-    height: 20px;
-}
+.projects-slider-btn { display: none; }
 
 /* Circular pagination ring — dots arranged on a circle */
 .projects-3d-dots {
