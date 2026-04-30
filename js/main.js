@@ -45,88 +45,119 @@ window.addEventListener('scroll', () => {
     });
 });
 
-// Projects 3D coverflow carousel — drag with mouse or touch
+// Projects 3D cylindrical carousel — drag/swipe to rotate, dots on a circle
 (function() {
     const stage = document.getElementById('projectsTrack');
     const slider = document.getElementById('projectsSlider');
     if (!stage || !slider) return;
 
     const cards = Array.from(stage.children).filter(el => el.classList.contains('project-card'));
-    if (cards.length === 0) return;
+    const N = cards.length;
+    if (N === 0) return;
+    const STEP = 360 / N;            // angle each card occupies on the cylinder
+    const VISIBLE_HALF = 110;        // cards rotated more than this from front are hidden
 
-    // Reveal all cards immediately (skip viewport-based fade-in)
     cards.forEach(c => c.classList.add('visible'));
 
-    const isRtl = () => document.documentElement.dir === 'rtl';
-    const isMobile = () => window.matchMedia('(max-width: 600px)').matches;
+    // Place each card at its fixed angle around the cylinder.
+    // RTL just means user's "next" feels rightward; the underlying geometry is the same.
+    cards.forEach((card, i) => {
+        card.style.setProperty('--angle', (i * STEP) + 'deg');
+    });
 
-    let current = Math.floor(cards.length / 2);
-    let dragOffset = 0;
+    // current: integer index, can grow beyond [0,N) — modulo gives the visible slot.
+    // The continuous unbounded value lets us spin in either direction without jumping.
+    let current = 0;
+    let dragRot = 0;       // current drag offset in degrees
     let isDragging = false;
     let startX = 0;
     let lastX = 0;
     let lastT = 0;
-    let velocity = 0;
+    let velocity = 0;      // px/ms
+    let dragMoved = false;
 
-    // Build pagination dots
+    const norm = n => ((n % N) + N) % N;
+
+    function applyRotation() {
+        const rot = -current * STEP + dragRot;
+        stage.style.setProperty('--rotation', rot + 'deg');
+    }
+
+    function paintActive() {
+        const activeIdx = norm(current);
+        cards.forEach((card, i) => {
+            // Relative angle of this card from front (0 = facing camera)
+            const raw = i * STEP - (norm(current) * STEP - dragRot);
+            // Wrap to [-180, 180]
+            let rel = ((raw % 360) + 540) % 360 - 180;
+            const abs = Math.abs(rel);
+            const isActive = i === activeIdx && Math.abs(dragRot) < STEP / 2;
+            card.classList.toggle('is-active', isActive);
+            card.classList.toggle('is-hidden', abs > VISIBLE_HALF);
+            card.setAttribute('aria-hidden', abs > 60 ? 'true' : 'false');
+        });
+        dots.forEach((d, i) => d.classList.toggle('is-active', i === activeIdx));
+    }
+
+    function render() {
+        applyRotation();
+        paintActive();
+    }
+
+    // ===== Pagination ring — dots arranged on a circle =====
     const dotsEl = document.getElementById('projectsDots');
     const dots = [];
     if (dotsEl) {
+        // Layout depends on dot ring size; read it once. Fallback if zero.
+        const layout = () => {
+            const w = dotsEl.clientWidth || 140;
+            const r = w / 2 - 8; // small padding from edge
+            cards.forEach((_, i) => {
+                const a = (-90 + i * STEP) * Math.PI / 180; // i=0 at top
+                const x = Math.cos(a) * r;
+                const y = Math.sin(a) * r;
+                if (dots[i]) {
+                    dots[i].style.setProperty('--dot-x', x.toFixed(1) + 'px');
+                    dots[i].style.setProperty('--dot-y', y.toFixed(1) + 'px');
+                }
+            });
+        };
+
         cards.forEach((_, i) => {
             const dot = document.createElement('button');
             dot.type = 'button';
             dot.className = 'projects-3d-dot';
             dot.setAttribute('aria-label', `פרויקט ${i + 1}`);
-            dot.addEventListener('click', () => { current = i; dragOffset = 0; render(); });
+            dot.addEventListener('click', () => goTo(i));
             dotsEl.appendChild(dot);
             dots.push(dot);
         });
+        layout();
+        window.addEventListener('resize', layout);
     }
 
-    function render() {
-        const dir = isRtl() ? -1 : 1;
-        const spacing = isMobile() ? 150 : 220;
-        const tilt = 38;
-        const depth = 240;
-
-        cards.forEach((card, i) => {
-            const offset = (i - current - dragOffset) * dir;
-            const abs = Math.abs(offset);
-            const tx = offset * spacing;
-            const tz = -abs * depth;
-            const rotY = -offset * tilt;
-            let opacity, scale;
-            if (abs < 0.5)      { opacity = 1; scale = 1; }
-            else if (abs < 1.5) { opacity = 0.78; scale = 0.94; }
-            else if (abs < 2.5) { opacity = 0.45; scale = 0.86; }
-            else if (abs < 3.5) { opacity = 0.2;  scale = 0.78; }
-            else                { opacity = 0;    scale = 0.7; }
-
-            card.style.setProperty('--tx', tx + 'px');
-            card.style.setProperty('--tz', tz + 'px');
-            card.style.setProperty('--rotY', rotY + 'deg');
-            card.style.setProperty('--opacity', opacity);
-            card.style.setProperty('--scale', scale);
-            card.style.zIndex = 100 - Math.round(abs * 10);
-            card.classList.toggle('is-active', Math.abs(i - current) === 0 && Math.abs(dragOffset) < 0.5);
-            card.setAttribute('aria-hidden', abs > 1.5 ? 'true' : 'false');
-        });
-
-        dots.forEach((d, i) => d.classList.toggle('is-active', i === current));
+    // Go to a specific card index using shortest path (so dot 0 → 8 spins backward)
+    function goTo(target) {
+        let delta = ((target - norm(current)) % N + N) % N;
+        if (delta > N / 2) delta -= N;
+        current += delta;
+        dragRot = 0;
+        render();
     }
 
-    function clamp(n) {
-        return Math.max(0, Math.min(cards.length - 1, n));
+    function step(sign) {
+        current += sign;
+        dragRot = 0;
+        render();
     }
 
-    function getX(e) {
-        return e.touches ? e.touches[0].clientX : e.clientX;
-    }
+    // ===== Drag (mouse + touch) =====
+    function getX(e) { return e.touches ? e.touches[0].clientX : e.clientX; }
 
     function onDragStart(e) {
-        // Don't start drag if clicking on a button inside a card (e.g. CTA)
         if (e.target.closest('a, button')) return;
         isDragging = true;
+        dragMoved = false;
         slider.classList.add('is-dragging');
         startX = lastX = getX(e);
         lastT = performance.now();
@@ -142,9 +173,14 @@ window.addEventListener('scroll', () => {
         lastX = x;
         lastT = now;
         const dx = x - startX;
-        // Drag distance / spacing = how many cards we've shifted
-        const spacing = isMobile() ? 150 : 220;
-        dragOffset = -dx / spacing * (isRtl() ? -1 : 1);
+        if (Math.abs(dx) > 4) dragMoved = true;
+        // Convert horizontal pixels to rotation degrees.
+        // Drag width that equals one card-step = ~200px on desktop, 140px on mobile.
+        const stepPx = window.matchMedia('(max-width: 600px)').matches ? 140 : 200;
+        // Drag right (positive dx) → rotate forward → decrease index later.
+        // RTL: drag right should still feel like "browse next" so we mirror sign.
+        const rtl = document.documentElement.dir === 'rtl';
+        dragRot = (dx / stepPx) * STEP * (rtl ? 1 : -1);
         render();
         if (e.cancelable) e.preventDefault();
     }
@@ -153,61 +189,51 @@ window.addEventListener('scroll', () => {
         if (!isDragging) return;
         isDragging = false;
         slider.classList.remove('is-dragging');
-        // Apply momentum from velocity (pixels/ms) to determine final snap
-        const spacing = isMobile() ? 150 : 220;
-        const flick = -velocity * 220 / spacing * (isRtl() ? -1 : 1);
-        const target = current + Math.round(dragOffset + flick);
-        current = clamp(target);
-        dragOffset = 0;
+        // Add momentum: a fast flick moves an extra card.
+        const stepPx = window.matchMedia('(max-width: 600px)').matches ? 140 : 200;
+        const rtl = document.documentElement.dir === 'rtl';
+        const flickDeg = (velocity * 220 / stepPx) * STEP * (rtl ? 1 : -1);
+        const totalDeg = dragRot + flickDeg;
+        const stepsMoved = Math.round(-totalDeg / STEP);
+        current += stepsMoved;
+        dragRot = 0;
         render();
     }
 
-    // Mouse
     slider.addEventListener('mousedown', onDragStart);
     window.addEventListener('mousemove', onDragMove);
     window.addEventListener('mouseup', onDragEnd);
     slider.addEventListener('mouseleave', () => { if (isDragging) onDragEnd(); });
-    // Touch
     slider.addEventListener('touchstart', onDragStart, { passive: true });
     slider.addEventListener('touchmove', onDragMove, { passive: false });
     slider.addEventListener('touchend', onDragEnd);
     slider.addEventListener('touchcancel', onDragEnd);
 
-    // Click on a side card moves it to center
+    // ===== Click side card → bring to front =====
     cards.forEach((card, i) => {
         card.addEventListener('click', (e) => {
-            // Don't move if user dragged or if clicking actual link/button
-            if (Math.abs(dragOffset) > 0.05) return;
+            if (dragMoved) return;
             if (e.target.closest('a, button')) return;
-            if (i === current) return;
-            current = i;
-            render();
+            if (i === norm(current)) return;
+            goTo(i);
         });
     });
 
-    // Buttons
+    // ===== Arrow buttons =====
     document.querySelectorAll('.projects-3d-controls .projects-slider-btn').forEach(btn => {
         btn.addEventListener('click', () => {
-            const dir = btn.dataset.dir;
-            const sign = dir === 'next' ? 1 : -1;
-            current = clamp(current + sign);
-            render();
+            step(btn.dataset.dir === 'next' ? 1 : -1);
         });
     });
 
-    // Keyboard
+    // ===== Keyboard =====
     slider.addEventListener('keydown', (e) => {
-        const isRtlNow = isRtl();
-        if (e.key === 'ArrowLeft') {
-            current = clamp(current + (isRtlNow ? 1 : -1));
-            render();
-        } else if (e.key === 'ArrowRight') {
-            current = clamp(current + (isRtlNow ? -1 : 1));
-            render();
-        }
+        const rtl = document.documentElement.dir === 'rtl';
+        if (e.key === 'ArrowLeft')  step(rtl ? 1 : -1);
+        else if (e.key === 'ArrowRight') step(rtl ? -1 : 1);
     });
 
-    // Hide hint after first interaction
+    // ===== Hide hint after first interaction =====
     const hint = document.querySelector('.projects-3d-hint');
     if (hint) {
         const dismissHint = () => {
@@ -218,10 +244,6 @@ window.addEventListener('scroll', () => {
         slider.addEventListener('touchstart', dismissHint, { once: true, passive: true });
     }
 
-    // Recalculate on resize
-    window.addEventListener('resize', render);
-
-    // Initial render
     render();
 })();
 
