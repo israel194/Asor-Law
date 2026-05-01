@@ -43,6 +43,9 @@ export function formatOfficeEmail(order) {
 <!DOCTYPE html>
 <html lang="he" dir="rtl"><head><meta charset="UTF-8"></head>
 <body style="font-family:'Heebo',Arial,sans-serif;background:#fdfbf7;padding:24px;color:#3a2e22;direction:rtl;">
+    <div style="max-width:680px;margin:0 auto 16px;text-align:center;">
+        <img src="https://asor-law.com/images/logo-he.png" alt="עשור ושות׳ - עורכי דין" style="width:200px;height:auto;display:inline-block;">
+    </div>
     <div style="max-width:680px;margin:0 auto;background:#fff;padding:32px;border:1px solid #e8dfd2;border-radius:8px;">
         <h2 style="margin:0 0 4px;color:#7a5c3e;">${name} — הזמנה חדשה התקבלה</h2>
         <p style="margin:0 0 24px;color:#7c6a55;">${priceBeforeVat} ₪ + מע״מ (סה״כ: ${priceIls} ₪)</p>
@@ -107,6 +110,9 @@ export function formatCustomerEmail(order) {
 <!DOCTYPE html>
 <html lang="he" dir="rtl"><head><meta charset="UTF-8"></head>
 <body style="font-family:'Heebo',Arial,sans-serif;background:#fdfbf7;padding:24px;color:#3a2e22;direction:rtl;">
+    <div style="max-width:680px;margin:0 auto 16px;text-align:center;">
+        <img src="https://asor-law.com/images/logo-he.png" alt="עשור ושות׳ - עורכי דין" style="width:200px;height:auto;display:inline-block;">
+    </div>
     <div style="max-width:580px;margin:0 auto;background:#fff;padding:32px;border:1px solid #e8dfd2;border-radius:8px;">
         <h2 style="margin:0 0 12px;color:#7a5c3e;">תודה על ההזמנה, ${d.client_name || ""}</h2>
         <p style="margin:0 0 16px;line-height:1.7;">

@@ -355,6 +355,15 @@ export function renderRentalAgreementHtml(order) {
             text-align: justify;
             counter-reset: section clause;
         }
+        .doc-brand-mark {
+            text-align: center;
+            margin: 0 0 8pt;
+        }
+        .doc-brand-mark img {
+            width: 110pt;
+            height: auto;
+            opacity: 0.95;
+        }
         h1 {
             text-align: center;
             font-family: 'David Libre', 'David', serif;
@@ -362,6 +371,7 @@ export function renderRentalAgreementHtml(order) {
             font-weight: 700;
             margin: 0 0 4pt;
             letter-spacing: 0.02em;
+            color: #001d3b;
         }
         .subtitle {
             text-align: center;
@@ -585,6 +595,10 @@ export function renderRentalAgreementHtml(order) {
     </style>
 </head>
 <body>
+
+<div class="doc-brand-mark">
+    <img src="https://asor-law.com/images/logo-mark.png" alt="עשור ושות׳ - עורכי דין">
+</div>
 
 <h1>הסכם שכירות בלתי מוגנת</h1>
 
