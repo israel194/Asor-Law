@@ -273,6 +273,34 @@
     color: #8a7c63;
     background: #fbf9f4;
 }
+
+/* Red diagonal line crossing the entire "מסורתי" column —
+   single SVG line per cell stretched corner-to-corner; lines connect
+   between rows for a continuous crossed-out effect. */
+.dig-compare-table th.trad,
+.dig-compare-table td.trad {
+    position: relative;
+}
+.dig-compare-table th.trad::after,
+.dig-compare-table td.trad::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none' viewBox='0 0 100 100'><line x1='0' y1='0' x2='100' y2='100' stroke='%23dc2626' stroke-width='1.5' vector-effect='non-scaling-stroke' stroke-linecap='round'/></svg>") no-repeat;
+    background-size: 100% 100%;
+    z-index: 1;
+}
+/* Keep cell text legible above the diagonal line */
+.dig-compare-table th.trad,
+.dig-compare-table td.trad {
+    z-index: 0;
+}
+.dig-compare-table th.trad > *,
+.dig-compare-table td.trad > * {
+    position: relative;
+    z-index: 2;
+}
 .dig-compare-table tbody td.dig {
     color: var(--text-dark);
     background: rgba(193, 168, 123, 0.06);
