@@ -2680,11 +2680,24 @@ section {
 }
 
 .cookie-consent-inner p {
-    font-size: 0.9rem;
-    line-height: 1.5;
+    font-size: 0.88rem;
+    line-height: 1.6;
     margin: 0;
     flex: 1;
-    min-width: 200px;
+    min-width: 240px;
+    max-height: 180px;
+    overflow-y: auto;
+    padding-inline-end: 6px;
+}
+
+.cookie-consent-inner p strong {
+    color: var(--gold-light);
+    font-weight: 700;
+}
+
+@media (max-width: 768px) {
+    .cookie-consent { padding: 14px 18px; }
+    .cookie-consent-inner p { font-size: 0.82rem; max-height: 140px; }
 }
 
 .cookie-consent-inner a {
