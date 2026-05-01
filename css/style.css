@@ -1472,7 +1472,9 @@ section {
 .projects-3d-stage .project-image img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
+    object-position: center;
+    background: linear-gradient(135deg, #f4ede0, #e8dfd0);
     transition: none;
     transform: none;
 }
@@ -1513,7 +1515,9 @@ section {
     inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
+    object-position: center;
+    background: linear-gradient(135deg, #f4ede0, #e8dfd0);
     opacity: 0;
     animation: projectImgCycle 16s ease-in-out infinite;
     z-index: 1;
