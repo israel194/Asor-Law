@@ -4,7 +4,8 @@
  * Each product exports:
  *   - id              — stable slug (matches the URL under /digital/<id>/)
  *   - name            — display name (Hebrew)
- *   - priceIls        — price in shekels (incl. VAT)
+ *   - priceBeforeVat  — pre-VAT price in shekels (the "headline" price)
+ *   - priceIls        — actual charge in shekels (priceBeforeVat × VAT_RATE, rounded to .01)
  *   - requiredFields  — array of payload keys that must be present (validated by API)
  *   - formatOfficeEmail(order)   → { subject, html, text }
  *   - formatCustomerEmail(order) → { subject, html, text }
@@ -15,6 +16,10 @@
  * Type B products (digital intake → attorney handles the work) skip the
  * deliverable function — the customer just gets a confirmation email.
  */
+
+// Re-export the VAT helpers so callers outside /products can do
+//   import { VAT_RATE, withVat } from ".../products/index.js"
+export { VAT_RATE, withVat } from "./vat.js";
 
 import * as rentalAgreement from "./rental-agreement.js";
 import * as cautionaryNote from "./cautionary-note.js";
@@ -38,6 +43,7 @@ export function listProducts() {
     return Object.values(PRODUCTS).map(p => ({
         id: p.id,
         name: p.name,
+        priceBeforeVat: p.priceBeforeVat,
         priceIls: p.priceIls,
     }));
 }

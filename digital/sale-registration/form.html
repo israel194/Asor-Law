@@ -32,7 +32,7 @@
             <div class="product-intro">
                 <h1>רישום מכר — העברת בעלות בלשכת רישום המקרקעין</h1>
                 <p>השירות כולל ליווי מלא של תהליך העברת הבעלות בנכס: בדיקת הסכם המכר, ייצוג מול לשכת רישום המקרקעין, טיפול במסי שבח ורכישה ברשות המסים, וביצוע הרישום לטובת הקונה.</p>
-                <p><span class="price">4,500 ₪ כולל מע״מ</span> — אינו כולל את מסי השבח/רכישה עצמם.</p>
+                <p><span class="price">499 ₪ + מע״מ</span> (סה״כ 588.82 ₪) — אינו כולל את מסי השבח/רכישה עצמם.</p>
             </div>
             <form id="saleForm" novalidate>
                 <section class="form-step active">
@@ -119,7 +119,7 @@
                 </section>
 
                 <div class="submit-row">
-                    <button type="submit" class="form-btn form-btn-primary form-btn-large" id="submitBtn">המשך לתשלום (4,500 ₪)</button>
+                    <button type="submit" class="form-btn form-btn-primary form-btn-large" id="submitBtn">המשך לתשלום (499 ₪ + מע״מ)</button>
                     <div id="submitError" class="submit-error"></div>
                 </div>
             </form>
@@ -158,7 +158,7 @@
                     errorBox.textContent = err.message || 'שגיאה';
                     errorBox.style.display = 'block';
                     submitBtn.disabled = false;
-                    submitBtn.textContent = 'המשך לתשלום (4,500 ₪)';
+                    submitBtn.textContent = 'המשך לתשלום (499 ₪ + מע״מ)';
                 }
             });
         })();

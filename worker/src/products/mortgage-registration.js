@@ -5,9 +5,12 @@
  * Registry / Israel Land Authority. No PDF deliverable.
  */
 
+import { withVat } from "./vat.js";
+
 export const id = "mortgage-registration";
 export const name = "רישום משכנתא";
-export const priceIls = 2500;
+export const priceBeforeVat = 399;
+export const priceIls = withVat(priceBeforeVat);
 export const requiredFields = ["client_name", "client_id", "client_email", "client_phone"];
 
 const MORTGAGE_RANK = {
@@ -45,7 +48,7 @@ export function formatOfficeEmail(order) {
 <body style="font-family:'Heebo',Arial,sans-serif;background:#fdfbf7;padding:24px;color:#3a2e22;direction:rtl;">
     <div style="max-width:680px;margin:0 auto;background:#fff;padding:32px;border:1px solid #e8dfd2;border-radius:8px;">
         <h2 style="margin:0 0 4px;color:#7a5c3e;">${name} — הזמנה חדשה התקבלה</h2>
-        <p style="margin:0 0 24px;color:#7c6a55;">${priceIls} ₪ כולל מע״מ</p>
+        <p style="margin:0 0 24px;color:#7c6a55;">${priceBeforeVat} ₪ + מע״מ (סה״כ: ${priceIls} ₪)</p>
 
         <table cellspacing="0" cellpadding="0" style="width:100%;font-size:13px;color:#7c6a55;">
             <tr>
@@ -123,7 +126,7 @@ export function formatCustomerEmail(order) {
         </p>
         <p style="margin:16px 0;line-height:1.7;color:#5a3d20;">
             <strong>מס׳ הזמנה:</strong> ${order.orderId}<br>
-            <strong>סכום ששולם:</strong> ${priceIls} ₪ כולל מע״מ
+            <strong>סכום ששולם:</strong> ${priceBeforeVat} ₪ + מע״מ (סה״כ: ${priceIls} ₪)
         </p>
         <p style="margin:24px 0 0;padding-top:16px;border-top:1px solid #e8dfd2;color:#7c6a55;font-size:13px;line-height:1.6;">
             לשאלות — office@asor-law.com.
@@ -134,7 +137,7 @@ export function formatCustomerEmail(order) {
         `תודה על ההזמנה, ${d.client_name || ""}.`,
         ``,
         `${name} - מס׳ הזמנה: ${order.orderId}`,
-        `סכום ששולם: ${priceIls} ₪ כולל מע״מ`,
+        `סכום ששולם: ${priceBeforeVat} ₪ + מע״מ (סה״כ: ${priceIls} ₪)`,
         ``,
         `נחזור אליך תוך 24 שעות עסקים.`,
         `לפניות: office@asor-law.com`,
