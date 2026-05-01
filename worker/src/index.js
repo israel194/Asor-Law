@@ -13,6 +13,9 @@
  *   GET  /api/orders/:id
  *     Returns minimal info (status, productName) — used by success page.
  *
+ *   GET  /api/orders/:id/document
+ *     Streams the generated PDF for a paid order (used by success page).
+ *
  *   GET  /healthz
  *     Liveness check.
  */
@@ -112,9 +115,10 @@ app.post("/api/rental/payment-callback", async c => {
     order.paidAt = new Date().toISOString();
     await c.env.ORDERS_KV.put(orderId, JSON.stringify(order));
 
-    // Send the office notification — using the per-product formatter
+    const product = getProduct(order.productId);
+
+    // 1) Office notification
     try {
-        const product = getProduct(order.productId);
         const { subject, html, text } = product.formatOfficeEmail(order);
         const replyTo = order.payload?.tenant_email;
         await sendEmail(c.env, {
@@ -130,11 +134,63 @@ app.post("/api/rental/payment-callback", async c => {
         console.error("office email failed", err);
         order.officeEmailError = err.message;
         await c.env.ORDERS_KV.put(orderId, JSON.stringify(order));
-        // We don't fail the request — payment IS complete. Surface the issue
-        // server-side so israel can be notified out-of-band if needed.
+        // Don't fail — payment is complete.
+    }
+
+    // 2) Generate PDF, store in KV, send to customer
+    try {
+        const { filename, content, contentType } = await product.generateCustomerDeliverable(order, c.env);
+        await c.env.ORDERS_KV.put(`pdf:${orderId}`, content, {
+            metadata: { filename, contentType, generatedAt: new Date().toISOString() },
+        });
+        order.pdfGeneratedAt = new Date().toISOString();
+        order.pdfFilename = filename;
+        await c.env.ORDERS_KV.put(orderId, JSON.stringify(order));
+
+        if (typeof product.formatCustomerEmail === "function" && order.payload?.tenant_email) {
+            const { subject, html, text } = product.formatCustomerEmail(order);
+            await sendEmail(c.env, {
+                to: order.payload.tenant_email,
+                subject,
+                html,
+                text,
+                replyTo: c.env.OFFICE_EMAIL,
+                attachments: [{ filename, content, contentType }],
+            });
+            order.customerNotifiedAt = new Date().toISOString();
+            await c.env.ORDERS_KV.put(orderId, JSON.stringify(order));
+        }
+    } catch (err) {
+        console.error("PDF generation/customer email failed", err);
+        order.deliverableError = err.message;
+        await c.env.ORDERS_KV.put(orderId, JSON.stringify(order));
+        // Don't fail — payment is complete; israel can re-trigger from KV.
     }
 
     return c.json({ ok: true, orderId });
+});
+
+// ===== Document download (one-time-ish: by orderId) =====
+app.get("/api/orders/:id/document", async c => {
+    const id = c.req.param("id");
+    const orderRaw = await c.env.ORDERS_KV.get(id);
+    if (!orderRaw) return c.json({ error: "Order not found" }, 404);
+
+    const order = JSON.parse(orderRaw);
+    if (order.status !== "paid") return c.json({ error: "Order not paid" }, 402);
+
+    const { value, metadata } = await c.env.ORDERS_KV.getWithMetadata(`pdf:${id}`, { type: "arrayBuffer" });
+    if (!value) return c.json({ error: "Document not yet generated" }, 404);
+
+    const filename = (metadata && metadata.filename) || `${id}.pdf`;
+    const contentType = (metadata && metadata.contentType) || "application/pdf";
+    return new Response(value, {
+        headers: {
+            "Content-Type": contentType,
+            "Content-Disposition": `attachment; filename*=UTF-8''${encodeURIComponent(filename)}`,
+            "Cache-Control": "private, no-store",
+        },
+    });
 });
 
 // ===== Public order lookup (limited fields) — used by success page =====

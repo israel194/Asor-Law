@@ -1,9 +1,12 @@
 /**
  * Product: residential rental agreement (הסכם שכירות דירת מגורים).
  *
- * Customer deliverable (PDF) is built separately — generateCustomerDeliverable
- * currently throws NotImplemented. The office notification email IS implemented.
+ * Customer deliverable: PDF rendered from an HTML template (rental-agreement-html.js)
+ * via Cloudflare Browser Rendering.
  */
+
+import puppeteer from "@cloudflare/puppeteer";
+import { renderRentalAgreementHtml } from "./rental-agreement-html.js";
 
 export const id = "rental-agreement";
 export const name = "הסכם שכירות דירת מגורים";
@@ -142,12 +145,84 @@ export function formatOfficeEmail(order) {
 }
 
 /**
- * Build the customer-facing deliverable. Built per product, separately —
- * placeholder for now.
+ * Build the customer notification email body. The PDF is attached separately
+ * by the caller (index.js).
  */
-// eslint-disable-next-line no-unused-vars
+export function formatCustomerEmail(order) {
+    const d = order.payload || {};
+    const subject = `ההסכם שלך מוכן · ${name} · עשור ושות׳`;
+    const html = `
+<!DOCTYPE html>
+<html lang="he" dir="rtl"><head><meta charset="UTF-8"></head>
+<body style="font-family:'Heebo',Arial,sans-serif;background:#fdfbf7;padding:24px;color:#3a2e22;direction:rtl;">
+    <div style="max-width:580px;margin:0 auto;background:#fff;padding:32px;border:1px solid #e8dfd2;border-radius:8px;">
+        <h2 style="margin:0 0 12px;color:#7a5c3e;">תודה על הרכישה, ${d.tenant_name || ""}</h2>
+        <p style="margin:0 0 16px;line-height:1.7;">
+            ${name} שביקשת מצורף להודעה זו כקובץ PDF.
+        </p>
+        <p style="margin:0 0 16px;line-height:1.7;">
+            ההסכם נוצר לפי הנתונים שמילאת בטופס. מומלץ לעבור עליו בעיון לפני החתימה,
+            ולוודא שכל הפרטים תואמים את ההבנות בין הצדדים. ההסכם מוכן להדפסה ולחתימה.
+        </p>
+        <p style="margin:24px 0 0;padding-top:16px;border-top:1px solid #e8dfd2;color:#7c6a55;font-size:13px;line-height:1.6;">
+            לכל שאלה — ניתן להשיב להודעה זו או לכתוב ל-${"office@asor-law.com"}.<br>
+            מס׳ הזמנה: ${order.orderId}
+        </p>
+    </div>
+</body></html>`;
+    const text = [
+        `תודה על הרכישה, ${d.tenant_name || ""}.`,
+        ``,
+        `${name} מצורף להודעה זו כקובץ PDF.`,
+        `מומלץ לעבור עליו בעיון לפני החתימה.`,
+        ``,
+        `מס׳ הזמנה: ${order.orderId}`,
+        `לפניות: office@asor-law.com`,
+    ].join("\n");
+    return { subject, html, text };
+}
+
+/**
+ * Build the customer-facing PDF.
+ *
+ * Pipeline:
+ *   1. Render the order data into a full HTML document (RTL Hebrew, A4, print
+ *      styles) via renderRentalAgreementHtml.
+ *   2. Hand that HTML to Cloudflare Browser Rendering and ask for an A4 PDF.
+ *   3. Return the PDF bytes + a localized filename.
+ *
+ * @param {Object} order
+ * @param {Object} env  - Worker bindings (must include BROWSER).
+ * @returns {Promise<{filename: string, content: Uint8Array, contentType: string}>}
+ */
 export async function generateCustomerDeliverable(order, env) {
-    const e = new Error("Customer PDF generation not yet implemented for rental-agreement");
-    e.code = "NOT_IMPLEMENTED";
-    throw e;
+    if (!env.BROWSER) {
+        const e = new Error("BROWSER binding missing — Browser Rendering not configured");
+        e.code = "BROWSER_BINDING_MISSING";
+        throw e;
+    }
+
+    const html = renderRentalAgreementHtml(order);
+
+    const browser = await puppeteer.launch(env.BROWSER);
+    try {
+        const page = await browser.newPage();
+        // Load the HTML directly. networkidle0 waits for Google Fonts to settle.
+        await page.setContent(html, { waitUntil: "networkidle0", timeout: 30000 });
+        const pdf = await page.pdf({
+            format: "A4",
+            printBackground: true,
+            preferCSSPageSize: true,
+            margin: { top: "2cm", right: "2cm", bottom: "2cm", left: "2cm" },
+        });
+        const tenant = (order?.payload?.tenant_name || "customer").replace(/[^\p{L}\p{N} _-]/gu, "");
+        const shortId = (order?.orderId || "").slice(0, 8);
+        return {
+            filename: `הסכם-שכירות-${tenant}-${shortId}.pdf`,
+            content: pdf,
+            contentType: "application/pdf",
+        };
+    } finally {
+        await browser.close();
+    }
 }

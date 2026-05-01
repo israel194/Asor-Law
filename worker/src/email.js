@@ -9,6 +9,16 @@
 
 const RESEND_ENDPOINT = "https://api.resend.com/emails";
 
+function bytesToBase64(buf) {
+    const bytes = buf instanceof Uint8Array ? buf : new Uint8Array(buf);
+    let binary = "";
+    const chunk = 0x8000;
+    for (let i = 0; i < bytes.length; i += chunk) {
+        binary += String.fromCharCode.apply(null, bytes.subarray(i, i + chunk));
+    }
+    return btoa(binary);
+}
+
 /**
  * Send an email.
  *
@@ -19,9 +29,11 @@ const RESEND_ENDPOINT = "https://api.resend.com/emails";
  * @param {string} [msg.html]             - HTML body (preferred for office notifications)
  * @param {string} [msg.text]             - Plain-text fallback
  * @param {string} [msg.replyTo]          - Optional reply-to address
+ * @param {Array<{filename: string, content: Uint8Array|ArrayBuffer|string, contentType?: string}>} [msg.attachments]
+ *        - Optional file attachments. `content` may be raw bytes or a base64 string.
  * @returns {Promise<{id: string}>}
  */
-export async function sendEmail(env, { to, subject, html, text, replyTo }) {
+export async function sendEmail(env, { to, subject, html, text, replyTo, attachments }) {
     if (!env.RESEND_API_KEY) {
         throw new Error("RESEND_API_KEY is not configured");
     }
@@ -34,6 +46,12 @@ export async function sendEmail(env, { to, subject, html, text, replyTo }) {
     if (html) payload.html = html;
     if (text) payload.text = text;
     if (replyTo) payload.reply_to = replyTo;
+    if (attachments && attachments.length) {
+        payload.attachments = attachments.map(a => ({
+            filename: a.filename,
+            content: typeof a.content === "string" ? a.content : bytesToBase64(a.content),
+        }));
+    }
 
     const res = await fetch(RESEND_ENDPOINT, {
         method: "POST",

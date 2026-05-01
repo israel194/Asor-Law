@@ -80,14 +80,14 @@
                 <div class="success-meta" id="successMeta" style="display:none;">
                     <p><strong>מס׳ הזמנה:</strong> <span id="orderIdDisplay">—</span></p>
                     <p>חשבונית מס/קבלה תישלח אליכם אוטומטית למייל שמסרתם.</p>
-                    <p>החוזה החתום יישלח אליכם במייל לאחר בדיקה אחרונה של המשרד.</p>
+                    <p id="documentStatus">מכינים את ההסכם להורדה...</p>
                 </div>
 
                 <div id="errorBox" class="success-error" style="display:none;"></div>
 
                 <div class="success-actions">
+                    <a href="#" id="downloadBtn" class="form-btn form-btn-primary" style="display:none;">הורדת ההסכם (PDF)</a>
                     <a href="../../" class="form-btn form-btn-secondary">חזרה לאתר הראשי</a>
-                    <a href="../" class="form-btn form-btn-primary">לאזור הדיגיטלי</a>
                 </div>
             </div>
         </div>
@@ -128,14 +128,22 @@
 
             idDisp.textContent = orderId;
 
+            const docStatus = document.getElementById('documentStatus');
+            const downloadBtn = document.getElementById('downloadBtn');
+
             fetch(API_BASE + '/api/rental/payment-callback?orderId=' + encodeURIComponent(orderId), {
                 method: 'POST',
             })
                 .then(r => r.json().then(j => ({ ok: r.ok, json: j })))
                 .then(({ ok, json }) => {
                     if (!ok) throw new Error(json.error || 'Callback failed');
-                    msg.textContent = 'תודה רבה. ההזמנה נרשמה והמשרד קיבל הודעה.';
+                    msg.textContent = 'תודה רבה. ההסכם נשלח אליך במייל.';
                     meta.style.display = 'block';
+                    // The callback already generated the PDF; offer it for download too.
+                    const docUrl = API_BASE + '/api/orders/' + encodeURIComponent(orderId) + '/document';
+                    downloadBtn.href = docUrl;
+                    downloadBtn.style.display = 'inline-flex';
+                    docStatus.textContent = 'ההסכם מוכן להורדה — וגם נשלח אליך במייל.';
                 })
                 .catch(err => {
                     msg.textContent = 'התשלום עבר, אבל נתקלנו בבעיה בעדכון ההזמנה. צרו קשר עם המשרד עם מספר ההזמנה.';
