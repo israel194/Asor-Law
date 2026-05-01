@@ -157,16 +157,12 @@ export function renderRentalAgreementHtml(order) {
             margin: 18pt 0 6pt;
             color: #5a3d20;
             text-align: center;
+        }
+        h2:not(.no-counter) {
             counter-increment: section;
         }
-        h2::before {
+        h2:not(.no-counter)::before {
             content: counter(section, hebrew) ". ";
-        }
-        h2.no-counter {
-            counter-increment: none;
-        }
-        h2.no-counter::before {
-            content: "";
         }
         p { margin: 4pt 0; }
         /* Hanging indent — wrapped lines align with the start of the text,
@@ -272,7 +268,7 @@ export function renderRentalAgreementHtml(order) {
 
 <p class="meta">שנערך ונחתם ביום ${signDateStr}, בעיר ${esc(signCity)}</p>
 
-<h2>הצדדים להסכם</h2>
+<h2 class="no-counter">הצדדים להסכם</h2>
 
 <div class="party-block">
     <p class="party-label">המשכיר:</p>
