@@ -21,7 +21,7 @@
         "firm_alt_name": "עשור ושות׳ - עורכי דין",
         "attorney_name": "Israel Asor",
         "attorney_alt_name": "ישראל עשור",
-        "attorney_title": "Adv. (C.P.A.), Managing Partner",
+        "attorney_title": "Adv. (C.P.A.), Founding Partner",
         "attorney_works_for": "Asor & Co. – Attorneys at Law",
         "knows_about": ["Urban Renewal", "Real Estate Taxation", "Income Tax", "VAT"]
     },
@@ -53,7 +53,7 @@
     "about": {
         "eyebrow": "Knowledge · Experience · Determined Representation",
         "section_title": "About the Firm",
-        "bio_label": "Managing Partner",
+        "bio_label": "Founding Partner",
         "attorney_title": "Israel Asor, Adv. (C.P.A.)",
         "paragraph1": "Asor & Co. Law Firm is located in Ram Tower, Jerusalem, and includes eight attorneys with deep expertise in real estate transactions, urban renewal, and real estate taxation.",
         "paragraph2": "The firm specializes in representing residents in Pinui Binui (evacuation-construction) and TAMA 38 demolition-reconstruction projects, with extensive experience in dozens of projects in Jerusalem and surrounding areas — from early planning stages through final agreements and obtaining building permits.",
@@ -153,7 +153,7 @@
         "section_subtitle": "Four principles that guide every legal engagement",
         "q1_text": "We believe in determined representation of property owners, rigorously protecting their interests at every stage of the project.",
         "q1_source": "Israel Asor, Adv. (C.P.A.)",
-        "q1_tag": "Managing Partner",
+        "q1_tag": "Founding Partner",
         "q2_text": "Quality urban renewal begins with legal counsel that knows every clause in the agreement — and where the risks hide.",
         "q2_source": "The Firm Team",
         "q2_tag": "Decades of project experience",
