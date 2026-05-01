@@ -77,12 +77,12 @@ function furnitureRecital(d) {
 
 function guarantorsBlock(d, promissoryNote) {
     if (d.has_guarantors !== "yes") {
-        return `<p class="clause"><strong>שטר חוב</strong> בסכום של ${fmtNum(promissoryNote)} ₪ עבור כל אחד מהשוכרים בנפרד.</p>`;
+        return `<p class="clause"><strong>שטר חוב</strong> בסכום של ${fmtNum(promissoryNote)} ₪, חתום בידי השוכר ועבור כל אחד מהשוכרים בנפרד, בנוסח המצורף כנספח א' להסכם זה.</p>`;
     }
     const details = d.guarantors_details ? esc(d.guarantors_details).replace(/\n/g, "<br>") : "";
     return `
-        <p class="clause"><strong>שטר חוב</strong> בסכום של ${fmtNum(promissoryNote)} ₪ עבור כל אחד מהשוכרים בנפרד.</p>
-        <p class="clause"><strong>ערבים אישיים</strong>: השוכר ימציא למשכיר ערבים אישיים שיחתמו על שטר החוב, לשביעות רצון המשכיר. פרטי הערבים: ${details || "כפי שיסוכם בין הצדדים"}.</p>`;
+        <p class="clause"><strong>שטר חוב</strong> בסכום של ${fmtNum(promissoryNote)} ₪, חתום בידי השוכר ועבור כל אחד מהשוכרים בנפרד, בנוסח המצורף כנספח א' להסכם זה.</p>
+        <p class="clause"><strong>כתב ערבות אוואל</strong>: שטר החוב יוחתם גם בידי ערבים בערבות אוואל מלאה, ביחד ולחוד, בנוסח המצורף כנספח ב' להסכם זה. פרטי הערבים: ${details || "כפי שיסוכם בין הצדדים"}.</p>`;
 }
 
 function additionalTenantsRecital(d) {
@@ -90,6 +90,218 @@ function additionalTenantsRecital(d) {
     const list = esc(d.additional_tenants).replace(/\n/g, "<br>");
     return `
         <p class="recital"><strong>והואיל</strong> ובנוסף לשוכר הראשי המפורט מעלה, שוכרים נוספים יחזיקו ויתגוררו בדירה ביחד עם השוכר, וכל ההתחייבויות שבהסכם זה תחולנה עליהם יחד ולחוד: ${list};</p>`;
+}
+
+function numberToHebrewWords(n) {
+    // Lightweight number-to-Hebrew-words for amounts up to 999,999.
+    // Used in the promissory note appendix. Falls back to digits-only if outside range.
+    if (n === undefined || n === null || isNaN(n)) return "";
+    const num = Math.floor(Number(n));
+    if (num < 0 || num > 999999) return String(num);
+    const ones = ["", "אחד", "שניים", "שלושה", "ארבעה", "חמישה", "שישה", "שבעה", "שמונה", "תשעה",
+        "עשרה", "אחד עשר", "שניים עשר", "שלושה עשר", "ארבעה עשר", "חמישה עשר", "שישה עשר",
+        "שבעה עשר", "שמונה עשר", "תשעה עשר"];
+    const tens = ["", "", "עשרים", "שלושים", "ארבעים", "חמישים", "שישים", "שבעים", "שמונים", "תשעים"];
+    function under1000(x) {
+        if (x === 0) return "";
+        const h = Math.floor(x / 100);
+        const r = x % 100;
+        const hStr = h === 0 ? "" : h === 1 ? "מאה" : h === 2 ? "מאתיים" : ones[h] + " מאות";
+        let rStr = "";
+        if (r > 0) {
+            if (r < 20) rStr = ones[r];
+            else {
+                const t = Math.floor(r / 10);
+                const u = r % 10;
+                rStr = u === 0 ? tens[t] : tens[t] + " ו" + ones[u];
+            }
+        }
+        return [hStr, rStr].filter(Boolean).join(" ו");
+    }
+    if (num === 0) return "אפס";
+    const thousands = Math.floor(num / 1000);
+    const rest = num % 1000;
+    let result = "";
+    if (thousands > 0) {
+        if (thousands === 1) result = "אלף";
+        else if (thousands === 2) result = "אלפיים";
+        else if (thousands < 11) result = ones[thousands] + " אלפים";
+        else result = under1000(thousands) + " אלף";
+    }
+    if (rest > 0) {
+        const restStr = under1000(rest);
+        result = result ? result + " ו" + restStr : restStr;
+    }
+    return result;
+}
+
+function appendixPromissoryNote(d, signDateStr, signCity, promissoryNote) {
+    const tenantName = esc(d.tenant_name) || "—";
+    const tenantId = esc(d.tenant_id) || "—";
+    const landlordName = esc(d.landlord_name) || "—";
+    const landlordId = esc(d.landlord_id) || "—";
+    const propAddr = [d.property_street, d.property_city].filter(Boolean).map(esc).join(", ") || "—";
+    const amountWords = numberToHebrewWords(promissoryNote);
+    return `
+<div class="appendix">
+    <div class="appendix-title">שטר חוב</div>
+    <div class="appendix-subtitle">נספח א' להסכם השכירות</div>
+    <p class="appendix-meta">נחתם ביום ${signDateStr}, בעיר ${esc(signCity)}</p>
+
+    <p style="text-align:center;font-size:14pt;margin:18pt 0;">סכום השטר: <strong>${fmtNum(promissoryNote)} ₪</strong>${amountWords ? ` <span class="small">(${amountWords} שקלים חדשים)</span>` : ""}</p>
+
+    <p>אני החתום מטה, <strong>${tenantName}</strong>, ת.ז. <strong>${tenantId}</strong> (להלן: <strong>"החייב"</strong>), מתחייב/ת בזאת לשלם, לפי דרישה ובכפוף לתנאים המפורטים מטה, ל<strong>${landlordName}</strong>, ת.ז. <strong>${landlordId}</strong> (להלן: <strong>"המוטב"</strong>), את סכום השטר הנקוב לעיל, וזאת בקשר עם הסכם השכירות שנחתם בין הצדדים ביום ${signDateStr} ביחס לדירה הנמצאת ב${propAddr} (להלן: <strong>"הסכם השכירות"</strong> ו<strong>"הדירה"</strong>, בהתאמה).</p>
+
+    <h3 class="appendix-section-title">תנאי הפירעון</h3>
+    <ol class="appendix-list">
+        <li>שטר חוב זה משמש כבטוחה למילוי כל התחייבויות החייב על פי הסכם השכירות, לרבות תשלום דמי שכירות, פיצויים מוסכמים, נזקים לדירה ופינוי בתום התקופה.</li>
+        <li>שטר חוב זה ייפרע אך ורק במקרה של הפרה יסודית של הסכם השכירות מצד החייב, ולאחר מתן הודעה בכתב לחייב על דרישת הפירעון, ובמתן ארכה של 14 ימים לתיקון ההפרה — אלא אם מהות ההפרה אינה ניתנת לתיקון.</li>
+        <li>השטר ניתן למימוש כולו או חלקו, בהתאם לסכום הנזק או החוב בפועל, ופירעון חלקי לא יגרע מזכות המוטב לתבוע את היתרה.</li>
+        <li>החייב מוותר בזה על חובת הצגת השטר לפני פירעונו ועל מתן הודעת חילול.</li>
+        <li>הוראות שטר זה בנוסף ולא במקום הוראות הסכם השכירות וכל דין; לא יהיה במימוש שטר זה כדי לפטור את החייב מכל זכות או חובה אחרת בהסכם השכירות.</li>
+    </ol>
+
+    <div class="signature-row" style="margin-top:42pt;">
+        <div class="signature-block" style="flex:1;text-align:center;">
+            <div class="signature-line">חתימת החייב</div>
+            <div class="small">${tenantName}</div>
+            <div class="small">ת.ז.: ${tenantId}</div>
+            <div class="small">תאריך: ${signDateStr}</div>
+        </div>
+    </div>
+
+    <div class="witness-row" style="margin-top:30pt;">
+        <div class="signature-block">
+            <div class="signature-line">עד 1</div>
+            <div class="small">שם: _______________________</div>
+            <div class="small">ת.ז.: _______________________</div>
+            <div class="small">חתימה: ____________________</div>
+        </div>
+        <div class="signature-block">
+            <div class="signature-line">עד 2</div>
+            <div class="small">שם: _______________________</div>
+            <div class="small">ת.ז.: _______________________</div>
+            <div class="small">חתימה: ____________________</div>
+        </div>
+    </div>
+</div>`;
+}
+
+function appendixAvalGuarantee(d, signDateStr, signCity, promissoryNote) {
+    if (d.has_guarantors !== "yes") return "";
+    const tenantName = esc(d.tenant_name) || "—";
+    const tenantId = esc(d.tenant_id) || "—";
+    const landlordName = esc(d.landlord_name) || "—";
+    const landlordId = esc(d.landlord_id) || "—";
+    const propAddr = [d.property_street, d.property_city].filter(Boolean).map(esc).join(", ") || "—";
+    const guarantorsDetails = d.guarantors_details
+        ? esc(d.guarantors_details).replace(/\n/g, "<br>")
+        : "פרטי הערבים יושלמו במעמד החתימה";
+    return `
+<div class="appendix">
+    <div class="appendix-title">כתב ערבות אוואל</div>
+    <div class="appendix-subtitle">נספח ב' להסכם השכירות</div>
+    <p class="appendix-meta">נחתם ביום ${signDateStr}, בעיר ${esc(signCity)}</p>
+
+    <p class="recital"><strong>הואיל</strong> ו<strong>${tenantName}</strong>, ת.ז. <strong>${tenantId}</strong> (להלן: <strong>"השוכר"</strong>), חתם על הסכם שכירות ביום ${signDateStr} עם <strong>${landlordName}</strong>, ת.ז. <strong>${landlordId}</strong> (להלן: <strong>"המשכיר"</strong>), ביחס לדירה הנמצאת ב${propAddr} (להלן: <strong>"הסכם השכירות"</strong>);</p>
+
+    <p class="recital"><strong>והואיל</strong> ולהבטחת מילוי התחייבויות השוכר על פי הסכם השכירות, חתם השוכר על שטר חוב המצורף כנספח א' להסכם השכירות בסכום של <strong>${fmtNum(promissoryNote)} ₪</strong> (להלן: <strong>"שטר החוב"</strong>);</p>
+
+    <p class="recital"><strong>והואיל</strong> ובהתאם לסעיף הבטחונות בהסכם השכירות, נדרש כי שטר החוב יוחתם גם בידי ערבים בערבות אוואל;</p>
+
+    <p style="text-align:center;margin-top:14pt;"><strong>אי לכך, הוצהר, הוסכם והותנה כדלקמן:</strong></p>
+
+    <ol class="appendix-list">
+        <li>אנו, החתומים מטה (להלן: <strong>"הערבים"</strong>), ערבים בערבות אוואל מלאה, יחד ולחוד, להבטחת מילוי כל התחייבויות השוכר כלפי המשכיר על פי הסכם השכירות ועל פי שטר החוב, לרבות לפירעון מלוא סכום שטר החוב.</li>
+        <li>ערבות זו הינה ערבות בלתי מותנית, בלתי חוזרת ובלתי הדירה, והיא תעמוד בתוקף מלא במשך כל תקופת השכירות, ולמשך 60 יום נוספים לאחר תום תקופת השכירות, או עד למילוי מלא של התחייבויות השוכר — לפי המאוחר מבין השניים.</li>
+        <li>הערבים מוותרים מראש על כל דרישה מוקדמת מהשוכר ועל זכות הקדמה, והמשכיר רשאי לפנות לערבים, יחד או לחוד, ולדרוש מהם תשלום מלוא הסכום או חלקו מבלי שיפעל קודם נגד השוכר.</li>
+        <li>הערבים מאשרים כי קראו את הסכם השכירות ואת שטר החוב, ולא תעמוד להם כל טענה כנגד תוקפם או תוכנם.</li>
+        <li>חזרה מהערבות, פטור או שחרור הערבים — ולו חלקי — דורש הסכמה בכתב ומראש של המשכיר.</li>
+    </ol>
+
+    <p style="margin-top:14pt;"><strong>פרטי הערבים:</strong> ${guarantorsDetails}</p>
+
+    <div class="witness-row" style="margin-top:36pt;">
+        <div class="signature-block">
+            <div class="signature-line">ערב 1</div>
+            <div class="small">שם: _______________________</div>
+            <div class="small">ת.ז.: _______________________</div>
+            <div class="small">כתובת: _____________________</div>
+            <div class="small">טלפון: _____________________</div>
+            <div class="small">חתימה: ____________________</div>
+        </div>
+        <div class="signature-block">
+            <div class="signature-line">ערב 2</div>
+            <div class="small">שם: _______________________</div>
+            <div class="small">ת.ז.: _______________________</div>
+            <div class="small">כתובת: _____________________</div>
+            <div class="small">טלפון: _____________________</div>
+            <div class="small">חתימה: ____________________</div>
+        </div>
+    </div>
+</div>`;
+}
+
+function appendixFurnitureList(d, signDateStr, signCity) {
+    if (d.has_furniture !== "yes" && d.has_furniture !== "on" && d.has_furniture !== true) return "";
+    const tenantName = esc(d.tenant_name) || "—";
+    const landlordName = esc(d.landlord_name) || "—";
+    const list = (d.furniture_list || "").trim();
+    // Split by newline first; if no newlines, split by comma.
+    const items = list.includes("\n")
+        ? list.split(/\r?\n/).map(s => s.trim()).filter(Boolean)
+        : list.split(/,\s*/).map(s => s.trim()).filter(Boolean);
+    const minRows = 12;
+    const allItems = items.slice();
+    while (allItems.length < minRows) allItems.push("");
+    const rows = allItems.map((item, i) => `
+        <tr>
+            <td class="num">${i + 1}</td>
+            <td>${esc(item) || ""}</td>
+            <td></td>
+            <td></td>
+        </tr>`).join("");
+
+    return `
+<div class="appendix">
+    <div class="appendix-title">נספח ריהוט וציוד</div>
+    <div class="appendix-subtitle">נספח ${d.has_guarantors === "yes" ? "ג'" : "ב'"} להסכם השכירות</div>
+    <p class="appendix-meta">נחתם ביום ${signDateStr}, בעיר ${esc(signCity)}</p>
+
+    <p>במעמד מסירת הדירה לשוכר, מסר המשכיר לידי השוכר את הריהוט והציוד המפורטים להלן (להלן: <strong>"הציוד"</strong>), המהווים חלק בלתי נפרד מהמושכר על פי הסכם השכירות. הצדדים בדקו ביחד את הפריטים ואישרו את מצבם כפי שצוין לצד כל פריט.</p>
+
+    <table class="furniture-table">
+        <thead>
+            <tr>
+                <th style="width:5%;">#</th>
+                <th style="width:45%;">פריט / ציוד</th>
+                <th style="width:25%;">מצב במועד מסירה</th>
+                <th style="width:25%;">הערות</th>
+            </tr>
+        </thead>
+        <tbody>${rows}
+        </tbody>
+    </table>
+
+    <ol class="appendix-list" style="margin-top:14pt;">
+        <li>השוכר מצהיר כי בדק את הציוד, מצא אותו במצב טוב ותקין כפי שצוין לעיל, ואחראי לשמירתו ולתחזוקתו במהלך כל תקופת השכירות.</li>
+        <li>בתום תקופת השכירות, ימסור השוכר את הציוד למשכיר במצב טוב ותקין כפי שקיבל אותו, פרט לבלאי סביר משימוש ראוי. נזק או חוסר בפריט כלשהו ייחשב כנזק לדירה לכל דבר ועניין.</li>
+        <li>נספח זה ישמש כפרוטוקול מסירה מחייב ויהווה את הבסיס להשוואה במועד החזרת המושכר.</li>
+    </ol>
+
+    <div class="signature-row" style="margin-top:36pt;">
+        <div class="signature-block" style="text-align:center;">
+            <div class="signature-line">חתימת המשכיר</div>
+            <div class="small">${landlordName}</div>
+            <div class="small">תאריך: ${signDateStr}</div>
+        </div>
+        <div class="signature-block" style="text-align:center;">
+            <div class="signature-line">חתימת השוכר</div>
+            <div class="small">${tenantName}</div>
+            <div class="small">תאריך: ${signDateStr}</div>
+        </div>
+    </div>
+</div>`;
 }
 
 export function renderRentalAgreementHtml(order) {
@@ -259,6 +471,102 @@ export function renderRentalAgreementHtml(order) {
             padding-top: 6pt;
         }
         .small { font-size: 9pt; color: #555; }
+
+        /* ===== Appendices ===== */
+        .appendix {
+            page-break-before: always;
+            counter-reset: appendix-clause;
+        }
+        .appendix-title {
+            text-align: center;
+            font-family: 'David Libre', 'David', serif;
+            font-size: 19pt;
+            font-weight: 700;
+            color: #5a3d20;
+            margin: 12pt 0 6pt;
+            letter-spacing: 0.04em;
+        }
+        .appendix-subtitle {
+            text-align: center;
+            font-size: 11pt;
+            color: #7a5c3e;
+            margin-bottom: 4pt;
+        }
+        .appendix-meta {
+            text-align: center;
+            font-size: 10pt;
+            color: #555;
+            margin-bottom: 24pt;
+        }
+        .appendix-section-title {
+            font-family: 'David Libre', 'David', serif;
+            font-size: 12pt;
+            font-weight: 700;
+            color: #5a3d20;
+            text-align: right;
+            margin: 16pt 0 6pt;
+        }
+        .appendix p { margin: 6pt 0; }
+        ol.appendix-list {
+            list-style: none;
+            padding-right: 0;
+            margin: 6pt 0;
+        }
+        ol.appendix-list > li {
+            counter-increment: appendix-clause;
+            margin: 6pt 0;
+            padding-right: 1.8em;
+            text-indent: -1.8em;
+        }
+        ol.appendix-list > li::before {
+            content: counter(appendix-clause) ". ";
+            font-weight: 700;
+            color: #5a3d20;
+            margin-left: 4pt;
+        }
+        .signature-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 30pt;
+            page-break-inside: avoid;
+        }
+        .signature-block {
+            flex: 1;
+        }
+        .signature-line {
+            border-top: 1px solid #1a1a1a;
+            margin-top: 36pt;
+            padding-top: 4pt;
+            text-align: center;
+            font-weight: 700;
+        }
+        .witness-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 30pt;
+            page-break-inside: avoid;
+        }
+        table.furniture-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12pt 0 14pt;
+            font-size: 10pt;
+        }
+        table.furniture-table th, table.furniture-table td {
+            border: 1px solid #c8b89a;
+            padding: 6pt 8pt;
+            text-align: right;
+            vertical-align: top;
+        }
+        table.furniture-table th {
+            background: #faf6f0;
+            font-weight: 700;
+            color: #5a3d20;
+        }
+        table.furniture-table td.num {
+            text-align: center;
+            color: #777;
+        }
     </style>
 </head>
 <body>
@@ -334,21 +642,27 @@ ${paymentTermsBlock(d, monthlyRent, leaseMonths)}
 <ol class="clauses">
     <li>השוכר מצהיר כי ראה את המושכר, בדק אותו היטב, ומצא אותו מתאים למטרותיו וראוי למגורים. השוכר מוותר על כל טענה ו/או תביעה בגין אי התאמה כלשהי, ורק בשל הצהרתו זו הסכים המשכיר להתקשר עמו בהסכם השכירות.</li>
     <li>השימוש בדירה ובתכולתה ייעשה באופן זהיר וסביר. השוכר ידאג לשלמותה וניקיונה וימנע מביצוע כל קלקול או נזק בה.</li>
-    <li>השוכר אחראי לכל נזק, אובדן או קלקול שייגרמו לדירה ולכל הקשור והמחובר אליה כתוצאה מרשלנותו ו/או בזדון על ידו ו/או ע"י מי מטעמו ו/או מי מאורחיו ו/או מבקריו, ולמעט נזק, אובדן או קלקול הנגרמו עקב פגם נסתר.</li>
-    <li>השוכר יתקן כל נזק, אובדן או קלקול כאמור על חשבונו בתוך זמן סביר ממועד קרותם או התגלותם, ויודיע למשכיר על כל נזק כאמור.</li>
-    <li>השוכר יאפשר למשכיר לבצע כל פעולה ו/או תיקון ו/או טיפול במושכר, ולאפשר לבעלי מקצוע מטעם המשכיר להיכנס למושכר לצורך אחזקתו ו/או בדיקתו, תוך תיאום מראש עם השוכר. בנסיבות קיצוניות שבהן לא יתאפשר ליצור קשר עם השוכר, יוכל המשכיר להיכנס לדירה ללא תיאום, ובלבד שיעדכן את השוכר מייד שניתן יהיה לעשות זאת.</li>
-    <li>השוכר לא יערוך או יבצע כל שינוי, פנימי או חיצוני, בדירה או חלק הימנה ללא הסכמת המשכיר בכתב ומראש. כל שינוי או תוספת — אם יותרו — יהיו רכוש המשכיר והשוכר לא יהיה רשאי לפרקם או לתבוע תמורה עבורם.</li>
-    <li>השוכר ישמור על יחסי שכנות תקינים, ישמור על שקט, ולא יפריע בכל צורה שהיא לשכנים בבניין בו מצויה הדירה.</li>
+    <li>השוכר אחראי לכל נזק, אובדן או קלקול שייגרמו לדירה ולכל הקשור והמחובר אליה כתוצאה מרשלנותו ו/או בזדון על ידו ו/או ע"י מי מטעמו ו/או מי מאורחיו ו/או מבקריו, ולמעט נזק, אובדן או קלקול הנגרמו עקב פגם נסתר או בלאי סביר משימוש ראוי.</li>
+    <li>השוכר יתקן כל נזק, אובדן או קלקול כאמור על חשבונו בתוך זמן סביר ממועד קרותם או התגלותם, ויודיע למשכיר בכתב על כל נזק או תקלה בתוך 7 ימים ממועד התגלותם.</li>
+    <li>השוכר יאפשר למשכיר לבצע כל פעולה ו/או תיקון ו/או טיפול במושכר, ולאפשר לבעלי מקצוע מטעם המשכיר להיכנס למושכר לצורך אחזקתו ו/או בדיקתו, תוך תיאום מראש עם השוכר ובמועדים ובשעות סבירות. בנסיבות חירום (כגון נזילה, דליפת גז או שריפה) שבהן לא יתאפשר ליצור קשר עם השוכר, יוכל המשכיר להיכנס לדירה ללא תיאום, ובלבד שיעדכן את השוכר מייד שניתן יהיה לעשות זאת.</li>
+    <li>השוכר לא יערוך או יבצע כל שינוי, פנימי או חיצוני, בדירה או חלק הימנה (לרבות צביעה בצבע שאינו לבן, התקנת מתקנים, פתיחת קירות, שינוי תשתיות), ללא הסכמת המשכיר בכתב ומראש. כל שינוי או תוספת — אם יותרו — יהיו רכוש המשכיר, והשוכר לא יהיה רשאי לפרקם, להוציאם או לתבוע תמורה עבורם.</li>
+    <li><strong>איסור העברה ושכירות משנה</strong>: השוכר לא יהא רשאי להעביר, להמחות, להסב או להשכיר את הדירה או חלק ממנה לצד שלישי כלשהו, ולא לאפשר לאחרים להחזיק בדירה או חלק ממנה, ללא הסכמת המשכיר בכתב ומראש. הפרת התחייבות זו תהווה הפרה יסודית של הסכם זה.</li>
+    <li><strong>אורחים מזדמנים ושוהים מתמשכים</strong>: שהותם של אורחים מזדמנים בדירה לפרקי זמן קצרים מותרת. ואולם, שהות של אדם נוסף שאינו צד להסכם זה הנמשכת מעבר ל-30 ימים רצופים, מחייבת הודעה מראש למשכיר ואת הסכמתו בכתב.</li>
+    <li><strong>בעלי חיים</strong>: השוכר לא יחזיק בדירה בעלי חיים מכל סוג, ללא הסכמת המשכיר בכתב ומראש. ניתנה הסכמה — אחראי השוכר לכל נזק שייגרם על ידי בעל החיים, ולניקיון יסודי של הדירה בתום השכירות.</li>
+    <li><strong>איסור עישון</strong>: השוכר מתחייב כי לא יעשן בתוך הדירה ולא ירשה לאחרים לעשן בה. עישון על מרפסת או חלל פתוח של הדירה ייעשה תוך התחשבות בשכנים ובהוראות הדין.</li>
+    <li>השוכר לא ישכפל את מפתחות הדירה ולא ימסור עותק לצד שלישי כלשהו, למעט בני משפחתו הגרים עמו דרך קבע. בתום השכירות יחזיר השוכר את כל המפתחות שנמסרו לו.</li>
+    <li>השוכר ישמור על יחסי שכנות תקינים, ישמור על שקט, ולא יפריע בכל צורה שהיא לשכנים בבניין בו מצויה הדירה. השוכר יקפיד על כללי בית משותף ועל הוראות הדין בעניין רעש ושעות מנוחה.</li>
     <li>השוכר יקיים את כל הוראות החוק, התקנות וחוקי העזר העירוניים בקשר למטרת השימוש בדירה ולאחזקתה. השוכר יהיה אחראי לשפות ולפצות את המשכיר בגין כל נזק או הוצאה שייגרמו לו עקב הפרת התחייבות זו.</li>
 </ol>
 
 <h2>אחריות וביטוח</h2>
 <p class="clause">המשכיר וכל הפועל בשמו או מטעמו לא יישאו בכל אחריות ובכל חבות לגבי כל נזק לרכוש ו/או לגוף שייגרם לשוכר ו/או לכל אדם שיימצא בדירה ובבניין, אשר ינבעו משימוש ו/או החזקה של השוכר במושכר, ובלבד שאין מדובר בנזק הנובע מפגם ו/או מום נסתר ו/או בשל המבנה עצמו. השוכר נוטל על עצמו את מלוא האחריות והסיכון בגין כל נזק כאמור, ומתחייב לפצות ולשפות את המשכיר בגין כל דמי נזק שיחויב בתשלומם וכנגד כל הוצאות שיוציא המשכיר בגין נזק כאמור. סעיף זה הינו יסודי בהסכם זה.</p>
-<p class="clause">על אף כל האמור לעיל, האחריות והתשלום לתיקון נזקים או תקלות בתשתיות האינסטלציה ו/או החשמל, וכן לתיקון נזק ו/או תקלה הנובעת משימוש סביר ומבלאי סביר במושכר — שאינו ממעשה זדון או מחדל של השוכר — תחול על המשכיר, והוא מתחייב לתקנם תוך זמן סביר מקבלת הודעת השוכר על כך.</p>
-<p class="clause">השוכר מתחייב לרכוש על חשבונו פוליסת ביטוח תכולה וצדדי ג' (נזקים לגוף ולרכוש של צדדי ג'), ובהתאם לדרישת המשכיר להמציא אליו עותק מהפוליסה.</p>
+<p class="clause">על אף כל האמור לעיל, האחריות והתשלום לתיקון נזקים או תקלות בתשתיות האינסטלציה, החשמל והגז, וכן לתיקון נזק ו/או תקלה הנובעת משימוש סביר ומבלאי סביר במושכר — שאינו ממעשה זדון או מחדל של השוכר — תחול על המשכיר, והוא מתחייב לתקנם תוך זמן סביר ולא יאוחר מ-14 ימים מקבלת הודעת השוכר על כך, ובמקרי חירום (דליפה, חוסר מים, חוסר חשמל) — תוך זמן סביר ובדחיפות המתחייבת מהנסיבות.</p>
+<p class="clause">השוכר מתחייב לרכוש על חשבונו, בתוך 30 ימים ממסירת הדירה, פוליסת ביטוח תכולה וצדדי ג' (נזקים לגוף ולרכוש של צדדי ג'), בסכומי כיסוי סבירים ובכל מקרה לא פחות מ-50,000 ₪ לכיסוי תכולה ו-1,000,000 ₪ לכיסוי צד ג', ולהמציא למשכיר העתק מהפוליסה לפי דרישתו.</p>
 
 <h2>תום תקופת השכירות ופינוי המושכר</h2>
 <p class="clause">עם תום תקופת השכירות מתחייב השוכר להחזיר למשכיר את הדירה ותכולתה כשהיא נקיה, מסודרת, פנויה מכל אדם וחפץ, במצב טוב ותקין כפי שקיבלה — פרט לבלאי סביר. אחרת יהיה המשכיר רשאי לתקן ולנקות את הטעון ניקוי, סיוד או תיקון על חשבון השוכר.</p>
+<p class="clause"><strong>פרוטוקול מסירה והחזרה</strong>: במעמד מסירת הדירה לשוכר ובמעמד החזרתה למשכיר ייערך פרוטוקול בכתב, חתום בידי שני הצדדים, המתעד את מצב הדירה ואת הציוד הקיים בה (ככל שמסופק ריהוט — בהתאם לנספח הריהוט המצורף). הפרוטוקול ישמש כבסיס להשוואה בעניין נזקים או חוסר בפריטים בתום השכירות.</p>
 <p class="clause">בכל מקרה של איחור בפינוי הדירה עם תום תקופת השכירות, ישלם השוכר למשכיר פיצויים מוסכמים בסך של <strong>${fmtNum(latePenalty)} ₪</strong> בגין כל יום של איחור במסירה, וזאת כדמי פיצוי מוסכמים שאינם טעונים הוכחה ומבלי לפגוע בזכותו של המשכיר לתבוע כל סעד ו/או פיצוי אחר.</p>
 <p class="clause">בנוסף, מבלי לפגוע בכלליות האמור, בכל מקרה שבו יפוג תוקפו של הסכם זה והשוכר יסרב לפנות את הדירה, יהיה המשכיר רשאי לתבוע פינוי, ולצורך זה יהיה המשכיר ו/או ב"כ רשאי להיכנס לדירה ולתפוס בה החזקה, אף ללא נטילת רשות השוכר. השוכר מוסר בזאת בעצם חתימתו על הסכם זה ייפוי כוח והרשאה למשכיר לבצע את האמור.</p>
 <p class="clause">המשכיר מתחייב להודיע לשוכר מראש ובכתב על כל הפרה ולאפשר לשוכר לתקן את ההפרה בתוך 14 ימים מיום שקיבל הודעה על כך, וזאת בטרם שיפעל למימוש זכויותיו עפ"י הסכם זה ו/או עפ"י כל דין.</p>
@@ -387,6 +701,10 @@ ${guarantorsBlock(d, promissoryNote)}
     הסכם זה הופק באופן דיגיטלי בפלטפורמת המוצרים הדיגיטליים של עשור ושות׳ — עורכי דין.<br>
     מס׳ הזמנה: ${esc(orderId)} · נוצר: ${signDateStr}
 </p>
+
+${appendixPromissoryNote(d, signDateStr, signCity, promissoryNote)}
+${appendixAvalGuarantee(d, signDateStr, signCity, promissoryNote)}
+${appendixFurnitureList(d, signDateStr, signCity)}
 
 </body>
 </html>`;
