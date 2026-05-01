@@ -204,20 +204,15 @@ export async function generateCustomerDeliverable(order, env) {
 
     const html = renderRentalAgreementHtml(order);
 
-    // Per-page footer: signature lines for both parties + page number.
-    // Lines sit ABOVE the labels (משכיר / שוכר) — that's where parties sign / initial.
+    // Per-page footer: discrete initial-lines + page number, in small text.
     // Note: footerTemplate is sandboxed — inline styles required, no scripts.
     const footerTemplate = `
-        <div style="width:100%;font-family:'David Libre','David',serif;direction:rtl;padding:0 2cm;box-sizing:border-box;color:#1a1a1a;">
-            <div style="display:flex;justify-content:space-between;gap:2cm;">
-                <div style="flex:1;text-align:center;">
-                    <div style="border-top:1px solid #1a1a1a;padding-top:1mm;font-size:10pt;">המשכיר</div>
-                </div>
-                <div style="flex:1;text-align:center;">
-                    <div style="border-top:1px solid #1a1a1a;padding-top:1mm;font-size:10pt;">השוכר</div>
-                </div>
+        <div style="width:100%;font-family:'David Libre','David',serif;direction:rtl;padding:0 2cm;box-sizing:border-box;color:#777;font-size:8pt;">
+            <div style="display:flex;justify-content:space-between;">
+                <div>ר"ת משכיר _________</div>
+                <div>ר"ת שוכר _________</div>
             </div>
-            <div style="text-align:center;margin-top:2mm;font-size:8.5pt;color:#777;">
+            <div style="text-align:center;margin-top:1.5mm;color:#999;font-size:8pt;">
                 עמוד <span class="pageNumber"></span> מתוך <span class="totalPages"></span>
             </div>
         </div>`;

@@ -68,9 +68,9 @@ function paymentTermsBlock(d, monthlyRent, leaseMonths) {
 
 function furnitureRecital(d) {
     if (d.has_furniture && (d.has_furniture === "yes" || d.has_furniture === "on" || d.has_furniture === true)) {
-        const list = d.furniture_list ? esc(d.furniture_list).replace(/\n/g, "<br>") : "כמפורט בנספח א'";
+        const apxLetter = d.has_guarantors === "yes" ? "ג'" : "ב'";
         return `
-            <p class="recital"><strong>והואיל</strong> והמשכיר משאיר בדירה חפצים ופריטי ריהוט (${list}) המהווים חלק בלתי נפרד מהסכם זה. בכל פעם שיוזכר המונח "דירה" או "מושכר" הרי שהכוונה היא לדירה ביחד עם החפצים. (להלן: <strong>"החפצים"</strong>);</p>`;
+            <p class="recital"><strong>והואיל</strong> והמשכיר משאיר בדירה חפצים ופריטי ריהוט המפורטים בנספח ${apxLetter} להסכם זה והמהווים חלק בלתי נפרד הימנו, ובכל פעם שיוזכר המונח "דירה" או "מושכר" הרי שהכוונה היא לדירה ביחד עם החפצים (להלן: <strong>"החפצים"</strong>);</p>`;
     }
     return "";
 }
@@ -187,56 +187,63 @@ function appendixPromissoryNote(d, signDateStr, signCity, promissoryNote) {
 </div>`;
 }
 
-function appendixAvalGuarantee(d, signDateStr, signCity, promissoryNote) {
+function appendixAvalGuarantee(d, signDateStr, signCity, promissoryNote, leaseStart, leaseEnd, monthlyRent, leaseMonths) {
     if (d.has_guarantors !== "yes") return "";
     const tenantName = esc(d.tenant_name) || "—";
     const tenantId = esc(d.tenant_id) || "—";
     const landlordName = esc(d.landlord_name) || "—";
     const landlordId = esc(d.landlord_id) || "—";
     const propAddr = [d.property_street, d.property_city].filter(Boolean).map(esc).join(", ") || "—";
-    const guarantorsDetails = d.guarantors_details
-        ? esc(d.guarantors_details).replace(/\n/g, "<br>")
-        : "פרטי הערבים יושלמו במעמד החתימה";
+    const amountWords = numberToHebrewWords(promissoryNote);
     return `
 <div class="appendix">
-    <div class="appendix-title">כתב ערבות אוואל</div>
+    <div class="appendix-title">כתב ערבות אוואל אישית וספציפית</div>
     <div class="appendix-subtitle">נספח ב' להסכם השכירות</div>
     <p class="appendix-meta">נחתם ביום ${signDateStr}, בעיר ${esc(signCity)}</p>
 
-    <p class="recital"><strong>הואיל</strong> ו<strong>${tenantName}</strong>, ת.ז. <strong>${tenantId}</strong> (להלן: <strong>"השוכר"</strong>), חתם על הסכם שכירות ביום ${signDateStr} עם <strong>${landlordName}</strong>, ת.ז. <strong>${landlordId}</strong> (להלן: <strong>"המשכיר"</strong>), ביחס לדירה הנמצאת ב${propAddr} (להלן: <strong>"הסכם השכירות"</strong>);</p>
+    <p style="text-align:center;font-size:11pt;color:#5a3d20;margin-bottom:14pt;"><strong>ערבות זו הינה אישית וספציפית — כל ערב חתום לחוד וביחד עם הערב/ים האחר/ים, להבטחת התחייבויות השוכר המפורטות בהסכם השכירות הספציפי הנקוב בכתב ערבות זה.</strong></p>
 
-    <p class="recital"><strong>והואיל</strong> ולהבטחת מילוי התחייבויות השוכר על פי הסכם השכירות, חתם השוכר על שטר חוב המצורף כנספח א' להסכם השכירות בסכום של <strong>${fmtNum(promissoryNote)} ₪</strong> (להלן: <strong>"שטר החוב"</strong>);</p>
+    <p class="recital"><strong>הואיל</strong> ו<strong>${tenantName}</strong>, ת.ז. <strong>${tenantId}</strong> (להלן: <strong>"השוכר"</strong>), חתם ביום ${signDateStr} על הסכם שכירות עם <strong>${landlordName}</strong>, ת.ז. <strong>${landlordId}</strong> (להלן: <strong>"המשכיר"</strong>), ביחס לדירה הנמצאת ב${propAddr} (להלן: <strong>"הסכם השכירות"</strong> ו<strong>"הדירה"</strong>, בהתאמה);</p>
 
-    <p class="recital"><strong>והואיל</strong> ובהתאם לסעיף הבטחונות בהסכם השכירות, נדרש כי שטר החוב יוחתם גם בידי ערבים בערבות אוואל;</p>
+    <p class="recital"><strong>והואיל</strong> ועל פי הסכם השכירות, תקופת השכירות הינה ${esc(leaseMonths || "—")} חודשים, החל מיום ${fmtDate(leaseStart)} ועד ${leaseEnd ? fmtDate(leaseEnd) : "—"}, ודמי השכירות החודשיים בסך <strong>${fmtNum(monthlyRent)} ₪</strong>;</p>
+
+    <p class="recital"><strong>והואיל</strong> ולהבטחת מילוי התחייבויות השוכר על פי הסכם השכירות, חתם השוכר על שטר חוב המצורף כנספח א' להסכם השכירות בסך של <strong>${fmtNum(promissoryNote)} ₪</strong>${amountWords ? ` (${amountWords} שקלים חדשים)` : ""} (להלן: <strong>"שטר החוב"</strong>);</p>
+
+    <p class="recital"><strong>והואיל</strong> והערבים החתומים מטה הם בני משפחה ו/או מקורבים של השוכר, מבקשים לערוב באופן אישי וספציפי לכל התחייבויותיו של השוכר, וזאת לאחר שעיינו בעיון בהסכם השכירות ובשטר החוב והבינו את היקף ההתחייבות הנובעת מערבות זו;</p>
 
     <p style="text-align:center;margin-top:14pt;"><strong>אי לכך, הוצהר, הוסכם והותנה כדלקמן:</strong></p>
 
     <ol class="appendix-list">
-        <li>אנו, החתומים מטה (להלן: <strong>"הערבים"</strong>), ערבים בערבות אוואל מלאה, יחד ולחוד, להבטחת מילוי כל התחייבויות השוכר כלפי המשכיר על פי הסכם השכירות ועל פי שטר החוב, לרבות לפירעון מלוא סכום שטר החוב.</li>
-        <li>ערבות זו הינה ערבות בלתי מותנית, בלתי חוזרת ובלתי הדירה, והיא תעמוד בתוקף מלא במשך כל תקופת השכירות, ולמשך 60 יום נוספים לאחר תום תקופת השכירות, או עד למילוי מלא של התחייבויות השוכר — לפי המאוחר מבין השניים.</li>
-        <li>הערבים מוותרים מראש על כל דרישה מוקדמת מהשוכר ועל זכות הקדמה, והמשכיר רשאי לפנות לערבים, יחד או לחוד, ולדרוש מהם תשלום מלוא הסכום או חלקו מבלי שיפעל קודם נגד השוכר.</li>
-        <li>הערבים מאשרים כי קראו את הסכם השכירות ואת שטר החוב, ולא תעמוד להם כל טענה כנגד תוקפם או תוכנם.</li>
-        <li>חזרה מהערבות, פטור או שחרור הערבים — ולו חלקי — דורש הסכמה בכתב ומראש של המשכיר.</li>
+        <li>הערבים החתומים מטה ערבים בערבות אוואל אישית, מלאה ובלתי חוזרת, ביחד ולחוד, להבטחת מילוי כל התחייבויות השוכר כלפי המשכיר על פי הסכם השכירות ועל פי שטר החוב, לרבות פירעון מלוא סכום שטר החוב, תשלום דמי שכירות, פיצויים מוסכמים, נזקים ופינוי הדירה.</li>
+        <li>ערבות זו הינה ערבות עצמאית, נפרדת ובלתי תלויה לכל ערב — ולכל ערב מוסבת אחריות אישית מלאה לכלל סכום שטר החוב ולכלל התחייבויות השוכר, ללא קשר לחתימת ערב נוסף ולמעמדו של ערב נוסף. בטלות ערבות של ערב אחד לא תפגע בתוקף ערבותם של האחרים.</li>
+        <li>ערבות זו ספציפית להסכם השכירות הנקוב בכתב זה ולא ניתנת להחלה על הסכם אחר. שינויים מהותיים בהסכם השכירות הנעשים ללא הסכמת הערבים בכתב — ולמעט ארכות והקלות זמניות לטובת השוכר — יביאו לפקיעת הערבות.</li>
+        <li>הערבות תעמוד בתוקף מלא במשך כל תקופת השכירות, ולמשך 90 ימים נוספים לאחר תום תקופת השכירות או לאחר פינוי הדירה — לפי המאוחר — או עד למילוי מלא של כל התחייבויות השוכר.</li>
+        <li>הערבים מוותרים מראש על כל זכות קדמה ועל הדרישה כי המשכיר ינקוט תחילה הליכים נגד השוכר. המשכיר רשאי לפנות לערבים — יחד או לחוד — ולדרוש את מלוא הסכום או כל חלק ממנו, אף בלא דרישה מוקדמת מהשוכר ובלא לפעול תחילה למימוש בטוחות אחרות.</li>
+        <li>הערבים מצהירים כי כושרם המשפטי מלא, כי לא מצויים בחדלות פירעון או בהליך פש"ר, וכי בידיהם מלוא היכולת הכלכלית לעמוד בהתחייבות זו.</li>
+        <li>חזרה, ביטול, פטור או שחרור הערבים — ולו חלקי — תקף אך ורק במסמך בכתב חתום על ידי המשכיר. שתיקה, אי דרישה או ארכות לשוכר אינן מהוות ויתור על זכויות המשכיר כלפי הערבים.</li>
+        <li>סמכות השיפוט הבלעדית בכל סכסוך הנובע מערבות זו תהיה בבית המשפט המוסמך באזור הנכס.</li>
     </ol>
 
-    <p style="margin-top:14pt;"><strong>פרטי הערבים:</strong> ${guarantorsDetails}</p>
+    <p style="margin-top:14pt;color:#5a3d20;"><strong>הצהרת הערבים:</strong> אנו, החתומים מטה, מצהירים כי קראנו והבנו את האמור בערבות זו, את הסכם השכירות ואת שטר החוב, וכי חתימתנו ניתנת מרצוננו החופשי וללא כל לחץ.</p>
 
-    <div class="witness-row" style="margin-top:36pt;">
+    <div class="witness-row" style="margin-top:30pt;">
         <div class="signature-block">
-            <div class="signature-line">ערב 1</div>
-            <div class="small">שם: _______________________</div>
+            <div class="signature-line">ערב 1 (אישית וספציפית)</div>
+            <div class="small">שם מלא: _______________________</div>
             <div class="small">ת.ז.: _______________________</div>
             <div class="small">כתובת: _____________________</div>
             <div class="small">טלפון: _____________________</div>
             <div class="small">חתימה: ____________________</div>
+            <div class="small">תאריך: ${signDateStr}</div>
         </div>
         <div class="signature-block">
-            <div class="signature-line">ערב 2</div>
-            <div class="small">שם: _______________________</div>
+            <div class="signature-line">ערב 2 (אישית וספציפית)</div>
+            <div class="small">שם מלא: _______________________</div>
             <div class="small">ת.ז.: _______________________</div>
             <div class="small">כתובת: _____________________</div>
             <div class="small">טלפון: _____________________</div>
             <div class="small">חתימה: ____________________</div>
+            <div class="small">תאריך: ${signDateStr}</div>
         </div>
     </div>
 </div>`;
@@ -409,6 +416,15 @@ export function renderRentalAgreementHtml(order) {
         }
         .recital {
             margin: 6pt 0;
+            padding-right: 4.5em;
+        }
+        .recital > strong:first-child {
+            display: inline-block;
+            width: 4.5em;
+            margin-right: -4.5em;
+            vertical-align: baseline;
+            color: #5a3d20;
+            font-weight: 700;
         }
         .meta {
             text-align: center;
@@ -437,8 +453,7 @@ export function renderRentalAgreementHtml(order) {
             margin-top: 6pt;
         }
         .party-aka strong { color: #1a1a1a; font-weight: 700; }
-        .recital { margin: 6pt 0; padding-right: 0; }
-        .recital strong { color: #5a3d20; margin-left: 4pt; }
+        .recital strong { color: #5a3d20; }
         .clause { margin: 6pt 0; }
         .signatures {
             margin-top: 36pt;
@@ -703,7 +718,7 @@ ${guarantorsBlock(d, promissoryNote)}
 </p>
 
 ${appendixPromissoryNote(d, signDateStr, signCity, promissoryNote)}
-${appendixAvalGuarantee(d, signDateStr, signCity, promissoryNote)}
+${appendixAvalGuarantee(d, signDateStr, signCity, promissoryNote, leaseStart, leaseEnd, monthlyRent, leaseMonths)}
 ${appendixFurnitureList(d, signDateStr, signCity)}
 
 </body>
