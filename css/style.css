@@ -3638,3 +3638,62 @@ body.a11y-stop-animations *::after {
 @media (max-width: 600px) {
     .footer-legal-links { gap: 12px; font-size: 0.82rem; }
 }
+
+/* ===== About section: pillars (Knowledge · Experience · Determined Representation) ===== */
+.about-pillars {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    padding: 14px 24px;
+    background: rgba(184, 148, 63, 0.08);
+    border: 1px solid rgba(184, 148, 63, 0.32);
+    border-radius: 999px;
+    width: fit-content;
+    margin-inline: auto;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+}
+
+.about-pillar {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #fff;
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.about-pillar-icon {
+    width: 24px;
+    height: 24px;
+    color: var(--gold-light);
+    flex-shrink: 0;
+}
+
+.about-pillar-text {
+    color: #fff;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
+}
+
+.about-pillar-divider {
+    width: 1px;
+    height: 22px;
+    background: linear-gradient(to bottom, transparent, rgba(184, 148, 63, 0.6), transparent);
+    flex-shrink: 0;
+}
+
+@media (max-width: 700px) {
+    .about-pillars {
+        gap: 14px;
+        padding: 12px 18px;
+        border-radius: 16px;
+    }
+    .about-pillar { font-size: 0.98rem; gap: 8px; }
+    .about-pillar-icon { width: 20px; height: 20px; }
+    .about-pillar-divider { height: 18px; }
+}
