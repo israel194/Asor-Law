@@ -11,7 +11,7 @@ import { withVat } from "./vat.js";
 
 export const id = "rental-agreement";
 export const name = "הסכם שכירות דירת מגורים";
-export const priceBeforeVat = 500;
+export const priceBeforeVat = 499;
 export const priceIls = withVat(priceBeforeVat);
 
 const PAYMENT_METHODS = {
