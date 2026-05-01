@@ -204,19 +204,17 @@ export async function generateCustomerDeliverable(order, env) {
 
     const html = renderRentalAgreementHtml(order);
 
-    // Per-page footer: initial-lines for both parties + page number.
-    // This is for ראשי תיבות on every page (Israeli legal practice — confirms
-    // the party read each page). The full, prominent signatures live in the
-    // body of the document on the last page.
+    // Per-page footer: signature lines for both parties + page number.
+    // Lines sit ABOVE the labels (משכיר / שוכר) — that's where parties sign / initial.
     // Note: footerTemplate is sandboxed — inline styles required, no scripts.
     const footerTemplate = `
         <div style="width:100%;font-family:'David Libre','David',serif;direction:rtl;padding:0 2cm;box-sizing:border-box;color:#1a1a1a;">
             <div style="display:flex;justify-content:space-between;gap:2cm;">
                 <div style="flex:1;text-align:center;">
-                    <div style="border-top:1px solid #1a1a1a;padding-top:1mm;font-size:9pt;">ראשי תיבות <strong>המשכיר</strong></div>
+                    <div style="border-top:1px solid #1a1a1a;padding-top:1mm;font-size:10pt;">המשכיר</div>
                 </div>
                 <div style="flex:1;text-align:center;">
-                    <div style="border-top:1px solid #1a1a1a;padding-top:1mm;font-size:9pt;">ראשי תיבות <strong>השוכר</strong></div>
+                    <div style="border-top:1px solid #1a1a1a;padding-top:1mm;font-size:10pt;">השוכר</div>
                 </div>
             </div>
             <div style="text-align:center;margin-top:2mm;font-size:8.5pt;color:#777;">

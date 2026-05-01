@@ -70,7 +70,7 @@ function furnitureRecital(d) {
     if (d.has_furniture && (d.has_furniture === "yes" || d.has_furniture === "on" || d.has_furniture === true)) {
         const list = d.furniture_list ? esc(d.furniture_list).replace(/\n/g, "<br>") : "כמפורט בנספח א'";
         return `
-            <p class="recital"><strong>והואיל</strong> והמשכיר משאיר בדירה חפצים ופריטי ריהוט (${list}) המהווים חלק בלתי נפרד מהסכם זה. בכל פעם שיוזכר המונח "דירה" או "מושכר" הרי שהכוונה היא לדירה ביחד עם החפצים. (להלן: "החפצים");</p>`;
+            <p class="recital"><strong>והואיל</strong> והמשכיר משאיר בדירה חפצים ופריטי ריהוט (${list}) המהווים חלק בלתי נפרד מהסכם זה. בכל פעם שיוזכר המונח "דירה" או "מושכר" הרי שהכוונה היא לדירה ביחד עם החפצים. (להלן: <strong>"החפצים"</strong>);</p>`;
     }
     return "";
 }
@@ -237,7 +237,7 @@ export function renderRentalAgreementHtml(order) {
     <p><strong>${esc(d.landlord_name)}</strong> &nbsp;·&nbsp; ת.ז.: <strong>${esc(d.landlord_id)}</strong></p>
     <p>כתובת: ${landlordAddress || "—"}</p>
     <p>טלפון: ${esc(d.landlord_phone)} &nbsp;·&nbsp; דוא"ל: ${esc(d.landlord_email)}</p>
-    <p class="party-aka">(להלן: "<strong>המשכיר</strong>")</p>
+    <p class="party-aka">(להלן: <strong>"המשכיר"</strong>)</p>
 </div>
 
 <div class="party-block">
@@ -245,12 +245,10 @@ export function renderRentalAgreementHtml(order) {
     <p><strong>${esc(d.tenant_name)}</strong> &nbsp;·&nbsp; ת.ז.: <strong>${esc(d.tenant_id)}</strong></p>
     <p>כתובת: ${tenantAddress || "—"}</p>
     <p>טלפון: ${esc(d.tenant_phone)} &nbsp;·&nbsp; דוא"ל: ${esc(d.tenant_email)}</p>
-    <p class="party-aka">(להלן: "<strong>השוכר</strong>")</p>
+    <p class="party-aka">(להלן: <strong>"השוכר"</strong>)</p>
 </div>
 
-<h2>הואיל</h2>
-
-<p class="recital"><strong>והואיל</strong> והמשכיר הינו הבעלים של דירת מגורים הכוללת ${esc(d.property_bedrooms || "—")} חדרי שינה, ${esc(d.property_bathrooms || "—")} שירותים ו-${esc(d.property_showers || "—")} מקלחות, הנמצאת ברחוב ${esc(d.property_street || "—")}, ${esc(d.property_city || "—")}${d.property_neighborhood ? ", בשכונת " + esc(d.property_neighborhood) : ""}, והידועה כגוש: ${esc(d.property_block || "—")} חלקה: ${esc(d.property_parcel || "—")}${d.property_subparcel ? " ת״ח: " + esc(d.property_subparcel) : ""} (להלן: "הדירה" ו/או "המושכר");</p>
+<p class="recital" style="margin-top:14pt;"><strong>והואיל</strong> והמשכיר הינו הבעלים של דירת מגורים הכוללת ${esc(d.property_bedrooms || "—")} חדרי שינה, ${esc(d.property_bathrooms || "—")} שירותים ו-${esc(d.property_showers || "—")} מקלחות, הנמצאת ברחוב ${esc(d.property_street || "—")}, ${esc(d.property_city || "—")}${d.property_neighborhood ? ", בשכונת " + esc(d.property_neighborhood) : ""}, והידועה כגוש: ${esc(d.property_block || "—")} חלקה: ${esc(d.property_parcel || "—")}${d.property_subparcel ? " ת״ח: " + esc(d.property_subparcel) : ""} (להלן: <strong>"הדירה"</strong> ו/או <strong>"המושכר"</strong>);</p>
 
 <p class="recital"><strong>והואיל</strong> והשוכר מעוניין לשכור את הדירה מהמשכיר בהתאם לתנאים המפורטים בהסכם זה;</p>
 
@@ -269,12 +267,12 @@ ${additionalTenantsRecital(d)}
 <p class="clause">המבוא להסכם זה מהווה חלק בלתי נפרד הימנו כאילו נכלל בגוף סעיפי ההסכם. כותרות הסעיפים נועדו לנוחות בלבד ואין בהן כדי להשפיע על פרשנות ההסכם.</p>
 
 <h2>2. אי תחולת חוק הגנת הדייר</h2>
-<p class="clause">השוכר והמשכיר (להלן: "הצדדים") מצהירים ומסכימים שהשוכר אינו ולא יהיה דייר מוגן בגין השכירות במושכר לפי חוק הגנת הדייר ו/או התקנות שהותקנו ו/או יותקנו לפיו ו/או חוקי הגבלת דמי שכירות ו/או עפ"י כל דין אחר כפי שהוא כיום ו/או כפי שיוחלף ו/או יותקן ו/או ישונה מעת לעת, ולא יחולו על השכירות לפי הסכם זה דיני הגנת הדייר ודיני הגבלת דמי השכירות.</p>
+<p class="clause">השוכר והמשכיר (להלן: <strong>"הצדדים"</strong>) מצהירים ומסכימים שהשוכר אינו ולא יהיה דייר מוגן בגין השכירות במושכר לפי חוק הגנת הדייר ו/או התקנות שהותקנו ו/או יותקנו לפיו ו/או חוקי הגבלת דמי שכירות ו/או עפ"י כל דין אחר כפי שהוא כיום ו/או כפי שיוחלף ו/או יותקן ו/או ישונה מעת לעת, ולא יחולו על השכירות לפי הסכם זה דיני הגנת הדייר ודיני הגבלת דמי השכירות.</p>
 <p class="clause">השוכר מאשר כי לא שילם, אינו משלם ולא ישלם דמי מפתח בכל צורה שהיא לגבי המושכר או השכירות, וכן כי כל אשר ישקיע מידי פעם בביצוע שינויים במושכר — אם יעשה כן — לא יחשב כתשלום דמי מפתח או כל חלק מהם.</p>
 <p class="clause">מכל מקום, מוותר בזאת השוכר מראש, למפרע ובאופן בלתי חוזר על כל טענה ו/או תביעה לדיירות מוגנת ו/או להגבלת דמי שכירות.</p>
 
 <h2>3. תקופת השכירות</h2>
-<p class="clause">המשכיר משכיר לשוכר והשוכר שוכר מאת המשכיר את המושכר למשך <strong>${esc(d.lease_months || "—")} חודשים</strong>, החל מיום <strong>${fmtDate(leaseStart)}</strong> ועד ליום <strong>${leaseEnd ? fmtDate(leaseEnd) : "—"}</strong> (להלן: "תקופת השכירות").</p>
+<p class="clause">המשכיר משכיר לשוכר והשוכר שוכר מאת המשכיר את המושכר למשך <strong>${esc(d.lease_months || "—")} חודשים</strong>, החל מיום <strong>${fmtDate(leaseStart)}</strong> ועד ליום <strong>${leaseEnd ? fmtDate(leaseEnd) : "—"}</strong> (להלן: <strong>"תקופת השכירות"</strong>).</p>
 <p class="clause">מהות השכירות היא למגורים בלבד.</p>
 
 <h2>4. דמי השכירות ואופן התשלום</h2>
