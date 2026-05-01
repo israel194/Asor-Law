@@ -163,8 +163,12 @@ export function renderRentalAgreementHtml(order) {
             content: counter(section, hebrew) ". ";
         }
         p { margin: 4pt 0; }
+        /* Hanging indent — wrapped lines align with the start of the text,
+           not under the number / והואיל prefix. */
         .clause {
             counter-increment: clause;
+            padding-right: 1.8em;
+            text-indent: -1.8em;
         }
         .clause::before {
             content: counter(clause) ". ";
@@ -180,12 +184,18 @@ export function renderRentalAgreementHtml(order) {
         ol.clauses > li {
             counter-increment: clause;
             margin: 6pt 0;
+            padding-right: 1.8em;
+            text-indent: -1.8em;
         }
         ol.clauses > li::before {
             content: counter(clause) ". ";
             font-weight: 700;
             color: #5a3d20;
             margin-left: 4pt;
+        }
+        .recital {
+            padding-right: 3.6em;
+            text-indent: -3.6em;
         }
         .meta {
             text-align: center;
