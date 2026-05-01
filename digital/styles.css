@@ -274,32 +274,33 @@
     background: #fbf9f4;
 }
 
-/* Red diagonal line crossing the entire "מסורתי" column —
-   single SVG line per cell stretched corner-to-corner; lines connect
-   between rows for a continuous crossed-out effect. */
-.dig-compare-table th.trad,
-.dig-compare-table td.trad {
+/* Fixed column widths — required so the absolute strike overlay can be
+   positioned exactly over the "מסורתי" column. */
+.dig-compare-table { table-layout: fixed; }
+.dig-compare-table colgroup col.col-label { width: 22%; }
+.dig-compare-table colgroup col.col-trad,
+.dig-compare-table colgroup col.col-dig { width: 39%; }
+
+/* Wrapper provides a positioning context for the strike overlay. */
+.dig-compare-wrap {
     position: relative;
+    max-width: 820px;
+    margin: 0 auto;
 }
-.dig-compare-table th.trad::after,
-.dig-compare-table td.trad::after {
-    content: "";
+
+/* Single red diagonal line over the entire "מסורתי" column (continuous,
+   not per-cell). The SVG is stretched (preserveAspectRatio="none") so the
+   line literally goes from the column's top corner to its bottom corner. */
+.dig-compare-strike {
     position: absolute;
-    inset: 0;
+    top: 0;
+    bottom: 0;
+    inset-inline-start: 22%;
+    inset-inline-end: 39%;
     pointer-events: none;
-    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none' viewBox='0 0 100 100'><line x1='0' y1='0' x2='100' y2='100' stroke='%23dc2626' stroke-width='1.5' vector-effect='non-scaling-stroke' stroke-linecap='round'/></svg>") no-repeat;
+    z-index: 5;
+    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none' viewBox='0 0 100 100'><line x1='0' y1='100' x2='100' y2='0' stroke='%23dc2626' stroke-width='2' vector-effect='non-scaling-stroke' stroke-linecap='round'/></svg>") no-repeat;
     background-size: 100% 100%;
-    z-index: 1;
-}
-/* Keep cell text legible above the diagonal line */
-.dig-compare-table th.trad,
-.dig-compare-table td.trad {
-    z-index: 0;
-}
-.dig-compare-table th.trad > *,
-.dig-compare-table td.trad > * {
-    position: relative;
-    z-index: 2;
 }
 .dig-compare-table tbody td.dig {
     color: var(--text-dark);
