@@ -153,7 +153,8 @@
 
                 <div class="success-meta" id="successMeta" style="display:none;">
                     <p><strong>מס׳ הזמנה:</strong> <span id="orderIdDisplay">—</span></p>
-                    <p>חשבונית מס/קבלה תישלח אליכם אוטומטית למייל שמסרתם.</p>
+                    <p id="emailSentLine">ההסכם והנספחים נשלחו אליך במייל.</p>
+                    <p>חשבונית מס/קבלה תישלח אליכם אוטומטית.</p>
                 </div>
 
                 <div id="errorBox" class="success-error" style="display:none;"></div>
@@ -168,8 +169,8 @@
             <div class="share-overlay" id="shareOverlay" role="dialog" aria-modal="true" aria-labelledby="shareTitle">
                 <div class="share-modal">
                     <button type="button" class="share-close" id="shareCloseBtn" aria-label="סגירה">×</button>
-                    <h2 id="shareTitle">איך לקבל את ההסכם?</h2>
-                    <p class="share-modal-sub">בחרו את הדרך שנוחה לכם — אפשר גם יותר מאחת.</p>
+                    <h2 id="shareTitle">ההסכם מוכן!</h2>
+                    <p class="share-modal-sub" id="shareModalSub">ההסכם והנספחים נשלחו אליך במייל. אפשר גם:</p>
 
                     <div id="sharePending" class="share-pending">
                         <div class="share-spinner"></div>
@@ -178,7 +179,14 @@
 
                     <div id="shareOptions" style="display:none;">
                         <div class="share-option">
-                            <h3><span class="icon">📧</span> שליחה במייל</h3>
+                            <h3><span class="icon">💾</span> הורדה למחשב</h3>
+                            <div class="share-row">
+                                <a href="#" id="shareDownloadLink" class="share-btn" style="text-decoration:none;display:inline-block;">הורדת PDF</a>
+                            </div>
+                        </div>
+
+                        <div class="share-option">
+                            <h3><span class="icon">📧</span> שליחה לכתובת מייל נוספת</h3>
                             <div class="share-row">
                                 <input type="email" id="shareEmailInput" placeholder="כתובת מייל" autocomplete="email">
                                 <button type="button" class="share-btn" id="shareEmailBtn">שלח</button>
@@ -188,16 +196,9 @@
 
                         <div class="share-option">
                             <h3><span class="icon">💬</span> שליחה בוואטסאפ</h3>
-                            <p style="margin:0 0 10px;font-size:13px;color:#7c6a55;">תיפתח שיחה בוואטסאפ עם קישור להורדת ההסכם — תוכלו לבחור נמען.</p>
+                            <p style="margin:0 0 10px;font-size:13px;color:#7c6a55;">תיפתח שיחה בוואטסאפ עם קישור להורדה — תוכל לבחור נמען (למשל, השוכר השני או המשכיר).</p>
                             <div class="share-row">
                                 <button type="button" class="share-btn whatsapp" id="shareWhatsappBtn">פתיחת וואטסאפ</button>
-                            </div>
-                        </div>
-
-                        <div class="share-option">
-                            <h3><span class="icon">💾</span> הורדה למחשב</h3>
-                            <div class="share-row">
-                                <a href="#" id="shareDownloadLink" class="share-btn" style="text-decoration:none;display:inline-block;">הורדת PDF</a>
                             </div>
                         </div>
                     </div>
@@ -304,7 +305,15 @@
                 .then(r => r.json().then(j => ({ ok: r.ok, json: j })))
                 .then(({ ok, json }) => {
                     if (!ok) throw new Error(json.error || 'Callback failed');
-                    msg.textContent = 'תודה רבה. ההסכם מוכן.';
+                    if (json.customerEmailSent && json.customerEmail) {
+                        msg.textContent = 'תודה רבה. ההסכם נשלח אליך לכתובת ' + json.customerEmail + '.';
+                    } else {
+                        msg.textContent = 'תודה רבה. ההסכם מוכן.';
+                        const emailSentLine = document.getElementById('emailSentLine');
+                        if (emailSentLine) emailSentLine.textContent = 'אם המייל לא הגיע — אפשר להוריד או לשלוח מחדש מהחלונית.';
+                        const sub = document.getElementById('shareModalSub');
+                        if (sub) sub.textContent = 'בחרו את הדרך שנוחה לכם — אפשר גם יותר מאחת.';
+                    }
                     meta.style.display = 'block';
                     openShareBtn.style.display = 'inline-flex';
 
@@ -315,12 +324,6 @@
                         sharePending.querySelector('div:last-child').textContent =
                             'יש בעיה ביצירת ה-PDF. צרו קשר עם המשרד עם מספר ההזמנה.';
                     }
-                    // Pre-fill the customer's own email for one-click "send to me"
-                    // (we don't auto-send; customer must click).
-                    fetch(API_BASE + '/api/orders/' + encodeURIComponent(orderId))
-                        .then(r => r.ok ? r.json() : null)
-                        .then(o => { if (o && o.customerEmail) shareEmailInput.value = o.customerEmail; })
-                        .catch(() => {});
 
                     // Auto-open the modal so the customer immediately sees their options.
                     openModal();

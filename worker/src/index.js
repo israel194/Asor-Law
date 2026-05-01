@@ -120,7 +120,35 @@ app.post("/api/rental/payment-callback", async c => {
 
     const product = getProduct(order.productId);
 
-    // 1) Office notification
+    // 1) Generate PDF and store in KV (used for both email attachments and the
+    //    success-page download).
+    let pdfFilename = null;
+    let pdfContent = null;
+    let pdfContentType = "application/pdf";
+    try {
+        const result = await product.generateCustomerDeliverable(order, c.env);
+        pdfFilename = result.filename;
+        pdfContent = result.content;
+        pdfContentType = result.contentType;
+        await c.env.ORDERS_KV.put(`pdf:${orderId}`, pdfContent, {
+            metadata: { filename: pdfFilename, contentType: pdfContentType, generatedAt: new Date().toISOString() },
+        });
+        order.pdfGeneratedAt = new Date().toISOString();
+        order.pdfFilename = pdfFilename;
+        await c.env.ORDERS_KV.put(orderId, JSON.stringify(order));
+    } catch (err) {
+        console.error("PDF generation failed", err);
+        order.deliverableError = err.message;
+        await c.env.ORDERS_KV.put(orderId, JSON.stringify(order));
+        // Don't fail — payment is complete; israel can re-trigger from KV.
+    }
+
+    const attachments = (pdfContent && pdfFilename)
+        ? [{ filename: pdfFilename, content: pdfContent, contentType: pdfContentType }]
+        : undefined;
+
+    // 2) Office notification — full questionnaire details + the PDF that was
+    //    issued to the customer.
     try {
         const { subject, html, text } = product.formatOfficeEmail(order);
         const replyTo = order.payload?.tenant_email;
@@ -130,6 +158,7 @@ app.post("/api/rental/payment-callback", async c => {
             html,
             text,
             replyTo,
+            attachments,
         });
         order.officeNotifiedAt = new Date().toISOString();
         await c.env.ORDERS_KV.put(orderId, JSON.stringify(order));
@@ -137,24 +166,27 @@ app.post("/api/rental/payment-callback", async c => {
         console.error("office email failed", err);
         order.officeEmailError = err.message;
         await c.env.ORDERS_KV.put(orderId, JSON.stringify(order));
-        // Don't fail — payment is complete.
     }
 
-    // 2) Generate PDF and store in KV. The customer chooses delivery method
-    //    (email / WhatsApp / direct download) on the success page.
+    // 3) Customer auto-notification — the PDF + appendices.
     try {
-        const { filename, content, contentType } = await product.generateCustomerDeliverable(order, c.env);
-        await c.env.ORDERS_KV.put(`pdf:${orderId}`, content, {
-            metadata: { filename, contentType, generatedAt: new Date().toISOString() },
-        });
-        order.pdfGeneratedAt = new Date().toISOString();
-        order.pdfFilename = filename;
-        await c.env.ORDERS_KV.put(orderId, JSON.stringify(order));
+        if (typeof product.formatCustomerEmail === "function" && order.payload?.tenant_email && attachments) {
+            const { subject, html, text } = product.formatCustomerEmail(order);
+            await sendEmail(c.env, {
+                to: order.payload.tenant_email,
+                subject,
+                html,
+                text,
+                replyTo: c.env.OFFICE_EMAIL,
+                attachments,
+            });
+            order.customerNotifiedAt = new Date().toISOString();
+            await c.env.ORDERS_KV.put(orderId, JSON.stringify(order));
+        }
     } catch (err) {
-        console.error("PDF generation failed", err);
-        order.deliverableError = err.message;
+        console.error("customer email failed", err);
+        order.customerEmailError = err.message;
         await c.env.ORDERS_KV.put(orderId, JSON.stringify(order));
-        // Don't fail — payment is complete; israel can re-trigger from KV.
     }
 
     return c.json({
@@ -162,6 +194,8 @@ app.post("/api/rental/payment-callback", async c => {
         orderId,
         pdfReady: Boolean(order.pdfGeneratedAt),
         pdfFilename: order.pdfFilename || null,
+        customerEmailSent: Boolean(order.customerNotifiedAt),
+        customerEmail: order.payload?.tenant_email || null,
     });
 });
 

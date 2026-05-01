@@ -11,7 +11,7 @@ PRODUCT_RENTAL_PRICE = "500"
 PRODUCT_RENTAL_NAME = "הסכם שכירות דירת מגורים"
 RETURN_URL_BASE = "https://asor-law.com"
 OFFICE_EMAIL = "office@asor-law.com"
-EMAIL_FROM = "Asor Digital <noreply@asor-law.com>"
+EMAIL_FROM = "עשור ושות׳ - עורכי דין <office@asor-law.com>"
 
 # KV namespace for orders (one row per order, keyed by orderId).
 # Run once:  npx wrangler kv namespace create ORDERS_KV
