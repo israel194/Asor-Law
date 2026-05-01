@@ -103,39 +103,64 @@
         }
 
         // === Legal footer ===
-        // Skip if the page already has the main-site footer with legal links.
-        const hasMainFooter = !!document.querySelector('.footer-bottom .footer-legal-links');
-        if (!hasMainFooter) {
-            // First, try to add into an existing .form-footer.
+        // Required order on every page: legal links FIRST, copyright BELOW.
+        // Skip if the page already has the main-site footer with legal links — it's already correct.
+        if (document.querySelector('.footer-bottom .footer-legal-links')) {
+            // already handled by the page itself
+        } else {
+            const linksHtml = `<a href="/he/privacy.html">מדיניות פרטיות</a> · <a href="/he/terms.html">תנאי שימוש</a> · <a href="#" id="footerA11yLink">הצהרת נגישות</a>`;
+            const copyHtml = `&copy; כל הזכויות שמורות לישראל עשור, משרד עורכי דין · 2026`;
+
             const formFooters = document.querySelectorAll('.form-footer .container');
             if (formFooters.length) {
                 formFooters.forEach(c => {
-                    if (c.querySelector('.footer-legal-links')) return;
-                    const span = document.createElement('p');
-                    span.className = 'form-footer-legal';
-                    span.innerHTML = `<span class="footer-legal-links"><a href="/he/privacy.html">מדיניות פרטיות</a> · <a href="/he/terms.html">תנאי שימוש</a> · <a href="#" id="footerA11yLink">הצהרת נגישות</a></span>`;
-                    c.appendChild(span);
+                    if (c.querySelector('.chrome-legal-block')) return;
+                    const block = document.createElement('div');
+                    block.className = 'chrome-legal-block';
+                    block.style.cssText = 'text-align:center;margin-top:10px;display:flex;flex-direction:column;gap:6px;align-items:center;font-size:13px;';
+                    block.innerHTML = `<span class="footer-legal-links" style="display:inline-flex;flex-wrap:wrap;gap:12px;justify-content:center;">${linksHtml}</span><span style="opacity:0.85;">${copyHtml}</span>`;
+                    c.appendChild(block);
                 });
-            } else if (!document.querySelector('.chrome-legal-footer')) {
-                // Page already has its own copyright in its <footer> — append only
-                // the legal links bar, no second copyright.
-                // Try to inject into the existing <footer> if there is one.
-                const existingFooter = document.querySelector('footer .container, footer');
-                const links = `<span class="footer-legal-links" style="display:inline-flex;flex-wrap:wrap;gap:14px;justify-content:center;align-items:center;font-size:13px;margin-top:8px;">
-                    <a href="/he/privacy.html">מדיניות פרטיות</a>
-                    <a href="/he/terms.html">תנאי שימוש</a>
-                    <a href="#" id="footerA11yLink">הצהרת נגישות</a>
-                </span>`;
-                if (existingFooter && !existingFooter.querySelector('.footer-legal-links')) {
-                    const wrap = document.createElement('div');
-                    wrap.style.cssText = 'text-align:center;margin-top:6px;';
-                    wrap.innerHTML = links;
-                    existingFooter.appendChild(wrap);
-                } else if (!existingFooter) {
+            } else {
+                // Topic / article / other pages: their <footer> usually contains a
+                // single <p> with the copyright. Replace that footer's content
+                // with: links (top), copyright (bottom).
+                const footer = document.querySelector('footer .container, footer');
+                if (footer && !footer.querySelector('.chrome-legal-block')) {
+                    // Find existing copyright element (a <p> or <span> with "כל הזכויות").
+                    const all = footer.querySelectorAll('p, span, div');
+                    let copyEl = null;
+                    all.forEach(el => {
+                        if (!copyEl && el.textContent.includes('כל הזכויות שמורות')) {
+                            copyEl = el;
+                        }
+                    });
+                    const block = document.createElement('div');
+                    block.className = 'chrome-legal-block';
+                    block.style.cssText = 'text-align:center;display:flex;flex-direction:column;gap:6px;align-items:center;font-size:13px;margin-top:10px;';
+                    if (copyEl) {
+                        // Move copyright into the new block, after the links.
+                        const linksSpan = document.createElement('span');
+                        linksSpan.className = 'footer-legal-links';
+                        linksSpan.style.cssText = 'display:inline-flex;flex-wrap:wrap;gap:12px;justify-content:center;';
+                        linksSpan.innerHTML = linksHtml;
+                        block.appendChild(linksSpan);
+                        const copySpan = document.createElement('span');
+                        copySpan.style.cssText = 'opacity:0.85;';
+                        copySpan.innerHTML = copyEl.innerHTML;
+                        block.appendChild(copySpan);
+                        copyEl.replaceWith(block);
+                    } else {
+                        // No existing copyright found — add the full block.
+                        block.innerHTML = `<span class="footer-legal-links" style="display:inline-flex;flex-wrap:wrap;gap:12px;justify-content:center;">${linksHtml}</span><span style="opacity:0.85;">${copyHtml}</span>`;
+                        footer.appendChild(block);
+                    }
+                } else if (!document.querySelector('.chrome-legal-footer')) {
+                    // No footer at all — append a standalone bar.
                     const bar = document.createElement('div');
                     bar.className = 'chrome-legal-footer';
-                    bar.style.cssText = 'background:transparent;color:var(--text-light,#5a6478);padding:16px;text-align:center;font-family:Assistant,Segoe UI,sans-serif;direction:rtl;';
-                    bar.innerHTML = links;
+                    bar.style.cssText = 'padding:18px 16px;text-align:center;font-family:Assistant,Segoe UI,sans-serif;direction:rtl;color:var(--text-light,#5a6478);font-size:13px;';
+                    bar.innerHTML = `<div style="display:flex;flex-direction:column;gap:6px;align-items:center;"><span class="footer-legal-links" style="display:inline-flex;flex-wrap:wrap;gap:12px;justify-content:center;">${linksHtml}</span><span style="opacity:0.85;">${copyHtml}</span></div>`;
                     document.body.appendChild(bar);
                 }
             }
