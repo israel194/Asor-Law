@@ -54,6 +54,80 @@
         .success-actions { margin-top: 32px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
         .success-loading { color: var(--ink-soft, #7c6a55); font-style: italic; }
         .success-error { color: #c62828; background: #ffebee; padding: 12px 16px; border-radius: 6px; margin-top: 16px; }
+
+        /* ===== Share modal ===== */
+        .share-overlay {
+            position: fixed; inset: 0; background: rgba(40, 30, 20, 0.55);
+            display: none; align-items: center; justify-content: center;
+            z-index: 1000; padding: 16px;
+        }
+        .share-overlay.is-open { display: flex; }
+        .share-modal {
+            background: #fff; border-radius: 14px; max-width: 520px; width: 100%;
+            max-height: 90vh; overflow-y: auto;
+            padding: 28px 28px 20px; box-shadow: 0 12px 48px rgba(40, 30, 20, 0.35);
+            position: relative;
+        }
+        .share-modal h2 {
+            margin: 0 0 6px; font-size: 22px; color: var(--gold-dark, #7a5c3e);
+            text-align: center;
+        }
+        .share-modal-sub {
+            text-align: center; color: var(--ink-soft, #7c6a55);
+            font-size: 14px; margin: 0 0 22px;
+        }
+        .share-close {
+            position: absolute; top: 10px; left: 14px;
+            background: transparent; border: none; font-size: 22px; cursor: pointer;
+            color: #7c6a55; line-height: 1;
+        }
+        .share-option {
+            border: 1px solid var(--gold-soft, #e8dfd2);
+            border-radius: 10px; padding: 16px 18px; margin-bottom: 12px;
+            background: #fdfbf7;
+        }
+        .share-option h3 {
+            margin: 0 0 10px; font-size: 16px;
+            color: var(--gold-dark, #7a5c3e); display: flex; align-items: center; gap: 8px;
+        }
+        .share-option h3 .icon { font-size: 20px; }
+        .share-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+        .share-row input[type="email"], .share-row input[type="tel"] {
+            flex: 1; min-width: 180px; padding: 10px 12px;
+            border: 1px solid var(--gold-soft, #e8dfd2); border-radius: 6px;
+            font-size: 14px; font-family: inherit; background: #fff;
+            direction: ltr; text-align: left;
+        }
+        .share-btn {
+            padding: 10px 18px; border: none; border-radius: 6px;
+            background: var(--gold-dark, #7a5c3e); color: #fff;
+            font-size: 14px; font-family: inherit; cursor: pointer; font-weight: 600;
+            white-space: nowrap;
+        }
+        .share-btn:hover { background: #5a3d20; }
+        .share-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .share-btn.secondary {
+            background: #fff; color: var(--gold-dark, #7a5c3e);
+            border: 1px solid var(--gold-soft, #e8dfd2);
+        }
+        .share-btn.whatsapp { background: #25D366; }
+        .share-btn.whatsapp:hover { background: #1ea952; }
+        .share-status {
+            font-size: 13px; margin-top: 8px; min-height: 18px;
+        }
+        .share-status.ok { color: #2e7d32; }
+        .share-status.err { color: #c62828; }
+        .share-pending {
+            text-align: center; padding: 24px; color: var(--ink-soft, #7c6a55);
+        }
+        .share-spinner {
+            display: inline-block; width: 22px; height: 22px;
+            border: 3px solid var(--gold-soft, #e8dfd2);
+            border-top-color: var(--gold-dark, #7a5c3e);
+            border-radius: 50%; animation: spin 0.8s linear infinite;
+            margin-bottom: 8px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
 <body class="form-body">
@@ -80,14 +154,53 @@
                 <div class="success-meta" id="successMeta" style="display:none;">
                     <p><strong>מס׳ הזמנה:</strong> <span id="orderIdDisplay">—</span></p>
                     <p>חשבונית מס/קבלה תישלח אליכם אוטומטית למייל שמסרתם.</p>
-                    <p id="documentStatus">מכינים את ההסכם להורדה...</p>
                 </div>
 
                 <div id="errorBox" class="success-error" style="display:none;"></div>
 
                 <div class="success-actions">
-                    <a href="#" id="downloadBtn" class="form-btn form-btn-primary" style="display:none;">הורדת ההסכם (PDF)</a>
+                    <button type="button" id="openShareBtn" class="form-btn form-btn-primary" style="display:none;">קבלת ההסכם</button>
                     <a href="../../" class="form-btn form-btn-secondary">חזרה לאתר הראשי</a>
+                </div>
+            </div>
+
+            <!-- ===== Share modal ===== -->
+            <div class="share-overlay" id="shareOverlay" role="dialog" aria-modal="true" aria-labelledby="shareTitle">
+                <div class="share-modal">
+                    <button type="button" class="share-close" id="shareCloseBtn" aria-label="סגירה">×</button>
+                    <h2 id="shareTitle">איך לקבל את ההסכם?</h2>
+                    <p class="share-modal-sub">בחרו את הדרך שנוחה לכם — אפשר גם יותר מאחת.</p>
+
+                    <div id="sharePending" class="share-pending">
+                        <div class="share-spinner"></div>
+                        <div>מכינים את ההסכם...</div>
+                    </div>
+
+                    <div id="shareOptions" style="display:none;">
+                        <div class="share-option">
+                            <h3><span class="icon">📧</span> שליחה במייל</h3>
+                            <div class="share-row">
+                                <input type="email" id="shareEmailInput" placeholder="כתובת מייל" autocomplete="email">
+                                <button type="button" class="share-btn" id="shareEmailBtn">שלח</button>
+                            </div>
+                            <div class="share-status" id="shareEmailStatus"></div>
+                        </div>
+
+                        <div class="share-option">
+                            <h3><span class="icon">💬</span> שליחה בוואטסאפ</h3>
+                            <p style="margin:0 0 10px;font-size:13px;color:#7c6a55;">תיפתח שיחה בוואטסאפ עם קישור להורדת ההסכם — תוכלו לבחור נמען.</p>
+                            <div class="share-row">
+                                <button type="button" class="share-btn whatsapp" id="shareWhatsappBtn">פתיחת וואטסאפ</button>
+                            </div>
+                        </div>
+
+                        <div class="share-option">
+                            <h3><span class="icon">💾</span> הורדה למחשב</h3>
+                            <div class="share-row">
+                                <a href="#" id="shareDownloadLink" class="share-btn" style="text-decoration:none;display:inline-block;">הורדת PDF</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -128,8 +241,62 @@
 
             idDisp.textContent = orderId;
 
-            const docStatus = document.getElementById('documentStatus');
-            const downloadBtn = document.getElementById('downloadBtn');
+            const openShareBtn = document.getElementById('openShareBtn');
+            const overlay = document.getElementById('shareOverlay');
+            const sharePending = document.getElementById('sharePending');
+            const shareOptions = document.getElementById('shareOptions');
+            const shareCloseBtn = document.getElementById('shareCloseBtn');
+            const shareEmailInput = document.getElementById('shareEmailInput');
+            const shareEmailBtn = document.getElementById('shareEmailBtn');
+            const shareEmailStatus = document.getElementById('shareEmailStatus');
+            const shareWhatsappBtn = document.getElementById('shareWhatsappBtn');
+            const shareDownloadLink = document.getElementById('shareDownloadLink');
+
+            const docUrl = API_BASE + '/api/orders/' + encodeURIComponent(orderId) + '/document';
+
+            function openModal() { overlay.classList.add('is-open'); }
+            function closeModal() { overlay.classList.remove('is-open'); }
+            shareCloseBtn.addEventListener('click', closeModal);
+            overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+            document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+            openShareBtn.addEventListener('click', openModal);
+
+            shareDownloadLink.href = docUrl;
+            shareDownloadLink.setAttribute('download', '');
+
+            shareWhatsappBtn.addEventListener('click', () => {
+                const text = 'שלום,\n\nמצורף קישור להורדת הסכם השכירות שהופק במשרד עשור ושות׳ — עורכי דין:\n' + docUrl + '\n';
+                window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank', 'noopener');
+            });
+
+            shareEmailBtn.addEventListener('click', async () => {
+                const email = (shareEmailInput.value || '').trim();
+                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                    shareEmailStatus.className = 'share-status err';
+                    shareEmailStatus.textContent = 'כתובת מייל לא תקינה';
+                    return;
+                }
+                shareEmailBtn.disabled = true;
+                shareEmailStatus.className = 'share-status';
+                shareEmailStatus.textContent = 'שולחים...';
+                try {
+                    const r = await fetch(API_BASE + '/api/orders/' + encodeURIComponent(orderId) + '/share/email', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email })
+                    });
+                    const j = await r.json();
+                    if (!r.ok) throw new Error(j.error || 'שליחה נכשלה');
+                    shareEmailStatus.className = 'share-status ok';
+                    shareEmailStatus.textContent = 'נשלח ל-' + email + ' ✓';
+                } catch (err) {
+                    shareEmailStatus.className = 'share-status err';
+                    shareEmailStatus.textContent = err.message || 'שגיאה';
+                } finally {
+                    shareEmailBtn.disabled = false;
+                }
+            });
 
             fetch(API_BASE + '/api/rental/payment-callback?orderId=' + encodeURIComponent(orderId), {
                 method: 'POST',
@@ -137,13 +304,26 @@
                 .then(r => r.json().then(j => ({ ok: r.ok, json: j })))
                 .then(({ ok, json }) => {
                     if (!ok) throw new Error(json.error || 'Callback failed');
-                    msg.textContent = 'תודה רבה. ההסכם נשלח אליך במייל.';
+                    msg.textContent = 'תודה רבה. ההסכם מוכן.';
                     meta.style.display = 'block';
-                    // The callback already generated the PDF; offer it for download too.
-                    const docUrl = API_BASE + '/api/orders/' + encodeURIComponent(orderId) + '/document';
-                    downloadBtn.href = docUrl;
-                    downloadBtn.style.display = 'inline-flex';
-                    docStatus.textContent = 'ההסכם מוכן להורדה — וגם נשלח אליך במייל.';
+                    openShareBtn.style.display = 'inline-flex';
+
+                    if (json.pdfReady) {
+                        sharePending.style.display = 'none';
+                        shareOptions.style.display = 'block';
+                    } else {
+                        sharePending.querySelector('div:last-child').textContent =
+                            'יש בעיה ביצירת ה-PDF. צרו קשר עם המשרד עם מספר ההזמנה.';
+                    }
+                    // Pre-fill the customer's own email for one-click "send to me"
+                    // (we don't auto-send; customer must click).
+                    fetch(API_BASE + '/api/orders/' + encodeURIComponent(orderId))
+                        .then(r => r.ok ? r.json() : null)
+                        .then(o => { if (o && o.customerEmail) shareEmailInput.value = o.customerEmail; })
+                        .catch(() => {});
+
+                    // Auto-open the modal so the customer immediately sees their options.
+                    openModal();
                 })
                 .catch(err => {
                     msg.textContent = 'התשלום עבר, אבל נתקלנו בבעיה בעדכון ההזמנה. צרו קשר עם המשרד עם מספר ההזמנה.';
