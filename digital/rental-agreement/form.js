@@ -13,7 +13,7 @@
         if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
             return 'http://localhost:8787';
         }
-        return 'https://asor-digital-api.asor-law.workers.dev';
+        return 'https://asor-digital-api.israel-486.workers.dev';
     })();
 
     const form = document.getElementById('rentalForm');

@@ -19,8 +19,8 @@ EMAIL_FROM = "Asor Digital <noreply@asor-law.com>"
 # Paste the IDs returned below.
 [[kv_namespaces]]
 binding = "ORDERS_KV"
-id = "REPLACE_WITH_PRODUCTION_KV_ID"
-preview_id = "REPLACE_WITH_PREVIEW_KV_ID"
+id = "5c4dae6da374471a962c3742508b9e79"
+preview_id = "a3aaa091ea234d2eab645bc03f4eef7f"
 
 # Secrets are set via:
 #   npx wrangler secret put SUMIT_COMPANY_ID

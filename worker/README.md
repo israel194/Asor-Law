@@ -85,5 +85,5 @@ auto-targets localhost when served from `localhost`/`127.0.0.1`. To override
 the API base manually, run in DevTools:
 
 ```js
-localStorage.setItem('asor-api-base', 'https://asor-digital-api.asor-law.workers.dev');
+localStorage.setItem('asor-api-base', 'https://asor-digital-api.israel-486.workers.dev');
 ```
