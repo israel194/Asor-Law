@@ -122,13 +122,13 @@ export function renderRentalAgreementHtml(order) {
     <title>הסכם שכירות בלתי מוגנת — ${esc(d.tenant_name || "")}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700&family=Heebo:wght@400;500;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=David+Libre:wght@400;500;700&display=swap">
     <style>
-        @page { size: A4; margin: 2cm 2cm 2cm 2cm; }
+        @page { size: A4; margin: 2cm 2cm 2.6cm 2cm; }
         * { box-sizing: border-box; }
         html, body { margin: 0; padding: 0; }
         body {
-            font-family: 'Frank Ruhl Libre', 'David', 'Times New Roman', serif;
+            font-family: 'David Libre', 'David', 'Times New Roman', serif;
             font-size: 11pt;
             line-height: 1.7;
             color: #1a1a1a;
@@ -137,7 +137,7 @@ export function renderRentalAgreementHtml(order) {
         }
         h1 {
             text-align: center;
-            font-family: 'Heebo', 'Arial Hebrew', Arial, sans-serif;
+            font-family: 'David Libre', 'David', serif;
             font-size: 18pt;
             font-weight: 700;
             margin: 0 0 4pt;
@@ -150,13 +150,14 @@ export function renderRentalAgreementHtml(order) {
             margin: 0 0 18pt;
         }
         h2 {
-            font-family: 'Heebo', 'Arial Hebrew', Arial, sans-serif;
-            font-size: 12pt;
+            font-family: 'David Libre', 'David', serif;
+            font-size: 13pt;
             font-weight: 700;
             margin: 18pt 0 6pt;
             border-bottom: 1px solid #c8b89a;
             padding-bottom: 2pt;
             color: #5a3d20;
+            text-align: center;
         }
         p { margin: 4pt 0; }
         .meta {
@@ -166,13 +167,15 @@ export function renderRentalAgreementHtml(order) {
             margin-bottom: 14pt;
         }
         .party-block {
-            margin: 6pt 0 10pt;
-            padding: 8pt 10pt;
+            margin: 6pt auto 10pt;
+            max-width: 75%;
+            padding: 10pt 18pt;
             background: #faf6f0;
             border-right: 3px solid #c8b89a;
+            border-left: 3px solid #c8b89a;
         }
         .party-label {
-            font-family: 'Heebo', sans-serif;
+            font-family: 'David Libre', 'David', serif;
             font-weight: 700;
             color: #5a3d20;
             margin: 0 0 4pt;
@@ -199,7 +202,7 @@ export function renderRentalAgreementHtml(order) {
             padding-top: 4pt;
         }
         .sig-label {
-            font-family: 'Heebo', sans-serif;
+            font-family: 'David Libre', 'David', serif;
             font-weight: 700;
             font-size: 11pt;
         }

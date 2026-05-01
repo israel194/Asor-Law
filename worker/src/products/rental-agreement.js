@@ -204,6 +204,20 @@ export async function generateCustomerDeliverable(order, env) {
 
     const html = renderRentalAgreementHtml(order);
 
+    // Per-page footer: signature lines for both parties + page number.
+    // Puppeteer renders this once per page; pageNumber/totalPages are auto-filled.
+    // Note: footerTemplate is sandboxed — explicit font-size + inline styles required.
+    const footerTemplate = `
+        <div style="width:100%;font-family:'David Libre','David',serif;font-size:9pt;color:#555;direction:rtl;padding:0 2cm;box-sizing:border-box;">
+            <div style="display:flex;justify-content:space-between;border-top:1px solid #c8b89a;padding-top:2mm;">
+                <div>המשכיר: ____________________</div>
+                <div>השוכר: ____________________</div>
+            </div>
+            <div style="text-align:center;margin-top:1.5mm;font-size:8.5pt;color:#777;">
+                עמוד <span class="pageNumber"></span> מתוך <span class="totalPages"></span>
+            </div>
+        </div>`;
+
     const browser = await puppeteer.launch(env.BROWSER);
     try {
         const page = await browser.newPage();
@@ -212,8 +226,11 @@ export async function generateCustomerDeliverable(order, env) {
         const pdf = await page.pdf({
             format: "A4",
             printBackground: true,
-            preferCSSPageSize: true,
-            margin: { top: "2cm", right: "2cm", bottom: "2cm", left: "2cm" },
+            preferCSSPageSize: false,
+            displayHeaderFooter: true,
+            headerTemplate: '<div></div>',
+            footerTemplate,
+            margin: { top: "2cm", right: "2cm", bottom: "3cm", left: "2cm" },
         });
         const tenant = (order?.payload?.tenant_name || "customer").replace(/[^\p{L}\p{N} _-]/gu, "");
         const shortId = (order?.orderId || "").slice(0, 8);
