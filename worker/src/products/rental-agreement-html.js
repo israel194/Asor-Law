@@ -162,6 +162,12 @@ export function renderRentalAgreementHtml(order) {
         h2::before {
             content: counter(section, hebrew) ". ";
         }
+        h2.no-counter {
+            counter-increment: none;
+        }
+        h2.no-counter::before {
+            content: "";
+        }
         p { margin: 4pt 0; }
         /* Hanging indent — wrapped lines align with the start of the text,
            not under the number / והואיל prefix. */
@@ -263,7 +269,6 @@ export function renderRentalAgreementHtml(order) {
 <body>
 
 <h1>הסכם שכירות בלתי מוגנת</h1>
-<p class="subtitle">הסכם שכירות לדירת מגורים</p>
 
 <p class="meta">שנערך ונחתם ביום ${signDateStr}, בעיר ${esc(signCity)}</p>
 
@@ -285,7 +290,9 @@ export function renderRentalAgreementHtml(order) {
     <p class="party-aka">(להלן: <strong>"השוכר"</strong>)</p>
 </div>
 
-<p class="recital" style="margin-top:14pt;"><strong>והואיל</strong> והמשכיר הינו הבעלים של דירת מגורים הכוללת ${esc(d.property_bedrooms || "—")} חדרי שינה, ${esc(d.property_bathrooms || "—")} שירותים ו-${esc(d.property_showers || "—")} מקלחות, הנמצאת ברחוב ${esc(d.property_street || "—")}, ${esc(d.property_city || "—")}${d.property_neighborhood ? ", בשכונת " + esc(d.property_neighborhood) : ""}, והידועה כגוש: ${esc(d.property_block || "—")} חלקה: ${esc(d.property_parcel || "—")}${d.property_subparcel ? " ת״ח: " + esc(d.property_subparcel) : ""} (להלן: <strong>"הדירה"</strong> ו/או <strong>"המושכר"</strong>);</p>
+<h2 class="no-counter">הואיל</h2>
+
+<p class="recital"><strong>והואיל</strong> והמשכיר הינו הבעלים של דירת מגורים הכוללת ${esc(d.property_bedrooms || "—")} חדרי שינה, ${esc(d.property_bathrooms || "—")} שירותים ו-${esc(d.property_showers || "—")} מקלחות, הנמצאת ברחוב ${esc(d.property_street || "—")}, ${esc(d.property_city || "—")}${d.property_neighborhood ? ", בשכונת " + esc(d.property_neighborhood) : ""}, והידועה כגוש: ${esc(d.property_block || "—")} חלקה: ${esc(d.property_parcel || "—")}${d.property_subparcel ? " ת״ח: " + esc(d.property_subparcel) : ""} (להלן: <strong>"הדירה"</strong> ו/או <strong>"המושכר"</strong>);</p>
 
 <p class="recital"><strong>והואיל</strong> והשוכר מעוניין לשכור את הדירה מהמשכיר בהתאם לתנאים המפורטים בהסכם זה;</p>
 
