@@ -8,35 +8,39 @@
 }
 
 :root {
-    /* Brand — derived directly from logo */
-    --navy: #1B3A5C;
-    --navy-dark: #0d1f33;
-    --navy-deep: #081627;
-    --navy-mid: #243f63;
-    --gold: #B8943F;
-    --gold-light: #d4b46a;
-    --gold-dark: #9a7a30;
-    --gold-soft: rgba(184, 148, 63, 0.08);
-    --gold-line: rgba(184, 148, 63, 0.22);
+    /* Brand — sampled directly from the office logo (logo-he.png).
+       Logo navy: #001d3b (darkest), Logo gold: #c1a87b (champagne).
+       Variants below follow that exact palette, with luminance steps. */
+    --navy: #0d2c4f;            /* primary navy — readable on light backgrounds */
+    --navy-dark: #042041;
+    --navy-deep: #001d3b;        /* exact logo color — for emphasis */
+    --navy-mid: #1c3d62;
+    --navy-light: #2c5380;
+    --gold: #c1a87b;             /* exact logo gold — champagne tone */
+    --gold-light: #d6c195;
+    --gold-dark: #9b8458;        /* darker variant for headings on light bg */
+    --gold-deep: #7a6a44;        /* deepest gold — for AA-contrast text */
+    --gold-soft: rgba(193, 168, 123, 0.10);
+    --gold-line: rgba(193, 168, 123, 0.32);
 
     /* Neutrals */
-    --gray: #B8B8B8;
+    --gray: #b0b0b0;             /* matches logo's silver building outlines */
     --gray-light: #e8e8e8;
-    --off-white: #F8F7F3;
-    --cream: #F2EFE6;
-    --ivory: #FBFAF6;
-    --white: #FFFFFF;
+    --off-white: #f8f7f3;
+    --cream: #f2efe6;
+    --ivory: #fbfaf6;
+    --white: #ffffff;
 
     /* Text */
-    --text-dark: #14202E;
+    --text-dark: #0d1c2e;
     --text-light: #5a6478;
     --text-muted: #8b94a3;
 
     /* Effects */
-    --shadow-xs: 0 1px 3px rgba(8, 22, 39, 0.06);
-    --shadow: 0 4px 24px rgba(8, 22, 39, 0.08);
-    --shadow-lg: 0 14px 50px rgba(8, 22, 39, 0.16);
-    --shadow-gold: 0 8px 30px rgba(184, 148, 63, 0.28);
+    --shadow-xs: 0 1px 3px rgba(0, 29, 59, 0.06);
+    --shadow: 0 4px 24px rgba(0, 29, 59, 0.08);
+    --shadow-lg: 0 14px 50px rgba(0, 29, 59, 0.16);
+    --shadow-gold: 0 8px 30px rgba(193, 168, 123, 0.30);
     --transition: all 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
     --transition-slow: all 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
 
