@@ -117,20 +117,27 @@
                     c.appendChild(span);
                 });
             } else if (!document.querySelector('.chrome-legal-footer')) {
-                // Standalone legal footer — appended at the end of the page.
-                const f = document.createElement('div');
-                f.className = 'chrome-legal-footer';
-                f.style.cssText = 'background:#0d2c4f;color:#d6c195;padding:18px 16px;margin-top:48px;font-family:Assistant,Segoe UI,sans-serif;font-size:13px;direction:rtl;';
-                f.innerHTML = `
-                    <div style="max-width:1200px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;">
-                        <span>&copy; כל הזכויות שמורות לישראל עשור, משרד עורכי דין · 2026</span>
-                        <span class="footer-legal-links" style="display:inline-flex;gap:18px;">
-                            <a href="/he/privacy.html" style="color:#d6c195;text-decoration:none;">מדיניות פרטיות</a>
-                            <a href="/he/terms.html" style="color:#d6c195;text-decoration:none;">תנאי שימוש</a>
-                            <a href="#" id="footerA11yLink" style="color:#d6c195;text-decoration:none;">הצהרת נגישות</a>
-                        </span>
-                    </div>`;
-                document.body.appendChild(f);
+                // Page already has its own copyright in its <footer> — append only
+                // the legal links bar, no second copyright.
+                // Try to inject into the existing <footer> if there is one.
+                const existingFooter = document.querySelector('footer .container, footer');
+                const links = `<span class="footer-legal-links" style="display:inline-flex;flex-wrap:wrap;gap:14px;justify-content:center;align-items:center;font-size:13px;margin-top:8px;">
+                    <a href="/he/privacy.html">מדיניות פרטיות</a>
+                    <a href="/he/terms.html">תנאי שימוש</a>
+                    <a href="#" id="footerA11yLink">הצהרת נגישות</a>
+                </span>`;
+                if (existingFooter && !existingFooter.querySelector('.footer-legal-links')) {
+                    const wrap = document.createElement('div');
+                    wrap.style.cssText = 'text-align:center;margin-top:6px;';
+                    wrap.innerHTML = links;
+                    existingFooter.appendChild(wrap);
+                } else if (!existingFooter) {
+                    const bar = document.createElement('div');
+                    bar.className = 'chrome-legal-footer';
+                    bar.style.cssText = 'background:transparent;color:var(--text-light,#5a6478);padding:16px;text-align:center;font-family:Assistant,Segoe UI,sans-serif;direction:rtl;';
+                    bar.innerHTML = links;
+                    document.body.appendChild(bar);
+                }
             }
         }
     }

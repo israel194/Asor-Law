@@ -28,6 +28,7 @@ import { cors } from "hono/cors";
 import { createPaymentRedirect } from "./sumit.js";
 import { sendEmail } from "./email.js";
 import { getProduct, listProducts } from "./products/index.js";
+import { intakeChat } from "./intake.js";
 
 /**
  * Generic order processing — used for both Type A products (with PDF
@@ -256,6 +257,83 @@ app.post("/api/products/:productId/create-payment", async c => {
 
 // ===== List all available products (used by /digital/ index page) =====
 app.get("/api/products", c => c.json({ products: listProducts() }));
+
+// ===== AI Intake assistant (Claude Sonnet 4.6) =====
+app.post("/api/intake/chat", async c => {
+    let body;
+    try { body = await c.req.json(); }
+    catch { return c.json({ error: "Invalid JSON" }, 400); }
+
+    const messages = Array.isArray(body.messages) ? body.messages : [];
+    if (messages.length > 30) {
+        return c.json({ error: "Conversation too long" }, 413);
+    }
+
+    try {
+        const result = await intakeChat(c.env, messages);
+        return c.json({ ok: true, reply: result.reply, usage: result.usage });
+    } catch (err) {
+        console.error("intake chat failed", err);
+        return c.json({ error: err.message || "Internal error" }, err.status || 500);
+    }
+});
+
+// ===== Consultation request (creates a lead, emails office) =====
+app.post("/api/consultation/request", async c => {
+    let body;
+    try { body = await c.req.json(); }
+    catch { return c.json({ error: "Invalid JSON" }, 400); }
+
+    const { name, phone, email, preferredDate, summary, conversationSummary } = body;
+    if (!name || !email || !phone) {
+        return c.json({ error: "חסר שם / טלפון / מייל" }, 400);
+    }
+
+    const requestId = crypto.randomUUID();
+    const lead = {
+        id: requestId,
+        type: "consultation",
+        createdAt: new Date().toISOString(),
+        name, phone, email,
+        preferredDate: preferredDate || null,
+        summary: summary || null,
+        conversationSummary: conversationSummary || null,
+    };
+    await c.env.ORDERS_KV.put(`consultation:${requestId}`, JSON.stringify(lead));
+
+    // Notify the office.
+    try {
+        const subject = `בקשת ייעוץ — ${name} (${requestId.slice(0, 8)})`;
+        const html = `
+<!DOCTYPE html>
+<html lang="he" dir="rtl"><head><meta charset="UTF-8"></head>
+<body style="font-family:Arial,sans-serif;background:#fdfbf7;padding:24px;direction:rtl;">
+    <div style="max-width:560px;margin:0 auto;background:#fff;padding:28px;border:1px solid #e8dfd2;border-radius:8px;">
+        <h2 style="margin:0 0 12px;color:#0d2c4f;">בקשת ייעוץ חדשה</h2>
+        <p style="color:#5a6478;margin:0 0 18px;">בקשה התקבלה דרך הצ׳אט הדיגיטלי באתר. צור קשר תוך 24 שעות עסקים.</p>
+        <table style="width:100%;border-collapse:collapse;font-size:14px;">
+            <tr><th align="right" style="padding:8px;background:#faf6f0;border:1px solid #e8dfd2;">שם</th><td style="padding:8px;border:1px solid #e8dfd2;">${name}</td></tr>
+            <tr><th align="right" style="padding:8px;background:#faf6f0;border:1px solid #e8dfd2;">טלפון</th><td style="padding:8px;border:1px solid #e8dfd2;">${phone}</td></tr>
+            <tr><th align="right" style="padding:8px;background:#faf6f0;border:1px solid #e8dfd2;">דוא"ל</th><td style="padding:8px;border:1px solid #e8dfd2;">${email}</td></tr>
+            ${preferredDate ? `<tr><th align="right" style="padding:8px;background:#faf6f0;border:1px solid #e8dfd2;">מועד מבוקש</th><td style="padding:8px;border:1px solid #e8dfd2;">${preferredDate}</td></tr>` : ""}
+            ${summary ? `<tr><th align="right" style="padding:8px;background:#faf6f0;border:1px solid #e8dfd2;vertical-align:top;">תיאור הלקוח</th><td style="padding:8px;border:1px solid #e8dfd2;white-space:pre-wrap;">${summary}</td></tr>` : ""}
+            ${conversationSummary ? `<tr><th align="right" style="padding:8px;background:#faf6f0;border:1px solid #e8dfd2;vertical-align:top;">תקציר שיחה עם הצ׳אט</th><td style="padding:8px;border:1px solid #e8dfd2;white-space:pre-wrap;font-size:13px;color:#5a6478;">${conversationSummary}</td></tr>` : ""}
+        </table>
+        <p style="color:#5a6478;font-size:12px;margin:20px 0 0;">מס׳ בקשה: ${requestId}</p>
+    </div>
+</body></html>`;
+        const text = `בקשת ייעוץ\n\nשם: ${name}\nטלפון: ${phone}\nדוא"ל: ${email}\nמועד: ${preferredDate || "—"}\n\n${summary || ""}\n\nמס׳ בקשה: ${requestId}`;
+        await sendEmail(c.env, {
+            to: c.env.OFFICE_EMAIL,
+            subject, html, text,
+            replyTo: email,
+        });
+    } catch (err) {
+        console.error("consultation email failed", err);
+    }
+
+    return c.json({ ok: true, requestId });
+});
 
 // ===== Email the document on customer request =====
 app.post("/api/orders/:id/share/email", async c => {
