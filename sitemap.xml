@@ -83,4 +83,34 @@
     <lastmod>2026-04-30</lastmod>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://www.asor-law.com/he/privacy.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://www.asor-law.com/he/terms.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://www.asor-law.com/en/privacy.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://www.asor-law.com/en/terms.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://www.asor-law.com/ar/privacy.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://www.asor-law.com/ar/terms.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <priority>0.4</priority>
+  </url>
 </urlset>
