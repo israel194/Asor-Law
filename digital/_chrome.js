@@ -102,15 +102,37 @@
             document.body.appendChild(overlay);
         }
 
-        // === Legal footer links ===
-        // Add to existing .form-footer if there is one and it doesn't yet have legal links.
-        document.querySelectorAll('.form-footer .container').forEach(c => {
-            if (c.querySelector('.footer-legal-links')) return;
-            const span = document.createElement('p');
-            span.className = 'form-footer-legal';
-            span.innerHTML = `<span class="footer-legal-links"><a href="/he/privacy.html">מדיניות פרטיות</a> · <a href="/he/terms.html">תנאי שימוש</a> · <a href="#" id="footerA11yLink">הצהרת נגישות</a></span>`;
-            c.appendChild(span);
-        });
+        // === Legal footer ===
+        // Skip if the page already has the main-site footer with legal links.
+        const hasMainFooter = !!document.querySelector('.footer-bottom .footer-legal-links');
+        if (!hasMainFooter) {
+            // First, try to add into an existing .form-footer.
+            const formFooters = document.querySelectorAll('.form-footer .container');
+            if (formFooters.length) {
+                formFooters.forEach(c => {
+                    if (c.querySelector('.footer-legal-links')) return;
+                    const span = document.createElement('p');
+                    span.className = 'form-footer-legal';
+                    span.innerHTML = `<span class="footer-legal-links"><a href="/he/privacy.html">מדיניות פרטיות</a> · <a href="/he/terms.html">תנאי שימוש</a> · <a href="#" id="footerA11yLink">הצהרת נגישות</a></span>`;
+                    c.appendChild(span);
+                });
+            } else if (!document.querySelector('.chrome-legal-footer')) {
+                // Standalone legal footer — appended at the end of the page.
+                const f = document.createElement('div');
+                f.className = 'chrome-legal-footer';
+                f.style.cssText = 'background:#0d2c4f;color:#d6c195;padding:18px 16px;margin-top:48px;font-family:Assistant,Segoe UI,sans-serif;font-size:13px;direction:rtl;';
+                f.innerHTML = `
+                    <div style="max-width:1200px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;">
+                        <span>&copy; כל הזכויות שמורות לישראל עשור, משרד עורכי דין · 2026</span>
+                        <span class="footer-legal-links" style="display:inline-flex;gap:18px;">
+                            <a href="/he/privacy.html" style="color:#d6c195;text-decoration:none;">מדיניות פרטיות</a>
+                            <a href="/he/terms.html" style="color:#d6c195;text-decoration:none;">תנאי שימוש</a>
+                            <a href="#" id="footerA11yLink" style="color:#d6c195;text-decoration:none;">הצהרת נגישות</a>
+                        </span>
+                    </div>`;
+                document.body.appendChild(f);
+            }
+        }
     }
 
     // === Cookie consent handler ===
