@@ -124,7 +124,7 @@ export function renderRentalAgreementHtml(order) {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=David+Libre:wght@400;500;700&display=swap">
     <style>
-        @page { size: A4; margin: 2cm 2cm 2.6cm 2cm; }
+        @page { size: A4; margin: 2.5cm 2cm 2.5cm 2cm; }
         * { box-sizing: border-box; }
         html, body { margin: 0; padding: 0; }
         body {

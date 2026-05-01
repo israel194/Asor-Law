@@ -234,7 +234,7 @@ export async function generateCustomerDeliverable(order, env) {
             displayHeaderFooter: true,
             headerTemplate: '<div></div>',
             footerTemplate,
-            margin: { top: "2cm", right: "2cm", bottom: "3cm", left: "2cm" },
+            margin: { top: "2.5cm", right: "2cm", bottom: "2.5cm", left: "2cm" },
         });
         const tenant = (order?.payload?.tenant_name || "customer").replace(/[^\p{L}\p{N} _-]/gu, "");
         const shortId = (order?.orderId || "").slice(0, 8);
