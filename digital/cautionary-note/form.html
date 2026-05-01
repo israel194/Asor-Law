@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://asor-digital-api.israel-486.workers.dev; frame-src https://pay.sumit.co.il; font-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <title>שאלון - רישום הערת אזהרה | עשור ושות׳</title>
+    <meta name="description" content="שאלון לפתיחת תיק לרישום הערת אזהרה במקרקעין.">
+    <meta name="robots" content="noindex, nofollow">
+
+    <link rel="icon" href="../../images/logo-mark.png" type="image/png">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../rental-agreement/form.css">
+    <style>
+        .product-intro {
+            max-width: 760px;
+            margin: 24px auto 0;
+            background: #fdfbf7;
+            border: 1px solid var(--gold-soft, #e8dfd2);
+            border-radius: 10px;
+            padding: 18px 24px;
+            font-size: 14px;
+            line-height: 1.7;
+            color: var(--ink-soft, #7c6a55);
+        }
+        .product-intro h1 { margin: 0 0 8px; font-size: 22px; color: var(--gold-dark, #7a5c3e); }
+        .product-intro .price {
+            display: inline-block;
+            margin-top: 6px;
+            padding: 4px 12px;
+            background: var(--gold-dark, #7a5c3e);
+            color: #fff;
+            border-radius: 4px;
+            font-weight: 700;
+        }
+        .form-step .form-step-header h2 { margin-bottom: 6px; }
+        .submit-row { text-align: center; margin: 30px 0 16px; }
+        .submit-error { color: #c62828; background: #ffebee; padding: 12px 16px; border-radius: 6px; margin-top: 16px; display: none; }
+    </style>
+</head>
+<body class="form-body">
+
+    <header class="form-header">
+        <div class="container">
+            <a href="../../" class="form-back">← חזרה לאתר</a>
+            <a href="../../" class="form-logo">
+                <img src="../../images/logo-he.png" alt="עשור ושות׳ - עורכי דין">
+            </a>
+        </div>
+    </header>
+
+    <main class="form-main">
+        <div class="container">
+
+            <div class="product-intro">
+                <h1>רישום הערת אזהרה</h1>
+                <p>הערת אזהרה היא רישום בלשכת רישום המקרקעין שמטרתו להגן על זכויות קונה, מלווה או צד אחר בהתאם להסכם. השירות כולל בדיקת מסמכים, הכנת בקשת הרישום וביצוע מול הטאבו.</p>
+                <p><span class="price">1,200 ₪ כולל מע״מ</span></p>
+            </div>
+
+            <form id="cautionaryForm" novalidate>
+                <!-- Step 1: client -->
+                <section class="form-step active">
+                    <div class="form-step-header">
+                        <h2>פרטי הלקוח</h2>
+                        <p class="form-step-lede">מי הצד שמבקש את רישום ההערה? אלו הפרטים שלך לקבלת קשר ולהפעלת התיק.</p>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-field">
+                            <label for="client_name">שם מלא <span class="req">*</span></label>
+                            <input type="text" id="client_name" name="client_name" required autocomplete="name">
+                        </div>
+                        <div class="form-field">
+                            <label for="client_id">תעודת זהות <span class="req">*</span></label>
+                            <input type="text" id="client_id" name="client_id" required pattern="[0-9]{9}" maxlength="9" inputmode="numeric" placeholder="9 ספרות, ללא מקפים">
+                        </div>
+                        <div class="form-field">
+                            <label for="client_phone">טלפון נייד <span class="req">*</span></label>
+                            <input type="tel" id="client_phone" name="client_phone" required pattern="0[2-9][0-9]{7,8}" autocomplete="tel" placeholder="0501234567">
+                        </div>
+                        <div class="form-field">
+                            <label for="client_email">דוא״ל <span class="req">*</span></label>
+                            <input type="email" id="client_email" name="client_email" required autocomplete="email">
+                        </div>
+                        <div class="form-field form-field-wide">
+                            <label for="client_street">כתובת מגורים – רחוב ומספר</label>
+                            <input type="text" id="client_street" name="client_street" autocomplete="street-address">
+                        </div>
+                        <div class="form-field">
+                            <label for="client_city">עיר</label>
+                            <input type="text" id="client_city" name="client_city" autocomplete="address-level2">
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Step 2: property -->
+                <section class="form-step active">
+                    <div class="form-step-header">
+                        <h2>פרטי הנכס</h2>
+                        <p class="form-step-lede">איזה נכס נרשם — לפי גוש וחלקה כפי שמופיע בנסח הטאבו.</p>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-field form-field-wide">
+                            <label for="property_street">רחוב ומספר</label>
+                            <input type="text" id="property_street" name="property_street">
+                        </div>
+                        <div class="form-field">
+                            <label for="property_city">עיר</label>
+                            <input type="text" id="property_city" name="property_city">
+                        </div>
+                        <div class="form-field">
+                            <label for="property_block">גוש <span class="req">*</span></label>
+                            <input type="text" id="property_block" name="property_block" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="property_parcel">חלקה <span class="req">*</span></label>
+                            <input type="text" id="property_parcel" name="property_parcel" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="property_subparcel">תת חלקה (ת״ח)</label>
+                            <input type="text" id="property_subparcel" name="property_subparcel">
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Step 3: note details -->
+                <section class="form-step active">
+                    <div class="form-step-header">
+                        <h2>פרטי ההערה</h2>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-field form-field-wide">
+                            <label for="note_type">סוג ההערה <span class="req">*</span></label>
+                            <select id="note_type" name="note_type" required>
+                                <option value="">בחרו...</option>
+                                <option value="sale">הסכם מכר</option>
+                                <option value="loan">הסכם הלוואה / משכנתא בלתי מסויגת</option>
+                                <option value="inheritance">צו ירושה / קיום צוואה</option>
+                                <option value="gift">מתנה</option>
+                                <option value="other">אחר</option>
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label for="owner_name">שם בעל הנכס הרשום</label>
+                            <input type="text" id="owner_name" name="owner_name">
+                        </div>
+                        <div class="form-field">
+                            <label for="owner_id">ת.ז. בעל הנכס</label>
+                            <input type="text" id="owner_id" name="owner_id" pattern="[0-9]{9}" maxlength="9" inputmode="numeric">
+                        </div>
+                        <div class="form-field">
+                            <label for="base_transaction_date">מועד עסקת הבסיס</label>
+                            <input type="date" id="base_transaction_date" name="base_transaction_date">
+                        </div>
+                        <div class="form-field form-field-wide">
+                            <label for="description">פירוט נוסף (אופציונלי)</label>
+                            <textarea id="description" name="description" rows="4" placeholder="כל מידע רלוונטי שעשוי לעזור — מספר עסקה, פרטי צד שלישי, וכד'"></textarea>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="submit-row">
+                    <button type="submit" class="form-btn form-btn-primary form-btn-large" id="submitBtn">
+                        המשך לתשלום (1,200 ₪)
+                    </button>
+                    <div id="submitError" class="submit-error"></div>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer class="form-footer">
+        <div class="container">
+            <p>שאלות? <a href="mailto:office@asor-law.com">office@asor-law.com</a> · 02-500-0275</p>
+        </div>
+    </footer>
+
+    <script>
+        (function() {
+            const API_BASE = (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
+                ? 'http://localhost:8787'
+                : 'https://asor-digital-api.israel-486.workers.dev';
+
+            const form = document.getElementById('cautionaryForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const errorBox = document.getElementById('submitError');
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                errorBox.style.display = 'none';
+
+                if (!form.checkValidity()) {
+                    form.reportValidity();
+                    return;
+                }
+
+                const fd = new FormData(form);
+                const payload = {};
+                fd.forEach((v, k) => { payload[k] = v; });
+
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'מעבירים לתשלום...';
+
+                try {
+                    const res = await fetch(API_BASE + '/api/products/cautionary-note/create-payment', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload),
+                    });
+                    const json = await res.json();
+                    if (!res.ok) throw new Error(json.error || 'שגיאה ביצירת התשלום');
+                    location.href = json.redirectUrl;
+                } catch (err) {
+                    errorBox.textContent = err.message || 'שגיאה לא ידועה';
+                    errorBox.style.display = 'block';
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'המשך לתשלום (1,200 ₪)';
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

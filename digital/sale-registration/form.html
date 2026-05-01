@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://asor-digital-api.israel-486.workers.dev; frame-src https://pay.sumit.co.il; font-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests">
+    <title>שאלון - רישום מכר (העברת בעלות) | עשור ושות׳</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" href="../../images/logo-mark.png" type="image/png">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../rental-agreement/form.css">
+    <style>
+        .product-intro { max-width: 760px; margin: 24px auto 0; background: #fdfbf7; border: 1px solid var(--gold-soft, #e8dfd2); border-radius: 10px; padding: 18px 24px; font-size: 14px; line-height: 1.7; color: var(--ink-soft, #7c6a55); }
+        .product-intro h1 { margin: 0 0 8px; font-size: 22px; color: var(--gold-dark, #7a5c3e); }
+        .product-intro .price { display: inline-block; margin-top: 6px; padding: 4px 12px; background: var(--gold-dark, #7a5c3e); color: #fff; border-radius: 4px; font-weight: 700; }
+        .submit-row { text-align: center; margin: 30px 0 16px; }
+        .submit-error { color: #c62828; background: #ffebee; padding: 12px 16px; border-radius: 6px; margin-top: 16px; display: none; }
+    </style>
+</head>
+<body class="form-body">
+    <header class="form-header">
+        <div class="container">
+            <a href="../../" class="form-back">← חזרה לאתר</a>
+            <a href="../../" class="form-logo">
+                <img src="../../images/logo-he.png" alt="עשור ושות׳ - עורכי דין">
+            </a>
+        </div>
+    </header>
+    <main class="form-main">
+        <div class="container">
+            <div class="product-intro">
+                <h1>רישום מכר — העברת בעלות בלשכת רישום המקרקעין</h1>
+                <p>השירות כולל ליווי מלא של תהליך העברת הבעלות בנכס: בדיקת הסכם המכר, ייצוג מול לשכת רישום המקרקעין, טיפול במסי שבח ורכישה ברשות המסים, וביצוע הרישום לטובת הקונה.</p>
+                <p><span class="price">4,500 ₪ כולל מע״מ</span> — אינו כולל את מסי השבח/רכישה עצמם.</p>
+            </div>
+            <form id="saleForm" novalidate>
+                <section class="form-step active">
+                    <div class="form-step-header">
+                        <h2>פרטי הלקוח</h2>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-field"><label for="client_name">שם מלא <span class="req">*</span></label><input type="text" id="client_name" name="client_name" required autocomplete="name"></div>
+                        <div class="form-field"><label for="client_id">תעודת זהות <span class="req">*</span></label><input type="text" id="client_id" name="client_id" required pattern="[0-9]{9}" maxlength="9" inputmode="numeric"></div>
+                        <div class="form-field"><label for="client_phone">טלפון נייד <span class="req">*</span></label><input type="tel" id="client_phone" name="client_phone" required pattern="0[2-9][0-9]{7,8}" autocomplete="tel"></div>
+                        <div class="form-field"><label for="client_email">דוא״ל <span class="req">*</span></label><input type="email" id="client_email" name="client_email" required autocomplete="email"></div>
+                        <div class="form-field form-field-wide"><label for="client_street">כתובת מגורים – רחוב ומספר</label><input type="text" id="client_street" name="client_street" autocomplete="street-address"></div>
+                        <div class="form-field"><label for="client_city">עיר</label><input type="text" id="client_city" name="client_city" autocomplete="address-level2"></div>
+                        <div class="form-field form-field-wide"><label for="client_role">בעסקה זו אני... <span class="req">*</span></label>
+                            <select id="client_role" name="client_role" required>
+                                <option value="">בחרו...</option>
+                                <option value="seller">מוכר</option>
+                                <option value="buyer">קונה</option>
+                            </select>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="form-step active">
+                    <div class="form-step-header">
+                        <h2>פרטי הצד השני</h2>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-field"><label for="counterparty_name">שם מלא <span class="req">*</span></label><input type="text" id="counterparty_name" name="counterparty_name" required></div>
+                        <div class="form-field"><label for="counterparty_id">ת.ז.</label><input type="text" id="counterparty_id" name="counterparty_id" pattern="[0-9]{9}" maxlength="9" inputmode="numeric"></div>
+                        <div class="form-field"><label for="counterparty_phone">טלפון</label><input type="tel" id="counterparty_phone" name="counterparty_phone"></div>
+                        <div class="form-field"><label for="counterparty_email">דוא״ל</label><input type="email" id="counterparty_email" name="counterparty_email"></div>
+                    </div>
+                </section>
+
+                <section class="form-step active">
+                    <div class="form-step-header">
+                        <h2>פרטי הנכס</h2>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-field form-field-wide"><label for="property_street">רחוב ומספר</label><input type="text" id="property_street" name="property_street"></div>
+                        <div class="form-field"><label for="property_city">עיר</label><input type="text" id="property_city" name="property_city"></div>
+                        <div class="form-field"><label for="property_block">גוש <span class="req">*</span></label><input type="text" id="property_block" name="property_block" required></div>
+                        <div class="form-field"><label for="property_parcel">חלקה <span class="req">*</span></label><input type="text" id="property_parcel" name="property_parcel" required></div>
+                        <div class="form-field"><label for="property_subparcel">תת חלקה (ת״ח)</label><input type="text" id="property_subparcel" name="property_subparcel"></div>
+                        <div class="form-field form-field-wide"><label for="property_type">סוג הנכס</label>
+                            <select id="property_type" name="property_type">
+                                <option value="">בחרו...</option>
+                                <option value="דירה">דירת מגורים</option>
+                                <option value="בית פרטי">בית פרטי</option>
+                                <option value="חנות / מסחרי">חנות / מסחרי</option>
+                                <option value="משרד">משרד</option>
+                                <option value="קרקע">קרקע / מגרש</option>
+                                <option value="אחר">אחר</option>
+                            </select>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="form-step active">
+                    <div class="form-step-header">
+                        <h2>פרטי העסקה</h2>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-field"><label for="transaction_price">מחיר העסקה (₪) <span class="req">*</span></label><input type="number" id="transaction_price" name="transaction_price" required min="0" step="1000"></div>
+                        <div class="form-field"><label for="contract_date">מועד חתימת הסכם המכר</label><input type="date" id="contract_date" name="contract_date"></div>
+                        <div class="form-field"><label for="handover_date">מועד מסירה מתוכנן</label><input type="date" id="handover_date" name="handover_date"></div>
+                        <div class="form-field"><label for="mas_shevach_party">מס שבח על</label>
+                            <select id="mas_shevach_party" name="mas_shevach_party">
+                                <option value="">לא רלוונטי / לא ידוע</option>
+                                <option value="client">עליי</option>
+                                <option value="counterparty">על הצד השני</option>
+                            </select>
+                        </div>
+                        <div class="form-field"><label for="mas_rechisha_party">מס רכישה על</label>
+                            <select id="mas_rechisha_party" name="mas_rechisha_party">
+                                <option value="">לא רלוונטי / לא ידוע</option>
+                                <option value="client">עליי</option>
+                                <option value="counterparty">על הצד השני</option>
+                            </select>
+                        </div>
+                        <div class="form-field form-field-wide"><label for="description">פירוט נוסף (אופציונלי)</label><textarea id="description" name="description" rows="3"></textarea></div>
+                    </div>
+                </section>
+
+                <div class="submit-row">
+                    <button type="submit" class="form-btn form-btn-primary form-btn-large" id="submitBtn">המשך לתשלום (4,500 ₪)</button>
+                    <div id="submitError" class="submit-error"></div>
+                </div>
+            </form>
+        </div>
+    </main>
+    <footer class="form-footer">
+        <div class="container">
+            <p>שאלות? <a href="mailto:office@asor-law.com">office@asor-law.com</a> · 02-500-0275</p>
+        </div>
+    </footer>
+    <script>
+        (function() {
+            const API_BASE = (location.hostname === 'localhost' || location.hostname === '127.0.0.1') ? 'http://localhost:8787' : 'https://asor-digital-api.israel-486.workers.dev';
+            const form = document.getElementById('saleForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const errorBox = document.getElementById('submitError');
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                errorBox.style.display = 'none';
+                if (!form.checkValidity()) { form.reportValidity(); return; }
+                const fd = new FormData(form);
+                const payload = {};
+                fd.forEach((v, k) => { payload[k] = v; });
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'מעבירים לתשלום...';
+                try {
+                    const res = await fetch(API_BASE + '/api/products/sale-registration/create-payment', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload),
+                    });
+                    const json = await res.json();
+                    if (!res.ok) throw new Error(json.error || 'שגיאה ביצירת התשלום');
+                    location.href = json.redirectUrl;
+                } catch (err) {
+                    errorBox.textContent = err.message || 'שגיאה';
+                    errorBox.style.display = 'block';
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'המשך לתשלום (4,500 ₪)';
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

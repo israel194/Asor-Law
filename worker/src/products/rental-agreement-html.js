@@ -161,7 +161,7 @@ function appendixPromissoryNote(d, signDateStr, signCity, promissoryNote) {
         <li>הוראות שטר זה בנוסף ולא במקום הוראות הסכם השכירות וכל דין; לא יהיה במימוש שטר זה כדי לפטור את החייב מכל זכות או חובה אחרת בהסכם השכירות.</li>
     </ol>
 
-    <div class="signature-row" style="margin-top:42pt;">
+    <div class="signature-row" style="margin-top:18pt;">
         <div class="signature-block" style="flex:1;text-align:center;">
             <div class="signature-line">חתימת החייב</div>
             <div class="small">${tenantName}</div>
@@ -170,7 +170,7 @@ function appendixPromissoryNote(d, signDateStr, signCity, promissoryNote) {
         </div>
     </div>
 
-    <div class="witness-row" style="margin-top:30pt;">
+    <div class="witness-row" style="margin-top:14pt;">
         <div class="signature-block">
             <div class="signature-line">עד 1</div>
             <div class="small">שם: _______________________</div>
@@ -226,7 +226,7 @@ function appendixAvalGuarantee(d, signDateStr, signCity, promissoryNote, leaseSt
 
     <p style="margin-top:14pt;color:#5a3d20;"><strong>הצהרת הערבים:</strong> אנו, החתומים מטה, מצהירים כי קראנו והבנו את האמור בערבות זו, את הסכם השכירות ואת שטר החוב, וכי חתימתנו ניתנת מרצוננו החופשי וללא כל לחץ.</p>
 
-    <div class="witness-row" style="margin-top:30pt;">
+    <div class="witness-row" style="margin-top:14pt;">
         <div class="signature-block">
             <div class="signature-line">ערב 1 (אישית וספציפית)</div>
             <div class="small">שם מלא: _______________________</div>
@@ -296,7 +296,7 @@ function appendixFurnitureList(d, signDateStr, signCity) {
         <li>נספח זה ישמש כפרוטוקול מסירה מחייב ויהווה את הבסיס להשוואה במועד החזרת המושכר.</li>
     </ol>
 
-    <div class="signature-row" style="margin-top:36pt;">
+    <div class="signature-row" style="margin-top:18pt;">
         <div class="signature-block" style="text-align:center;">
             <div class="signature-line">חתימת המשכיר</div>
             <div class="small">${landlordName}</div>
@@ -349,7 +349,7 @@ export function renderRentalAgreementHtml(order) {
         body {
             font-family: 'David Libre', 'David', 'Times New Roman', serif;
             font-size: 11pt;
-            line-height: 1.7;
+            line-height: 1.5;
             color: #1a1a1a;
             direction: rtl;
             text-align: justify;
@@ -371,9 +371,9 @@ export function renderRentalAgreementHtml(order) {
         }
         h2 {
             font-family: 'David Libre', 'David', serif;
-            font-size: 13pt;
+            font-size: 12.5pt;
             font-weight: 700;
-            margin: 18pt 0 6pt;
+            margin: 12pt 0 4pt;
             color: #5a3d20;
             text-align: center;
         }
@@ -383,7 +383,7 @@ export function renderRentalAgreementHtml(order) {
         h2:not(.no-counter)::before {
             content: counter(section, hebrew) ". ";
         }
-        p { margin: 4pt 0; }
+        p { margin: 3pt 0; }
         /* Hanging indent — wrapped lines align with the start of the text,
            not under the number / והואיל prefix. */
         .clause {
@@ -400,11 +400,11 @@ export function renderRentalAgreementHtml(order) {
         ol.clauses {
             list-style: none;
             padding-right: 0;
-            margin: 6pt 0;
+            margin: 4pt 0;
         }
         ol.clauses > li {
             counter-increment: clause;
-            margin: 6pt 0;
+            margin: 4pt 0;
             padding-right: 1.8em;
             text-indent: -1.8em;
         }
@@ -415,7 +415,7 @@ export function renderRentalAgreementHtml(order) {
             margin-left: 4pt;
         }
         .recital {
-            margin: 6pt 0;
+            margin: 4pt 0;
             padding-right: 4.5em;
         }
         .recital > strong:first-child {
@@ -433,9 +433,9 @@ export function renderRentalAgreementHtml(order) {
             margin-bottom: 14pt;
         }
         .party-block {
-            margin: 6pt auto 10pt;
+            margin: 4pt auto 6pt;
             max-width: 75%;
-            padding: 10pt 18pt;
+            padding: 6pt 14pt;
             background: #faf6f0;
             border-right: 3px solid #c8b89a;
             border-left: 3px solid #c8b89a;
@@ -456,7 +456,7 @@ export function renderRentalAgreementHtml(order) {
         .recital strong { color: #5a3d20; }
         .clause { margin: 6pt 0; }
         .signatures {
-            margin-top: 36pt;
+            margin-top: 18pt;
             display: flex;
             justify-content: space-between;
             gap: 40pt;
@@ -468,8 +468,8 @@ export function renderRentalAgreementHtml(order) {
         }
         .sig-line {
             border-top: 1px solid #1a1a1a;
-            margin: 36pt 8pt 6pt;
-            padding-top: 4pt;
+            margin: 24pt 8pt 4pt;
+            padding-top: 3pt;
         }
         .sig-label {
             font-family: 'David Libre', 'David', serif;
@@ -478,12 +478,12 @@ export function renderRentalAgreementHtml(order) {
         }
         .sig-name { font-size: 10pt; color: #555; margin-top: 2pt; }
         .footer-note {
-            margin-top: 24pt;
+            margin-top: 12pt;
             font-size: 8.5pt;
             color: #777;
             text-align: center;
             border-top: 1px solid #e5dfd2;
-            padding-top: 6pt;
+            padding-top: 4pt;
         }
         .small { font-size: 9pt; color: #555; }
 
@@ -495,41 +495,41 @@ export function renderRentalAgreementHtml(order) {
         .appendix-title {
             text-align: center;
             font-family: 'David Libre', 'David', serif;
-            font-size: 19pt;
+            font-size: 17pt;
             font-weight: 700;
             color: #5a3d20;
-            margin: 12pt 0 6pt;
+            margin: 6pt 0 4pt;
             letter-spacing: 0.04em;
         }
         .appendix-subtitle {
             text-align: center;
-            font-size: 11pt;
+            font-size: 10.5pt;
             color: #7a5c3e;
-            margin-bottom: 4pt;
+            margin-bottom: 2pt;
         }
         .appendix-meta {
             text-align: center;
-            font-size: 10pt;
+            font-size: 9.5pt;
             color: #555;
-            margin-bottom: 24pt;
+            margin-bottom: 14pt;
         }
         .appendix-section-title {
             font-family: 'David Libre', 'David', serif;
-            font-size: 12pt;
+            font-size: 11.5pt;
             font-weight: 700;
             color: #5a3d20;
             text-align: right;
-            margin: 16pt 0 6pt;
+            margin: 10pt 0 4pt;
         }
-        .appendix p { margin: 6pt 0; }
+        .appendix p { margin: 4pt 0; }
         ol.appendix-list {
             list-style: none;
             padding-right: 0;
-            margin: 6pt 0;
+            margin: 4pt 0;
         }
         ol.appendix-list > li {
             counter-increment: appendix-clause;
-            margin: 6pt 0;
+            margin: 4pt 0;
             padding-right: 1.8em;
             text-indent: -1.8em;
         }
@@ -550,8 +550,8 @@ export function renderRentalAgreementHtml(order) {
         }
         .signature-line {
             border-top: 1px solid #1a1a1a;
-            margin-top: 36pt;
-            padding-top: 4pt;
+            margin-top: 24pt;
+            padding-top: 3pt;
             text-align: center;
             font-weight: 700;
         }
@@ -608,7 +608,7 @@ export function renderRentalAgreementHtml(order) {
     <p class="party-aka">(להלן: <strong>"השוכר"</strong>)</p>
 </div>
 
-<p class="recital" style="margin-top:14pt;"><strong>והואיל</strong> והמשכיר הינו הבעלים של דירת מגורים הכוללת ${esc(d.property_bedrooms || "—")} חדרי שינה, ${esc(d.property_bathrooms || "—")} שירותים ו-${esc(d.property_showers || "—")} מקלחות, הנמצאת ברחוב ${esc(d.property_street || "—")}, ${esc(d.property_city || "—")}${d.property_neighborhood ? ", בשכונת " + esc(d.property_neighborhood) : ""}, והידועה כגוש: ${esc(d.property_block || "—")} חלקה: ${esc(d.property_parcel || "—")}${d.property_subparcel ? " ת״ח: " + esc(d.property_subparcel) : ""} (להלן: <strong>"הדירה"</strong> ו/או <strong>"המושכר"</strong>);</p>
+<p class="recital" style="margin-top:10pt;"><strong>והואיל</strong> והמשכיר הינו הבעלים של דירת מגורים הכוללת ${esc(d.property_bedrooms || "—")} חדרי שינה, ${esc(d.property_bathrooms || "—")} שירותים ו-${esc(d.property_showers || "—")} מקלחות, הנמצאת ברחוב ${esc(d.property_street || "—")}, ${esc(d.property_city || "—")}${d.property_neighborhood ? ", בשכונת " + esc(d.property_neighborhood) : ""}, והידועה כגוש: ${esc(d.property_block || "—")} חלקה: ${esc(d.property_parcel || "—")}${d.property_subparcel ? " ת״ח: " + esc(d.property_subparcel) : ""} (להלן: <strong>"הדירה"</strong> ו/או <strong>"המושכר"</strong>);</p>
 
 <p class="recital"><strong>והואיל</strong> והשוכר מעוניין לשכור את הדירה מהמשכיר בהתאם לתנאים המפורטים בהסכם זה;</p>
 
@@ -621,7 +621,7 @@ ${furnitureRecital(d)}
 <p class="recital"><strong>והואיל</strong> והשוכר מצהיר כי ישתמש במושכר למטרת מגורים בלבד והמשכיר הסכים להרשות לשוכר את השימוש בדירה למטרת מגורים בלבד;</p>
 ${additionalTenantsRecital(d)}
 
-<p style="margin-top:14pt;text-align:center;"><strong>אי לכך הוסכם, הותנה והוצהר בין הצדדים כדלקמן:</strong></p>
+<p style="margin-top:10pt;text-align:center;"><strong>אי לכך הוסכם, הותנה והוצהר בין הצדדים כדלקמן:</strong></p>
 
 <h2>מבוא ופרשנות</h2>
 <p class="clause">המבוא להסכם זה מהווה חלק בלתי נפרד הימנו כאילו נכלל בגוף סעיפי ההסכם. כותרות הסעיפים נועדו לנוחות בלבד ואין בהן כדי להשפיע על פרשנות ההסכם.</p>

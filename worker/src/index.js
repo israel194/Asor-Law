@@ -27,7 +27,78 @@ import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { createPaymentRedirect } from "./sumit.js";
 import { sendEmail } from "./email.js";
-import { getProduct } from "./products/index.js";
+import { getProduct, listProducts } from "./products/index.js";
+
+/**
+ * Generic order processing — used for both Type A products (with PDF
+ * deliverable) and Type B products (digital intake, attorney-handled).
+ */
+async function processPaidOrder(env, order) {
+    const product = getProduct(order.productId);
+    const orderId = order.orderId;
+
+    // 1) For Type A products, generate PDF and store in KV.
+    let attachments;
+    if (typeof product.generateCustomerDeliverable === "function") {
+        try {
+            const { filename, content, contentType } = await product.generateCustomerDeliverable(order, env);
+            await env.ORDERS_KV.put(`pdf:${orderId}`, content, {
+                metadata: { filename, contentType, generatedAt: new Date().toISOString() },
+            });
+            order.pdfGeneratedAt = new Date().toISOString();
+            order.pdfFilename = filename;
+            await env.ORDERS_KV.put(orderId, JSON.stringify(order));
+            attachments = [{ filename, content, contentType }];
+        } catch (err) {
+            console.error("PDF generation failed", err);
+            order.deliverableError = err.message;
+            await env.ORDERS_KV.put(orderId, JSON.stringify(order));
+        }
+    }
+
+    // 2) Office notification — full questionnaire + the PDF (for Type A).
+    try {
+        const { subject, html, text } = product.formatOfficeEmail(order);
+        await sendEmail(env, {
+            to: env.OFFICE_EMAIL,
+            subject,
+            html,
+            text,
+            replyTo: order.payload?.client_email || order.payload?.tenant_email,
+            attachments,
+        });
+        order.officeNotifiedAt = new Date().toISOString();
+        await env.ORDERS_KV.put(orderId, JSON.stringify(order));
+    } catch (err) {
+        console.error("office email failed", err);
+        order.officeEmailError = err.message;
+        await env.ORDERS_KV.put(orderId, JSON.stringify(order));
+    }
+
+    // 3) Customer email.
+    const customerEmail = order.payload?.client_email || order.payload?.tenant_email;
+    if (typeof product.formatCustomerEmail === "function" && customerEmail) {
+        try {
+            const { subject, html, text } = product.formatCustomerEmail(order);
+            await sendEmail(env, {
+                to: customerEmail,
+                subject,
+                html,
+                text,
+                replyTo: env.OFFICE_EMAIL,
+                attachments,
+            });
+            order.customerNotifiedAt = new Date().toISOString();
+            await env.ORDERS_KV.put(orderId, JSON.stringify(order));
+        } catch (err) {
+            console.error("customer email failed", err);
+            order.customerEmailError = err.message;
+            await env.ORDERS_KV.put(orderId, JSON.stringify(order));
+        }
+    }
+
+    return order;
+}
 
 const app = new Hono();
 
@@ -100,104 +171,91 @@ app.post("/api/rental/create-payment", async c => {
 });
 
 // ===== Payment callback (called by frontend success page) =====
-app.post("/api/rental/payment-callback", async c => {
-    const orderId = c.req.query("orderId");
+//   /api/rental/payment-callback   — legacy alias (still in use by the rental form)
+//   /api/orders/:id/payment-callback — generic, used by all newer products
+async function paymentCallbackHandler(c, orderIdOverride) {
+    const orderId = orderIdOverride || c.req.query("orderId");
     if (!orderId) return c.json({ error: "Missing orderId" }, 400);
 
     const raw = await c.env.ORDERS_KV.get(orderId);
     if (!raw) return c.json({ error: "Order not found" }, 404);
 
-    const order = JSON.parse(raw);
-
-    // Idempotency — if we already processed, return success without re-sending email
-    if (order.status === "paid") {
+    const orderInitial = JSON.parse(raw);
+    if (orderInitial.status === "paid") {
         return c.json({ ok: true, alreadyProcessed: true, orderId });
     }
 
-    order.status = "paid";
-    order.paidAt = new Date().toISOString();
-    await c.env.ORDERS_KV.put(orderId, JSON.stringify(order));
+    orderInitial.status = "paid";
+    orderInitial.paidAt = new Date().toISOString();
+    await c.env.ORDERS_KV.put(orderId, JSON.stringify(orderInitial));
 
-    const product = getProduct(order.productId);
+    const order = await processPaidOrder(c.env, orderInitial);
 
-    // 1) Generate PDF and store in KV (used for both email attachments and the
-    //    success-page download).
-    let pdfFilename = null;
-    let pdfContent = null;
-    let pdfContentType = "application/pdf";
-    try {
-        const result = await product.generateCustomerDeliverable(order, c.env);
-        pdfFilename = result.filename;
-        pdfContent = result.content;
-        pdfContentType = result.contentType;
-        await c.env.ORDERS_KV.put(`pdf:${orderId}`, pdfContent, {
-            metadata: { filename: pdfFilename, contentType: pdfContentType, generatedAt: new Date().toISOString() },
-        });
-        order.pdfGeneratedAt = new Date().toISOString();
-        order.pdfFilename = pdfFilename;
-        await c.env.ORDERS_KV.put(orderId, JSON.stringify(order));
-    } catch (err) {
-        console.error("PDF generation failed", err);
-        order.deliverableError = err.message;
-        await c.env.ORDERS_KV.put(orderId, JSON.stringify(order));
-        // Don't fail — payment is complete; israel can re-trigger from KV.
-    }
-
-    const attachments = (pdfContent && pdfFilename)
-        ? [{ filename: pdfFilename, content: pdfContent, contentType: pdfContentType }]
-        : undefined;
-
-    // 2) Office notification — full questionnaire details + the PDF that was
-    //    issued to the customer.
-    try {
-        const { subject, html, text } = product.formatOfficeEmail(order);
-        const replyTo = order.payload?.tenant_email;
-        await sendEmail(c.env, {
-            to: c.env.OFFICE_EMAIL,
-            subject,
-            html,
-            text,
-            replyTo,
-            attachments,
-        });
-        order.officeNotifiedAt = new Date().toISOString();
-        await c.env.ORDERS_KV.put(orderId, JSON.stringify(order));
-    } catch (err) {
-        console.error("office email failed", err);
-        order.officeEmailError = err.message;
-        await c.env.ORDERS_KV.put(orderId, JSON.stringify(order));
-    }
-
-    // 3) Customer auto-notification — the PDF + appendices.
-    try {
-        if (typeof product.formatCustomerEmail === "function" && order.payload?.tenant_email && attachments) {
-            const { subject, html, text } = product.formatCustomerEmail(order);
-            await sendEmail(c.env, {
-                to: order.payload.tenant_email,
-                subject,
-                html,
-                text,
-                replyTo: c.env.OFFICE_EMAIL,
-                attachments,
-            });
-            order.customerNotifiedAt = new Date().toISOString();
-            await c.env.ORDERS_KV.put(orderId, JSON.stringify(order));
-        }
-    } catch (err) {
-        console.error("customer email failed", err);
-        order.customerEmailError = err.message;
-        await c.env.ORDERS_KV.put(orderId, JSON.stringify(order));
-    }
-
+    const customerEmail = order.payload?.client_email || order.payload?.tenant_email || null;
     return c.json({
         ok: true,
         orderId,
         pdfReady: Boolean(order.pdfGeneratedAt),
         pdfFilename: order.pdfFilename || null,
         customerEmailSent: Boolean(order.customerNotifiedAt),
-        customerEmail: order.payload?.tenant_email || null,
+        customerEmail,
     });
+}
+
+app.post("/api/rental/payment-callback", c => paymentCallbackHandler(c));
+app.post("/api/orders/:id/payment-callback", c => paymentCallbackHandler(c, c.req.param("id")));
+
+// ===== Generic create-payment for any registered product =====
+app.post("/api/products/:productId/create-payment", async c => {
+    const productId = c.req.param("productId");
+    let product;
+    try { product = getProduct(productId); }
+    catch { return c.json({ error: `Unknown product: ${productId}` }, 404); }
+
+    let payload;
+    try { payload = await c.req.json(); }
+    catch { return c.json({ error: "Invalid JSON body" }, 400); }
+
+    const required = product.requiredFields || ["client_name", "client_email", "client_phone"];
+    for (const k of required) {
+        if (!payload[k]) return c.json({ error: `Missing field: ${k}` }, 400);
+    }
+
+    const orderId = crypto.randomUUID();
+    const order = {
+        orderId,
+        productId: product.id,
+        status: "pending_payment",
+        priceIls: product.priceIls,
+        createdAt: new Date().toISOString(),
+        payload,
+    };
+    await c.env.ORDERS_KV.put(orderId, JSON.stringify(order));
+
+    const returnUrl = `${c.env.RETURN_URL_BASE}/digital/${product.id}/success.html?orderId=${encodeURIComponent(orderId)}`;
+
+    try {
+        const { redirectUrl } = await createPaymentRedirect(c.env, {
+            orderId,
+            productName: product.name,
+            priceIls: product.priceIls,
+            customerName: payload.client_name || payload.tenant_name,
+            customerEmail: payload.client_email || payload.tenant_email,
+            customerPhone: payload.client_phone || payload.tenant_phone,
+            returnUrl,
+        });
+        return c.json({ orderId, redirectUrl });
+    } catch (err) {
+        console.error("create-payment failed", err);
+        try {
+            await c.env.ORDERS_KV.put(orderId, JSON.stringify({ ...order, status: "payment_init_failed", error: err.message }));
+        } catch { /* swallow */ }
+        return c.json({ error: "Payment provider error", detail: err.message }, 502);
+    }
 });
+
+// ===== List all available products (used by /digital/ index page) =====
+app.get("/api/products", c => c.json({ products: listProducts() }));
 
 // ===== Email the document on customer request =====
 app.post("/api/orders/:id/share/email", async c => {
