@@ -154,8 +154,6 @@ export function renderRentalAgreementHtml(order) {
             font-size: 13pt;
             font-weight: 700;
             margin: 18pt 0 6pt;
-            border-bottom: 1px solid #c8b89a;
-            padding-bottom: 2pt;
             color: #5a3d20;
             text-align: center;
         }
@@ -180,6 +178,13 @@ export function renderRentalAgreementHtml(order) {
             color: #5a3d20;
             margin: 0 0 4pt;
         }
+        .party-aka {
+            text-align: left;
+            font-size: 10pt;
+            color: #555;
+            margin-top: 6pt;
+        }
+        .party-aka strong { color: #1a1a1a; font-weight: 700; }
         .recital { margin: 6pt 0; padding-right: 0; }
         .recital strong { color: #5a3d20; margin-left: 4pt; }
         .clause { margin: 6pt 0; }
@@ -229,18 +234,18 @@ export function renderRentalAgreementHtml(order) {
 
 <div class="party-block">
     <p class="party-label">המשכיר:</p>
-    <p>שם מלא: <strong>${esc(d.landlord_name)}</strong> &nbsp;·&nbsp; ת.ז.: <strong>${esc(d.landlord_id)}</strong></p>
+    <p><strong>${esc(d.landlord_name)}</strong> &nbsp;·&nbsp; ת.ז.: <strong>${esc(d.landlord_id)}</strong></p>
     <p>כתובת: ${landlordAddress || "—"}</p>
     <p>טלפון: ${esc(d.landlord_phone)} &nbsp;·&nbsp; דוא"ל: ${esc(d.landlord_email)}</p>
-    <p class="small">(להלן: "המשכיר")</p>
+    <p class="party-aka">(להלן: "<strong>המשכיר</strong>")</p>
 </div>
 
 <div class="party-block">
     <p class="party-label">השוכר:</p>
-    <p>שם מלא: <strong>${esc(d.tenant_name)}</strong> &nbsp;·&nbsp; ת.ז.: <strong>${esc(d.tenant_id)}</strong></p>
+    <p><strong>${esc(d.tenant_name)}</strong> &nbsp;·&nbsp; ת.ז.: <strong>${esc(d.tenant_id)}</strong></p>
     <p>כתובת: ${tenantAddress || "—"}</p>
     <p>טלפון: ${esc(d.tenant_phone)} &nbsp;·&nbsp; דוא"ל: ${esc(d.tenant_email)}</p>
-    <p class="small">(להלן: "השוכר")</p>
+    <p class="party-aka">(להלן: "<strong>השוכר</strong>")</p>
 </div>
 
 <h2>הואיל</h2>

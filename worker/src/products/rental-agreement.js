@@ -204,16 +204,22 @@ export async function generateCustomerDeliverable(order, env) {
 
     const html = renderRentalAgreementHtml(order);
 
-    // Per-page footer: signature lines for both parties + page number.
-    // Puppeteer renders this once per page; pageNumber/totalPages are auto-filled.
-    // Note: footerTemplate is sandboxed — explicit font-size + inline styles required.
+    // Per-page footer: initial-lines for both parties + page number.
+    // This is for ראשי תיבות on every page (Israeli legal practice — confirms
+    // the party read each page). The full, prominent signatures live in the
+    // body of the document on the last page.
+    // Note: footerTemplate is sandboxed — inline styles required, no scripts.
     const footerTemplate = `
-        <div style="width:100%;font-family:'David Libre','David',serif;font-size:9pt;color:#555;direction:rtl;padding:0 2cm;box-sizing:border-box;">
-            <div style="display:flex;justify-content:space-between;border-top:1px solid #c8b89a;padding-top:2mm;">
-                <div>המשכיר: ____________________</div>
-                <div>השוכר: ____________________</div>
+        <div style="width:100%;font-family:'David Libre','David',serif;direction:rtl;padding:0 2cm;box-sizing:border-box;color:#1a1a1a;">
+            <div style="display:flex;justify-content:space-between;gap:2cm;">
+                <div style="flex:1;text-align:center;">
+                    <div style="border-top:1px solid #1a1a1a;padding-top:1mm;font-size:9pt;">ראשי תיבות <strong>המשכיר</strong></div>
+                </div>
+                <div style="flex:1;text-align:center;">
+                    <div style="border-top:1px solid #1a1a1a;padding-top:1mm;font-size:9pt;">ראשי תיבות <strong>השוכר</strong></div>
+                </div>
             </div>
-            <div style="text-align:center;margin-top:1.5mm;font-size:8.5pt;color:#777;">
+            <div style="text-align:center;margin-top:2mm;font-size:8.5pt;color:#777;">
                 עמוד <span class="pageNumber"></span> מתוך <span class="totalPages"></span>
             </div>
         </div>`;
