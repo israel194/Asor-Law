@@ -196,8 +196,7 @@ export function renderRentalAgreementHtml(order) {
             margin-left: 4pt;
         }
         .recital {
-            padding-right: 3.6em;
-            text-indent: -3.6em;
+            margin: 6pt 0;
         }
         .meta {
             text-align: center;
@@ -286,9 +285,7 @@ export function renderRentalAgreementHtml(order) {
     <p class="party-aka">(להלן: <strong>"השוכר"</strong>)</p>
 </div>
 
-<h2 class="no-counter">הואיל</h2>
-
-<p class="recital"><strong>והואיל</strong> והמשכיר הינו הבעלים של דירת מגורים הכוללת ${esc(d.property_bedrooms || "—")} חדרי שינה, ${esc(d.property_bathrooms || "—")} שירותים ו-${esc(d.property_showers || "—")} מקלחות, הנמצאת ברחוב ${esc(d.property_street || "—")}, ${esc(d.property_city || "—")}${d.property_neighborhood ? ", בשכונת " + esc(d.property_neighborhood) : ""}, והידועה כגוש: ${esc(d.property_block || "—")} חלקה: ${esc(d.property_parcel || "—")}${d.property_subparcel ? " ת״ח: " + esc(d.property_subparcel) : ""} (להלן: <strong>"הדירה"</strong> ו/או <strong>"המושכר"</strong>);</p>
+<p class="recital" style="margin-top:14pt;"><strong>והואיל</strong> והמשכיר הינו הבעלים של דירת מגורים הכוללת ${esc(d.property_bedrooms || "—")} חדרי שינה, ${esc(d.property_bathrooms || "—")} שירותים ו-${esc(d.property_showers || "—")} מקלחות, הנמצאת ברחוב ${esc(d.property_street || "—")}, ${esc(d.property_city || "—")}${d.property_neighborhood ? ", בשכונת " + esc(d.property_neighborhood) : ""}, והידועה כגוש: ${esc(d.property_block || "—")} חלקה: ${esc(d.property_parcel || "—")}${d.property_subparcel ? " ת״ח: " + esc(d.property_subparcel) : ""} (להלן: <strong>"הדירה"</strong> ו/או <strong>"המושכר"</strong>);</p>
 
 <p class="recital"><strong>והואיל</strong> והשוכר מעוניין לשכור את הדירה מהמשכיר בהתאם לתנאים המפורטים בהסכם זה;</p>
 
