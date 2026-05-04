@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>עשור ושות׳ — עורכי דין | פרוטוטייפ עיצובי</title>
+    <meta name="description" content="משרד עורכי דין עשור ושות׳, ירושלים — מומחים בהתחדשות עירונית ומיסוי מקרקעין. ליווי משפטי ברמה הגבוהה ביותר לדיירים וליזמים.">
+    <meta name="robots" content="noindex, nofollow">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=Frank+Ruhl+Libre:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              navy:     { DEFAULT: '#0A2540', deep: '#001F3F', soft: '#13315C', mist: '#1F3A5F' },
+              gold:     { DEFAULT: '#C9A66B', light: '#D4AF88', dark: '#A88547', deep: '#8E6F3D' },
+              charcoal: '#1F2937',
+              cream:    '#F8F5F0',
+              ivory:    '#FAF7F2',
+              line:     '#E8DFD2',
+            },
+            fontFamily: {
+              sans:    ['Heebo','Arial','sans-serif'],
+              display: ['"Frank Ruhl Libre"','Georgia','serif'],
+            },
+            boxShadow: {
+              luxe:     '0 20px 60px -20px rgba(10,37,64,0.25)',
+              soft:     '0 8px 30px -10px rgba(10,37,64,0.15)',
+              card:     '0 2px 12px -2px rgba(10,37,64,0.08)',
+            },
+            letterSpacing: {
+              tightest: '-0.04em',
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Heebo', sans-serif; background: #FAF7F2; color: #1F2937; -webkit-font-smoothing: antialiased; }
+        .display { font-family: 'Frank Ruhl Libre', serif; font-feature-settings: "ss01" on; }
+
+        /* Subtle scroll reveal */
+        .reveal { opacity: 0; transform: translateY(24px); transition: opacity 700ms ease, transform 700ms ease; }
+        .reveal.in { opacity: 1; transform: translateY(0); }
+        .reveal.delay-1 { transition-delay: 80ms; }
+        .reveal.delay-2 { transition-delay: 160ms; }
+        .reveal.delay-3 { transition-delay: 240ms; }
+
+        /* Gold underline */
+        .gold-rule::after { content: ''; display: block; width: 48px; height: 2px; background: #C9A66B; margin-top: 14px; }
+        .gold-rule.center::after { margin-inline: auto; }
+
+        /* Hero subtle grain */
+        .hero-grain {
+            background-image:
+              radial-gradient(rgba(201,166,107,0.07) 1px, transparent 1px),
+              linear-gradient(180deg, rgba(10,37,64,1) 0%, rgba(19,49,92,1) 60%, rgba(10,37,64,1) 100%);
+            background-size: 4px 4px, 100% 100%;
+        }
+
+        /* Card hover */
+        .card-rise { transition: transform 350ms ease, box-shadow 350ms ease, border-color 350ms ease; }
+        .card-rise:hover { transform: translateY(-4px); box-shadow: 0 20px 50px -20px rgba(10,37,64,0.22); border-color: #C9A66B; }
+
+        /* Vertical decorative line */
+        .v-rule { width: 1px; background: linear-gradient(180deg, transparent, #C9A66B 30%, #C9A66B 70%, transparent); }
+
+        /* Accordion */
+        details > summary { list-style: none; cursor: pointer; }
+        details > summary::-webkit-details-marker { display: none; }
+        details[open] summary .acc-icon { transform: rotate(45deg); }
+
+        /* Carousel snap */
+        .snap-row { scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
+        .snap-row > * { scroll-snap-align: start; }
+
+        /* Reduce motion respect */
+        @media (prefers-reduced-motion: reduce) {
+            .reveal, .card-rise { transition: none; }
+            html { scroll-behavior: auto; }
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+<!-- =================== Top notice =================== -->
+<div class="bg-navy text-cream/90 text-[12px] py-2">
+    <div class="max-w-7xl mx-auto px-6 flex flex-wrap items-center justify-between gap-2">
+        <span class="flex items-center gap-2">
+            <span class="inline-block w-1.5 h-1.5 rounded-full bg-gold"></span>
+            משרד פעיל · ירושלים · נחום חפצדי 17, מגדל רם
+        </span>
+        <span class="hidden sm:flex items-center gap-4">
+            <a href="tel:02-5000275" class="hover:text-gold transition">02-5000275</a>
+            <span class="text-cream/30">•</span>
+            <a href="mailto:office@asor-law.com" class="hover:text-gold transition">office@asor-law.com</a>
+        </span>
+    </div>
+</div>
+
+<!-- =================== Navbar =================== -->
+<header id="nav" class="sticky top-0 z-40 transition-all duration-300 bg-ivory/80 backdrop-blur border-b border-line">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <a href="#hero" class="flex items-center gap-3">
+            <div class="w-11 h-11 rounded-md bg-navy flex items-center justify-center">
+                <span class="display text-gold text-xl">ע</span>
+            </div>
+            <div class="leading-tight">
+                <div class="display text-navy text-[18px]">עשור ושות׳</div>
+                <div class="text-[11px] text-charcoal/60 tracking-wider">עורכי דין · ירושלים</div>
+            </div>
+        </a>
+
+        <nav class="hidden lg:flex items-center gap-8 text-[14px] text-charcoal">
+            <a href="#about"        class="hover:text-gold-dark transition">אודות</a>
+            <a href="#expertise"    class="hover:text-gold-dark transition">תחומי התמחות</a>
+            <a href="#projects"     class="hover:text-gold-dark transition">פרויקטים</a>
+            <a href="#values"       class="hover:text-gold-dark transition">למה אנחנו</a>
+            <a href="#knowledge"    class="hover:text-gold-dark transition">מרכז ידע</a>
+            <a href="#team"         class="hover:text-gold-dark transition">צוות</a>
+            <a href="#faq"          class="hover:text-gold-dark transition">שאלות נפוצות</a>
+        </nav>
+
+        <div class="flex items-center gap-2">
+            <a href="tel:02-5000275" class="hidden md:flex items-center gap-2 text-navy text-[14px] font-medium hover:text-gold-dark transition">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                02-5000275
+            </a>
+            <a href="#contact" class="inline-flex items-center gap-1.5 bg-navy hover:bg-navy-soft text-ivory text-[13px] font-medium px-4 py-2.5 rounded-full transition">
+                צרו קשר
+                <svg class="w-3.5 h-3.5 rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </a>
+        </div>
+    </div>
+</header>
+
+<!-- =================== Hero =================== -->
+<section id="hero" class="relative hero-grain text-cream overflow-hidden">
+    <!-- Decorative grid lines -->
+    <div class="absolute inset-0 pointer-events-none opacity-[0.06]">
+        <div class="absolute inset-y-0 left-1/4 w-px bg-gold"></div>
+        <div class="absolute inset-y-0 left-1/2 w-px bg-gold"></div>
+        <div class="absolute inset-y-0 left-3/4 w-px bg-gold"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 pt-20 pb-24 lg:pt-28 lg:pb-32 grid lg:grid-cols-12 gap-10 items-center">
+        <!-- Copy -->
+        <div class="lg:col-span-7 reveal">
+            <div class="inline-flex items-center gap-2 text-[12px] tracking-[0.2em] uppercase text-gold mb-7">
+                <span class="w-8 h-px bg-gold"></span>
+                Asor &amp; Co. — Attorneys at Law
+            </div>
+            <h1 class="display text-[44px] md:text-[64px] lg:text-[76px] leading-[1.05] tracking-tightest text-cream">
+                מעצבים את עתיד
+                <br>
+                <span class="text-gold">הנדל״ן של ירושלים</span>
+            </h1>
+            <p class="mt-7 text-cream/80 text-[17px] md:text-[19px] leading-relaxed max-w-2xl">
+                משרד מוביל בליווי דיירים בפרויקטים של פינוי-בינוי ותמ״א 38, מיסוי מקרקעין, מס הכנסה, ירושות וייפויי כוח. שמונה עורכי דין, מעל שני עשורי ניסיון ותפקידים בכירים בלשכת עוה״ד.
+            </p>
+
+            <div class="mt-10 flex flex-wrap items-center gap-3">
+                <a href="#contact" class="inline-flex items-center gap-2 bg-gold hover:bg-gold-light text-navy font-semibold px-7 py-3.5 rounded-full transition">
+                    קביעת שיחת התייעצות
+                    <svg class="w-4 h-4 rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+                <a href="#projects" class="inline-flex items-center gap-2 border border-cream/30 hover:border-gold hover:text-gold text-cream/90 px-7 py-3.5 rounded-full transition">
+                    הפרויקטים שבטיפולנו
+                </a>
+            </div>
+
+            <!-- Trust strip -->
+            <div class="mt-12 grid grid-cols-3 gap-6 max-w-xl">
+                <div>
+                    <div class="display text-gold text-4xl">9</div>
+                    <div class="text-[12px] text-cream/60 tracking-wide mt-1">פרויקטים פעילים</div>
+                </div>
+                <div>
+                    <div class="display text-gold text-4xl">3,100<span class="text-2xl">+</span></div>
+                    <div class="text-[12px] text-cream/60 tracking-wide mt-1">דירות בתכנון</div>
+                </div>
+                <div>
+                    <div class="display text-gold text-4xl">8</div>
+                    <div class="text-[12px] text-cream/60 tracking-wide mt-1">עורכי דין בצוות</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Portrait -->
+        <div class="lg:col-span-5 reveal delay-2 relative">
+            <div class="relative max-w-md mx-auto">
+                <!-- Gold frame behind -->
+                <div class="absolute -top-4 -right-4 w-full h-full border border-gold rounded-sm"></div>
+                <div class="relative bg-gradient-to-b from-navy-soft to-navy-deep rounded-sm overflow-hidden aspect-[4/5] shadow-luxe">
+                    <img src="../images/attorney-asor.png" alt="עו״ד ישראל עשור" class="w-full h-full object-cover">
+                    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy-deep via-navy-deep/80 to-transparent p-6">
+                        <div class="text-gold text-[12px] tracking-[0.2em] uppercase">Founding Partner</div>
+                        <div class="display text-cream text-2xl mt-1">ישראל עשור, עו״ד (רו״ח)</div>
+                        <div class="text-cream/70 text-[13px] mt-1">יו״ר ועדת התחדשות עירונית · לשכת עוה״ד ירושלים</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom marquee -->
+    <div class="border-t border-cream/10">
+        <div class="max-w-7xl mx-auto px-6 py-5 flex flex-wrap items-center justify-between gap-4 text-[12px] tracking-widest uppercase text-cream/50">
+            <span>פינוי-בינוי</span>
+            <span class="hidden md:inline">·</span>
+            <span>תמ״א 38</span>
+            <span class="hidden md:inline">·</span>
+            <span>מיסוי מקרקעין</span>
+            <span class="hidden md:inline">·</span>
+            <span>מס הכנסה</span>
+            <span class="hidden md:inline">·</span>
+            <span>ירושות וצוואות</span>
+            <span class="hidden md:inline">·</span>
+            <span>ייפוי כוח מתמשך</span>
+        </div>
+    </div>
+</section>
+
+<!-- =================== Stats =================== -->
+<section class="bg-ivory py-20">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-px bg-line border border-line">
+            <div class="bg-ivory p-8 reveal">
+                <svg class="w-7 h-7 text-gold mb-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21h18M3 10l9-7 9 7M5 10v11M19 10v11M9 21v-6h6v6"/></svg>
+                <div class="display text-navy text-5xl">837</div>
+                <div class="text-[13px] text-charcoal/70 mt-2">דירות קיימות בליווי</div>
+            </div>
+            <div class="bg-ivory p-8 reveal delay-1">
+                <svg class="w-7 h-7 text-gold mb-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v4M4.93 4.93l2.83 2.83M2 12h4M4.93 19.07l2.83-2.83M12 22v-4M19.07 19.07l-2.83-2.83M22 12h-4M19.07 4.93l-2.83 2.83"/><circle cx="12" cy="12" r="3"/></svg>
+                <div class="display text-navy text-5xl">3,177<span class="text-2xl text-gold">+</span></div>
+                <div class="text-[13px] text-charcoal/70 mt-2">דירות חדשות בתכנון</div>
+            </div>
+            <div class="bg-ivory p-8 reveal delay-2">
+                <svg class="w-7 h-7 text-gold mb-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                <div class="display text-navy text-5xl">8</div>
+                <div class="text-[13px] text-charcoal/70 mt-2">עורכי דין בצוות המשרד</div>
+            </div>
+            <div class="bg-ivory p-8 reveal delay-3">
+                <svg class="w-7 h-7 text-gold mb-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                <div class="display text-navy text-5xl">20<span class="text-2xl text-gold">+</span></div>
+                <div class="text-[13px] text-charcoal/70 mt-2">שנות ניסיון בליווי דיירים</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =================== About =================== -->
+<section id="about" class="py-24 bg-cream">
+    <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-5 reveal">
+            <div class="relative">
+                <div class="absolute -top-4 -right-4 w-full h-full border border-gold rounded-sm"></div>
+                <div class="relative aspect-[4/5] overflow-hidden rounded-sm shadow-soft">
+                    <img src="../images/attorney-asor.png" alt="עו״ד ישראל עשור" class="w-full h-full object-cover">
+                </div>
+                <div class="absolute -bottom-6 -left-6 bg-navy text-cream p-6 rounded-sm shadow-luxe max-w-[240px]">
+                    <div class="display text-gold text-3xl">25</div>
+                    <div class="text-[12px] text-cream/80 mt-1 leading-tight">שנות פרקטיקה משולבת — עריכת דין וראיית חשבון</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lg:col-span-7 reveal delay-1">
+            <div class="text-[12px] tracking-[0.2em] uppercase text-gold-dark gold-rule mb-7">אודות המשרד</div>
+            <h2 class="display text-navy text-4xl md:text-5xl leading-tight tracking-tightest">
+                ידע · ניסיון · ייצוג נחוש —
+                <br>
+                <span class="text-gold-dark">בכל הסכם, בכל החלטה.</span>
+            </h2>
+            <p class="mt-7 text-charcoal/80 text-[17px] leading-relaxed">
+                משרד עורכי הדין ישראל עשור ושות׳ ממוקם במגדל רם בירושלים וכולל שמונה עורכי דין בעלי מומחיות עמוקה בליווי עסקאות נדל״ן, התחדשות עירונית ומיסוי מקרקעין. אנחנו מייצגים בעיקר דיירים — בעלי הזכות שזכויותיהם הכי שבירות ושהאינטרסים שלהם הכי נשכחים.
+            </p>
+            <p class="mt-4 text-charcoal/70 text-[15px] leading-relaxed">
+                הוותק הכפול של שותף המייסד כעו״ד ורו״ח מאפשר טיפול אחיד גם בהיבטים המשפטיים וגם במיסוי המקרקעין המורכב — בלי לפזר את הלקוח בין משרדים.
+            </p>
+
+            <ul class="mt-8 space-y-3 text-[15px] text-charcoal/85">
+                <li class="flex items-start gap-3">
+                    <svg class="w-5 h-5 text-gold mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    יו״ר ועדת התחדשות עירונית בלשכת עוה״ד בירושלים
+                </li>
+                <li class="flex items-start gap-3">
+                    <svg class="w-5 h-5 text-gold mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    מ״מ ועדת מיסוי מקרקעין בלשכת עוה״ד ירושלים
+                </li>
+                <li class="flex items-start gap-3">
+                    <svg class="w-5 h-5 text-gold mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    חבר ועדת הקשר עם רשות התאגידים — לשכת רו״ח
+                </li>
+            </ul>
+
+            <a href="#contact" class="mt-10 inline-flex items-center gap-2 text-navy hover:text-gold-dark font-medium border-b border-gold pb-1 transition">
+                לקביעת פגישת היכרות
+                <svg class="w-4 h-4 rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- =================== Expertise =================== -->
+<section id="expertise" class="py-24 bg-ivory">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="max-w-2xl mb-14 reveal">
+            <div class="text-[12px] tracking-[0.2em] uppercase text-gold-dark gold-rule mb-6">תחומי התמחות</div>
+            <h2 class="display text-navy text-4xl md:text-5xl leading-tight tracking-tightest">
+                ליווי משפטי שלם —
+                <br>
+                <span class="text-gold-dark">מהשלב הראשון ועד קבלת המפתח.</span>
+            </h2>
+            <p class="mt-5 text-charcoal/70 text-[16px] leading-relaxed">
+                שילוב נדיר של ידע משפטי, ראייה חשבונאית ויחס אישי בכל תיק. כל אחד מתחומי ההתמחות מטופל ע״י עורך דין מהמשרד עם התמחות ספציפית בנושא.
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-line border border-line">
+            <!-- Card -->
+            <div class="bg-ivory card-rise p-8 border border-transparent reveal">
+                <div class="w-12 h-12 rounded-sm bg-navy/5 flex items-center justify-center mb-5">
+                    <svg class="w-6 h-6 text-gold-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 21V12h6v9"/></svg>
+                </div>
+                <h3 class="display text-navy text-2xl">פינוי-בינוי</h3>
+                <p class="mt-3 text-charcoal/70 text-[14px] leading-relaxed">ליווי דיירים מההסכם הראשון ועד אכלוס. מו״מ מול יזמים, ליווי מס, פיקוח על ערבויות ומפרט.</p>
+                <span class="mt-5 inline-flex items-center gap-1.5 text-[13px] text-gold-dark font-medium">קרא עוד
+                    <svg class="w-3.5 h-3.5 rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                </span>
+            </div>
+
+            <div class="bg-ivory card-rise p-8 border border-transparent reveal delay-1">
+                <div class="w-12 h-12 rounded-sm bg-navy/5 flex items-center justify-center mb-5">
+                    <svg class="w-6 h-6 text-gold-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+                </div>
+                <h3 class="display text-navy text-2xl">תמ״א 38</h3>
+                <p class="mt-3 text-charcoal/70 text-[14px] leading-relaxed">חיזוק והריסה-בנייה. בדיקת היתכנות כלכלית, בחירת יזם וניהול מו״מ עד חתימה והרישום בטאבו.</p>
+                <span class="mt-5 inline-flex items-center gap-1.5 text-[13px] text-gold-dark font-medium">קרא עוד
+                    <svg class="w-3.5 h-3.5 rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                </span>
+            </div>
+
+            <div class="bg-ivory card-rise p-8 border border-transparent reveal delay-2">
+                <div class="w-12 h-12 rounded-sm bg-navy/5 flex items-center justify-center mb-5">
+                    <svg class="w-6 h-6 text-gold-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v12M9 9h6M9 15h6"/></svg>
+                </div>
+                <h3 class="display text-navy text-2xl">מיסוי מקרקעין</h3>
+                <p class="mt-3 text-charcoal/70 text-[14px] leading-relaxed">מס שבח, מס רכישה, פטורים והקלות. תכנון מס מקדים שמונע הפתעות ביום העסקה.</p>
+                <span class="mt-5 inline-flex items-center gap-1.5 text-[13px] text-gold-dark font-medium">קרא עוד
+                    <svg class="w-3.5 h-3.5 rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                </span>
+            </div>
+
+            <div class="bg-ivory card-rise p-8 border border-transparent reveal">
+                <div class="w-12 h-12 rounded-sm bg-navy/5 flex items-center justify-center mb-5">
+                    <svg class="w-6 h-6 text-gold-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                </div>
+                <h3 class="display text-navy text-2xl">מס הכנסה ומע״מ</h3>
+                <p class="mt-3 text-charcoal/70 text-[14px] leading-relaxed">ייצוג בפני רשות המסים, תכנון מס לעצמאיים ולחברות, ביקורות וייצוג בערעורים.</p>
+                <span class="mt-5 inline-flex items-center gap-1.5 text-[13px] text-gold-dark font-medium">קרא עוד
+                    <svg class="w-3.5 h-3.5 rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                </span>
+            </div>
+
+            <div class="bg-ivory card-rise p-8 border border-transparent reveal delay-1">
+                <div class="w-12 h-12 rounded-sm bg-navy/5 flex items-center justify-center mb-5">
+                    <svg class="w-6 h-6 text-gold-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg>
+                </div>
+                <h3 class="display text-navy text-2xl">צוואות וירושות</h3>
+                <p class="mt-3 text-charcoal/70 text-[14px] leading-relaxed">עריכת צוואות, צווי ירושה, ניהול עיזבון וייצוג בסכסוכי ירושה.</p>
+                <span class="mt-5 inline-flex items-center gap-1.5 text-[13px] text-gold-dark font-medium">קרא עוד
+                    <svg class="w-3.5 h-3.5 rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                </span>
+            </div>
+
+            <div class="bg-ivory card-rise p-8 border border-transparent reveal delay-2">
+                <div class="w-12 h-12 rounded-sm bg-navy/5 flex items-center justify-center mb-5">
+                    <svg class="w-6 h-6 text-gold-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+                </div>
+                <h3 class="display text-navy text-2xl">ייפוי כוח מתמשך</h3>
+                <p class="mt-3 text-charcoal/70 text-[14px] leading-relaxed">עריכה ורישום ייפוי כוח מתמשך — שמירת זכויות ורצונות גם כשאי אפשר עוד לקבל החלטות.</p>
+                <span class="mt-5 inline-flex items-center gap-1.5 text-[13px] text-gold-dark font-medium">קרא עוד
+                    <svg class="w-3.5 h-3.5 rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                </span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =================== Digital services strip =================== -->
+<section class="bg-navy text-cream py-20 relative overflow-hidden">
+    <div class="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-gold/10 blur-3xl"></div>
+    <div class="absolute -bottom-32 -right-32 w-96 h-96 rounded-full bg-gold/10 blur-3xl"></div>
+
+    <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-12 gap-10 items-center relative">
+        <div class="lg:col-span-5 reveal">
+            <div class="text-[12px] tracking-[0.2em] uppercase text-gold mb-6 flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-gold"></span>
+                האזור הדיגיטלי · זמין 24/7
+            </div>
+            <h2 class="display text-cream text-4xl md:text-5xl leading-tight tracking-tightest">
+                שירותים משפטיים
+                <br>
+                <span class="text-gold">אונליין.</span>
+            </h2>
+            <p class="mt-6 text-cream/75 text-[16px] leading-relaxed">
+                מסמכים משפטיים מקצועיים — מותאמים אישית, נשלחים למייל תוך דקות. בכתיבה ובאחריות עורכי הדין של המשרד. ללא תורים, ללא פגישות, מחיר קבוע מראש.
+            </p>
+            <a href="../digital/" class="mt-8 inline-flex items-center gap-2 bg-gold hover:bg-gold-light text-navy font-semibold px-7 py-3.5 rounded-full transition">
+                כניסה לאזור הדיגיטלי
+                <svg class="w-4 h-4 rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </a>
+        </div>
+
+        <div class="lg:col-span-7 grid sm:grid-cols-2 gap-4 reveal delay-1">
+            <a href="#" class="group block bg-cream/[0.04] hover:bg-cream/[0.08] border border-cream/10 hover:border-gold/40 rounded-sm p-6 transition">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-gold text-[12px] tracking-widest">499 ₪ + מע״מ</span>
+                    <svg class="w-4 h-4 text-cream/40 group-hover:text-gold transition rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                </div>
+                <h4 class="display text-cream text-xl">הסכם שכירות דירת מגורים</h4>
+                <p class="text-cream/60 text-[13px] mt-2 leading-relaxed">כולל שטר חוב, ערבות אוואל ונספח ריהוט.</p>
+            </a>
+            <a href="#" class="group block bg-cream/[0.04] hover:bg-cream/[0.08] border border-cream/10 hover:border-gold/40 rounded-sm p-6 transition">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-gold text-[12px] tracking-widest">299 ₪ + מע״מ</span>
+                    <svg class="w-4 h-4 text-cream/40 group-hover:text-gold transition rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                </div>
+                <h4 class="display text-cream text-xl">רישום הערת אזהרה</h4>
+                <p class="text-cream/60 text-[13px] mt-2 leading-relaxed">הגנה מיידית על קונה / מלווה / בעל זכות בנכס.</p>
+            </a>
+            <a href="#" class="group block bg-cream/[0.04] hover:bg-cream/[0.08] border border-cream/10 hover:border-gold/40 rounded-sm p-6 transition">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-gold text-[12px] tracking-widest">399 ₪ + מע״מ</span>
+                    <svg class="w-4 h-4 text-cream/40 group-hover:text-gold transition rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                </div>
+                <h4 class="display text-cream text-xl">רישום משכנתא</h4>
+                <p class="text-cream/60 text-[13px] mt-2 leading-relaxed">שעבוד נכס לטובת בנק או מלווה פרטי.</p>
+            </a>
+            <a href="#" class="group block bg-cream/[0.04] hover:bg-cream/[0.08] border border-cream/10 hover:border-gold/40 rounded-sm p-6 transition">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-gold text-[12px] tracking-widest">499 ₪ + מע״מ</span>
+                    <svg class="w-4 h-4 text-cream/40 group-hover:text-gold transition rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                </div>
+                <h4 class="display text-cream text-xl">רישום מכר (העברת בעלות)</h4>
+                <p class="text-cream/60 text-[13px] mt-2 leading-relaxed">ליווי מלא של העברת בעלות בנכס בטאבו.</p>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- =================== Projects =================== -->
+<section id="projects" class="py-24 bg-cream">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="flex flex-wrap items-end justify-between gap-6 mb-12 reveal">
+            <div class="max-w-2xl">
+                <div class="text-[12px] tracking-[0.2em] uppercase text-gold-dark gold-rule mb-6">פרויקטים בטיפול</div>
+                <h2 class="display text-navy text-4xl md:text-5xl leading-tight tracking-tightest">
+                    תשע נקודות על מפת ירושלים —
+                    <br>
+                    <span class="text-gold-dark">ושלושת אלפים דירות חדשות.</span>
+                </h2>
+            </div>
+            <div class="hidden md:flex gap-2">
+                <button class="prj-prev w-12 h-12 rounded-full border border-line hover:border-gold hover:text-gold-dark transition flex items-center justify-center" aria-label="הקודם">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                </button>
+                <button class="prj-next w-12 h-12 rounded-full border border-line hover:border-gold hover:text-gold-dark transition flex items-center justify-center" aria-label="הבא">
+                    <svg class="w-5 h-5 rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                </button>
+            </div>
+        </div>
+
+        <div id="prjTrack" class="snap-row flex gap-6 overflow-x-auto pb-6 -mx-6 px-6">
+            <!-- Card 1 -->
+            <article class="snap-start shrink-0 w-[88%] sm:w-[60%] lg:w-[40%] bg-ivory rounded-sm overflow-hidden shadow-card card-rise border border-transparent">
+                <div class="aspect-[4/3] bg-navy/5 relative overflow-hidden">
+                    <img src="../images/project-rashi.jpg" alt="רש״י 62-64, מקור ברוך" class="w-full h-full object-cover">
+                    <span class="absolute top-4 right-4 bg-navy text-cream text-[11px] tracking-widest uppercase px-3 py-1 rounded-full">בטיפול</span>
+                </div>
+                <div class="p-6">
+                    <div class="text-[11px] text-gold-dark tracking-widest uppercase">תמ״א 38(2)</div>
+                    <h3 class="display text-navy text-2xl mt-1">רש״י 62-64, מקור ברוך</h3>
+                    <div class="text-[12px] text-charcoal/60 mt-1">ירושלים</div>
+                    <div class="mt-5 flex items-center gap-6 text-[13px] text-charcoal/80">
+                        <div><span class="font-bold text-navy">16</span> דירות קיימות</div>
+                        <div class="text-gold">→</div>
+                        <div><span class="font-bold text-navy">36</span> + מסחר</div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="snap-start shrink-0 w-[88%] sm:w-[60%] lg:w-[40%] bg-ivory rounded-sm overflow-hidden shadow-card card-rise border border-transparent">
+                <div class="aspect-[4/3] bg-navy/5 relative overflow-hidden">
+                    <img src="../images/project-bucharim.jpg" alt="ישא ברכה 43,45, הבוכרים" class="w-full h-full object-cover">
+                    <span class="absolute top-4 right-4 bg-navy text-cream text-[11px] tracking-widest uppercase px-3 py-1 rounded-full">בטיפול</span>
+                </div>
+                <div class="p-6">
+                    <div class="text-[11px] text-gold-dark tracking-widest uppercase">פינוי-בינוי</div>
+                    <h3 class="display text-navy text-2xl mt-1">ישא ברכה 43,45, הבוכרים</h3>
+                    <div class="text-[12px] text-charcoal/60 mt-1">ירושלים</div>
+                    <div class="mt-5 flex items-center gap-6 text-[13px] text-charcoal/80">
+                        <div><span class="font-bold text-navy">38</span> דירות קיימות</div>
+                        <div class="text-gold">→</div>
+                        <div><span class="font-bold text-navy">~130</span> + מסחר</div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="snap-start shrink-0 w-[88%] sm:w-[60%] lg:w-[40%] bg-ivory rounded-sm overflow-hidden shadow-card card-rise border border-transparent">
+                <div class="aspect-[4/3] bg-gradient-to-br from-navy-soft to-navy flex items-center justify-center">
+                    <svg class="w-16 h-16 text-gold/40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h.01M15 9h.01M9 13h.01M15 13h.01M9 17h.01M15 17h.01"/></svg>
+                </div>
+                <div class="p-6">
+                    <div class="text-[11px] text-gold-dark tracking-widest uppercase">פינוי-בינוי</div>
+                    <h3 class="display text-navy text-2xl mt-1">משה סנה, נווה יעקב</h3>
+                    <div class="text-[12px] text-charcoal/60 mt-1">ירושלים</div>
+                    <div class="mt-5 flex items-center gap-6 text-[13px] text-charcoal/80">
+                        <div><span class="font-bold text-navy">240</span> דירות</div>
+                        <div class="text-gold">→</div>
+                        <div><span class="font-bold text-navy">~800</span> + מסחר</div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="snap-start shrink-0 w-[88%] sm:w-[60%] lg:w-[40%] bg-ivory rounded-sm overflow-hidden shadow-card card-rise border border-transparent">
+                <div class="aspect-[4/3] bg-gradient-to-br from-navy-soft to-navy flex items-center justify-center">
+                    <svg class="w-16 h-16 text-gold/40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h.01M15 9h.01M9 13h.01M15 13h.01M9 17h.01M15 17h.01"/></svg>
+                </div>
+                <div class="p-6">
+                    <div class="text-[11px] text-gold-dark tracking-widest uppercase">פינוי-בינוי</div>
+                    <h3 class="display text-navy text-2xl mt-1">מקסיקו 14, קריית מנחם</h3>
+                    <div class="text-[12px] text-charcoal/60 mt-1">ירושלים</div>
+                    <div class="mt-5 flex items-center gap-6 text-[13px] text-charcoal/80">
+                        <div><span class="font-bold text-navy">79</span> דירות</div>
+                        <div class="text-gold">→</div>
+                        <div><span class="font-bold text-navy">316</span> + פארק</div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="snap-start shrink-0 w-[88%] sm:w-[60%] lg:w-[40%] bg-ivory rounded-sm overflow-hidden shadow-card card-rise border border-transparent">
+                <div class="aspect-[4/3] bg-gradient-to-br from-navy-soft to-navy flex items-center justify-center">
+                    <svg class="w-16 h-16 text-gold/40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h.01M15 9h.01M9 13h.01M15 13h.01M9 17h.01M15 17h.01"/></svg>
+                </div>
+                <div class="p-6">
+                    <div class="text-[11px] text-gold-dark tracking-widest uppercase">פינוי-בינוי</div>
+                    <h3 class="display text-navy text-2xl mt-1">חיל האוויר 45-47, פסגת זאב</h3>
+                    <div class="text-[12px] text-charcoal/60 mt-1">ירושלים</div>
+                    <div class="mt-5 flex items-center gap-6 text-[13px] text-charcoal/80">
+                        <div><span class="font-bold text-navy">131</span> דירות</div>
+                        <div class="text-gold">→</div>
+                        <div><span class="font-bold text-navy">~524</span> + מסחר</div>
+                    </div>
+                </div>
+            </article>
+        </div>
+
+        <div class="mt-10 flex justify-center">
+            <a href="#" class="inline-flex items-center gap-2 text-navy hover:text-gold-dark font-medium border-b border-gold pb-1 transition">
+                לכל הפרויקטים בטיפולנו
+                <svg class="w-4 h-4 rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- =================== Values =================== -->
+<section id="values" class="py-24 bg-ivory">
+    <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-12 gap-12">
+        <div class="lg:col-span-4 reveal">
+            <div class="text-[12px] tracking-[0.2em] uppercase text-gold-dark gold-rule mb-6">למה אנחנו</div>
+            <h2 class="display text-navy text-4xl md:text-5xl leading-tight tracking-tightest">
+                ארבעה עקרונות שמנחים
+                <span class="text-gold-dark">כל תיק במשרד.</span>
+            </h2>
+            <p class="mt-6 text-charcoal/70 text-[15px] leading-relaxed">
+                אצלנו אין "תיק קטן". כל לקוח מקבל יחס אישי, תזמון ברור, וייצוג שיודע מתי לוותר ומתי להילחם.
+            </p>
+        </div>
+
+        <div class="lg:col-span-8 grid md:grid-cols-2 gap-px bg-line border border-line">
+            <div class="bg-ivory p-8 reveal">
+                <div class="display text-gold text-3xl">01</div>
+                <h3 class="display text-navy text-xl mt-2">ייצוג דיירים בלבד בהתחדשות עירונית</h3>
+                <p class="mt-3 text-charcoal/70 text-[14px] leading-relaxed">לא מייצגים יזמים. אין ניגוד עניינים, אין לחץ לסגור עסקה לא טובה.</p>
+            </div>
+            <div class="bg-ivory p-8 reveal delay-1">
+                <div class="display text-gold text-3xl">02</div>
+                <h3 class="display text-navy text-xl mt-2">ראייה משולבת — משפט וחשבונאות</h3>
+                <p class="mt-3 text-charcoal/70 text-[14px] leading-relaxed">השותף המייסד הוא עו״ד ורו״ח. תכנון מס פרואקטיבי, לא ריאקטיבי.</p>
+            </div>
+            <div class="bg-ivory p-8 reveal delay-2">
+                <div class="display text-gold text-3xl">03</div>
+                <h3 class="display text-navy text-xl mt-2">תקשורת אישית, בלי תיווך מזכירה</h3>
+                <p class="mt-3 text-charcoal/70 text-[14px] leading-relaxed">לכל לקוח עו״ד מטפל ספציפי בקשר ישיר — בכתב, בטלפון או בפגישה.</p>
+            </div>
+            <div class="bg-ivory p-8 reveal delay-3">
+                <div class="display text-gold text-3xl">04</div>
+                <h3 class="display text-navy text-xl mt-2">תמחור שקוף מראש</h3>
+                <p class="mt-3 text-charcoal/70 text-[14px] leading-relaxed">הסכם שכ״ט חתום בכתב לפני תחילת העבודה. ללא הפתעות בחשבונית.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =================== Knowledge =================== -->
+<section id="knowledge" class="py-24 bg-cream">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="flex flex-wrap items-end justify-between gap-6 mb-12 reveal">
+            <div class="max-w-2xl">
+                <div class="text-[12px] tracking-[0.2em] uppercase text-gold-dark gold-rule mb-6">מרכז ידע</div>
+                <h2 class="display text-navy text-4xl md:text-5xl leading-tight tracking-tightest">
+                    מדריכים ומאמרים
+                    <span class="text-gold-dark">שנכתבו ע״י עורכי הדין שלנו.</span>
+                </h2>
+            </div>
+            <a href="../he/topics/" class="inline-flex items-center gap-2 text-navy hover:text-gold-dark font-medium border-b border-gold pb-1 transition">
+                לכל הנושאים
+                <svg class="w-4 h-4 rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            </a>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+            <a href="../he/topics/pinui-binui.html" class="group block bg-ivory border border-line hover:border-gold rounded-sm p-7 card-rise reveal">
+                <div class="text-[11px] tracking-widest uppercase text-gold-dark">מדריך · 8 דק׳ קריאה</div>
+                <h3 class="display text-navy text-xl mt-3 group-hover:text-gold-dark transition">פינוי-בינוי — המדריך השלם לדייר</h3>
+                <p class="text-charcoal/70 text-[14px] mt-3 leading-relaxed">איך מתחיל פרויקט, מה תפקיד עורך הדין שלכם, ומה לבדוק לפני שחותמים.</p>
+            </a>
+            <a href="../he/topics/tama-38.html" class="group block bg-ivory border border-line hover:border-gold rounded-sm p-7 card-rise reveal delay-1">
+                <div class="text-[11px] tracking-widest uppercase text-gold-dark">מדריך · 6 דק׳ קריאה</div>
+                <h3 class="display text-navy text-xl mt-3 group-hover:text-gold-dark transition">תמ״א 38 — חיזוק או הריסה?</h3>
+                <p class="text-charcoal/70 text-[14px] mt-3 leading-relaxed">ההבדלים, השיקולים הכלכליים, ואיך הדיירים בוחרים את המסלול שמתאים להם.</p>
+            </a>
+            <a href="../he/topics/mas-shevach.html" class="group block bg-ivory border border-line hover:border-gold rounded-sm p-7 card-rise reveal delay-2">
+                <div class="text-[11px] tracking-widest uppercase text-gold-dark">מדריך · 7 דק׳ קריאה</div>
+                <h3 class="display text-navy text-xl mt-3 group-hover:text-gold-dark transition">מס שבח — פטורים, חישוב והקלות</h3>
+                <p class="text-charcoal/70 text-[14px] mt-3 leading-relaxed">המקרים שבהם תשלמו מס בעת מכירת דירה — והמקרים שבהם לא.</p>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- =================== Team =================== -->
+<section id="team" class="py-24 bg-ivory">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="max-w-2xl mb-14 reveal">
+            <div class="text-[12px] tracking-[0.2em] uppercase text-gold-dark gold-rule mb-6">הצוות</div>
+            <h2 class="display text-navy text-4xl md:text-5xl leading-tight tracking-tightest">
+                שמונה עורכי דין —
+                <span class="text-gold-dark">תחת קורת גג אחת.</span>
+            </h2>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="reveal">
+                <div class="aspect-[3/4] overflow-hidden rounded-sm bg-navy/5">
+                    <img src="../images/attorney-asor.png" alt="עו״ד ישראל עשור" class="w-full h-full object-cover">
+                </div>
+                <div class="display text-navy text-xl mt-4">ישראל עשור</div>
+                <div class="text-[13px] text-charcoal/70">עו״ד (רו״ח), שותף מייסד</div>
+            </div>
+            <div class="reveal delay-1">
+                <div class="aspect-[3/4] overflow-hidden rounded-sm bg-navy/5">
+                    <img src="../images/attorney-albaz.jpg" alt="עו״ד אלבז" class="w-full h-full object-cover">
+                </div>
+                <div class="display text-navy text-xl mt-4">עו״ד אלבז</div>
+                <div class="text-[13px] text-charcoal/70">התחדשות עירונית</div>
+            </div>
+            <div class="reveal delay-2">
+                <div class="aspect-[3/4] overflow-hidden rounded-sm bg-navy/5">
+                    <img src="../images/attorney-malka.jpg" alt="עו״ד מלכה" class="w-full h-full object-cover">
+                </div>
+                <div class="display text-navy text-xl mt-4">עו״ד מלכה</div>
+                <div class="text-[13px] text-charcoal/70">מיסוי מקרקעין</div>
+            </div>
+            <div class="reveal delay-3">
+                <div class="aspect-[3/4] overflow-hidden rounded-sm bg-navy/5">
+                    <img src="../images/intern-shir.png" alt="מתמחה שיר" class="w-full h-full object-cover">
+                </div>
+                <div class="display text-navy text-xl mt-4">שיר</div>
+                <div class="text-[13px] text-charcoal/70">מתמחה</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =================== FAQ =================== -->
+<section id="faq" class="py-24 bg-cream">
+    <div class="max-w-4xl mx-auto px-6">
+        <div class="text-center max-w-2xl mx-auto mb-14 reveal">
+            <div class="text-[12px] tracking-[0.2em] uppercase text-gold-dark gold-rule center mb-6">שאלות נפוצות</div>
+            <h2 class="display text-navy text-4xl md:text-5xl leading-tight tracking-tightest">
+                לפני שתרימו טלפון —
+                <span class="text-gold-dark">אולי כבר יש כאן תשובה.</span>
+            </h2>
+        </div>
+
+        <div class="space-y-3">
+            <details class="group bg-ivory border border-line hover:border-gold/60 rounded-sm transition reveal">
+                <summary class="flex items-center justify-between p-6 gap-6">
+                    <span class="display text-navy text-lg">כמה עולה ייצוג בפינוי-בינוי?</span>
+                    <span class="acc-icon text-gold-dark text-3xl leading-none transition-transform">+</span>
+                </summary>
+                <div class="px-6 pb-6 text-charcoal/75 text-[15px] leading-relaxed">
+                    בייצוג דיירים בפרויקטים של פינוי-בינוי, שכר הטרחה משולם ע״י היזם שנבחר על ידי הדיירים, ולא ע״י הדיירים עצמם. הסכומים הקבועים בחוק ובנהלי משרד הבינוי והשיכון. אנחנו נשמח להסביר זאת בפגישת היכרות ללא עלות.
+                </div>
+            </details>
+
+            <details class="group bg-ivory border border-line hover:border-gold/60 rounded-sm transition reveal delay-1">
+                <summary class="flex items-center justify-between p-6 gap-6">
+                    <span class="display text-navy text-lg">מתי מומלץ לפנות לעו״ד לליווי דירה?</span>
+                    <span class="acc-icon text-gold-dark text-3xl leading-none transition-transform">+</span>
+                </summary>
+                <div class="px-6 pb-6 text-charcoal/75 text-[15px] leading-relaxed">
+                    מומלץ לפנות עוד לפני שהיזם מציג טיוטת הסכם — בשלב הזה אפשר להשפיע על תנאי המסגרת. אם כבר הוצג הסכם, חשוב לפנות לפני חתימה ולא אחריה.
+                </div>
+            </details>
+
+            <details class="group bg-ivory border border-line hover:border-gold/60 rounded-sm transition reveal delay-2">
+                <summary class="flex items-center justify-between p-6 gap-6">
+                    <span class="display text-navy text-lg">האם אתם מטפלים גם במס שבח ומס רכישה?</span>
+                    <span class="acc-icon text-gold-dark text-3xl leading-none transition-transform">+</span>
+                </summary>
+                <div class="px-6 pb-6 text-charcoal/75 text-[15px] leading-relaxed">
+                    כן. השותף המייסד הוא גם רואה חשבון. אנחנו מטפלים בכל שלבי המיסוי — מהדיווח ועד ערעור על שומה, לרבות בקשות לפטורים והקלות.
+                </div>
+            </details>
+
+            <details class="group bg-ivory border border-line hover:border-gold/60 rounded-sm transition reveal delay-3">
+                <summary class="flex items-center justify-between p-6 gap-6">
+                    <span class="display text-navy text-lg">איפה ממוקם המשרד?</span>
+                    <span class="acc-icon text-gold-dark text-3xl leading-none transition-transform">+</span>
+                </summary>
+                <div class="px-6 pb-6 text-charcoal/75 text-[15px] leading-relaxed">
+                    נחום חפצדי 17, מגדל רם — קומה 11, ירושלים. חניון תת-קרקעי במקום, נגישות מלאה.
+                </div>
+            </details>
+        </div>
+    </div>
+</section>
+
+<!-- =================== Contact =================== -->
+<section id="contact" class="bg-navy text-cream py-24 relative overflow-hidden">
+    <div class="absolute -top-40 -left-40 w-96 h-96 rounded-full bg-gold/5 blur-3xl"></div>
+
+    <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-12 gap-12">
+        <div class="lg:col-span-5 reveal">
+            <div class="text-[12px] tracking-[0.2em] uppercase text-gold mb-6">צור קשר</div>
+            <h2 class="display text-cream text-4xl md:text-5xl leading-tight tracking-tightest">
+                בואו נדבר —
+                <br>
+                <span class="text-gold">פגישת היכרות ללא עלות.</span>
+            </h2>
+            <p class="mt-6 text-cream/70 text-[16px] leading-relaxed max-w-md">
+                השאירו פרטים ונחזור אליכם תוך יום עסקים. אפשר גם להתקשר ישירות או לכתוב במייל — מה שנוח לכם.
+            </p>
+
+            <div class="mt-10 space-y-5">
+                <a href="tel:02-5000275" class="flex items-start gap-4 group">
+                    <div class="w-11 h-11 rounded-sm bg-cream/[0.06] border border-cream/10 group-hover:border-gold flex items-center justify-center transition">
+                        <svg class="w-5 h-5 text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    </div>
+                    <div>
+                        <div class="text-cream/60 text-[12px] tracking-widest uppercase">טלפון</div>
+                        <div class="text-cream text-[18px] mt-0.5 group-hover:text-gold transition">02-5000275</div>
+                    </div>
+                </a>
+                <a href="mailto:office@asor-law.com" class="flex items-start gap-4 group">
+                    <div class="w-11 h-11 rounded-sm bg-cream/[0.06] border border-cream/10 group-hover:border-gold flex items-center justify-center transition">
+                        <svg class="w-5 h-5 text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    </div>
+                    <div>
+                        <div class="text-cream/60 text-[12px] tracking-widest uppercase">דוא״ל</div>
+                        <div class="text-cream text-[18px] mt-0.5 group-hover:text-gold transition">office@asor-law.com</div>
+                    </div>
+                </a>
+                <div class="flex items-start gap-4">
+                    <div class="w-11 h-11 rounded-sm bg-cream/[0.06] border border-cream/10 flex items-center justify-center">
+                        <svg class="w-5 h-5 text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    </div>
+                    <div>
+                        <div class="text-cream/60 text-[12px] tracking-widest uppercase">משרד</div>
+                        <div class="text-cream text-[16px] mt-0.5">נחום חפצדי 17, מגדל רם · קומה 11, ירושלים</div>
+                        <div class="text-cream/60 text-[13px] mt-1">א׳-ה׳, 09:00-18:00</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <form class="lg:col-span-7 bg-cream/[0.04] border border-cream/10 rounded-sm p-8 reveal delay-1">
+            <div class="grid sm:grid-cols-2 gap-5">
+                <label class="block">
+                    <span class="text-cream/70 text-[12px] tracking-widest uppercase">שם מלא</span>
+                    <input type="text" required class="mt-2 w-full bg-transparent border-b border-cream/20 focus:border-gold outline-none py-2.5 text-cream placeholder-cream/30 transition" placeholder="ישראל ישראלי">
+                </label>
+                <label class="block">
+                    <span class="text-cream/70 text-[12px] tracking-widest uppercase">טלפון</span>
+                    <input type="tel" required dir="ltr" class="mt-2 w-full bg-transparent border-b border-cream/20 focus:border-gold outline-none py-2.5 text-cream text-right placeholder-cream/30 transition" placeholder="050-0000000">
+                </label>
+                <label class="block sm:col-span-2">
+                    <span class="text-cream/70 text-[12px] tracking-widest uppercase">דוא״ל</span>
+                    <input type="email" required class="mt-2 w-full bg-transparent border-b border-cream/20 focus:border-gold outline-none py-2.5 text-cream placeholder-cream/30 transition" placeholder="name@example.com">
+                </label>
+                <label class="block sm:col-span-2">
+                    <span class="text-cream/70 text-[12px] tracking-widest uppercase">תחום הפנייה</span>
+                    <select class="mt-2 w-full bg-transparent border-b border-cream/20 focus:border-gold outline-none py-2.5 text-cream transition">
+                        <option class="bg-navy">פינוי-בינוי / תמ״א 38</option>
+                        <option class="bg-navy">מיסוי מקרקעין</option>
+                        <option class="bg-navy">מס הכנסה / מע״מ</option>
+                        <option class="bg-navy">צוואות וירושות</option>
+                        <option class="bg-navy">ייפוי כוח מתמשך</option>
+                        <option class="bg-navy">אחר</option>
+                    </select>
+                </label>
+                <label class="block sm:col-span-2">
+                    <span class="text-cream/70 text-[12px] tracking-widest uppercase">פרטי הפנייה</span>
+                    <textarea rows="4" class="mt-2 w-full bg-transparent border-b border-cream/20 focus:border-gold outline-none py-2.5 text-cream placeholder-cream/30 transition resize-none" placeholder="ספרו לנו בכמה משפטים על הנושא"></textarea>
+                </label>
+            </div>
+
+            <div class="mt-8 flex flex-wrap items-center gap-3 justify-between">
+                <p class="text-cream/40 text-[12px]">בלחיצה על שליחה אתם מסכימים לתקנון הפרטיות.</p>
+                <button type="submit" class="inline-flex items-center gap-2 bg-gold hover:bg-gold-light text-navy font-semibold px-7 py-3 rounded-full transition">
+                    שליחת פנייה
+                    <svg class="w-4 h-4 rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<!-- =================== Footer =================== -->
+<footer class="bg-navy-deep text-cream/70 pt-16 pb-8 border-t border-cream/5">
+    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-12 gap-10">
+        <div class="md:col-span-5">
+            <div class="flex items-center gap-3 mb-5">
+                <div class="w-10 h-10 rounded-md bg-gold/15 flex items-center justify-center">
+                    <span class="display text-gold text-xl">ע</span>
+                </div>
+                <div>
+                    <div class="display text-cream text-lg">עשור ושות׳</div>
+                    <div class="text-[11px] tracking-widest text-cream/50 uppercase">Asor &amp; Co. Attorneys</div>
+                </div>
+            </div>
+            <p class="text-[14px] leading-relaxed max-w-md">
+                משרד עורכי דין מוביל בירושלים — התחדשות עירונית, מיסוי מקרקעין ומס הכנסה. ייצוג מקצועי, אישי ונחוש לכל לקוח.
+            </p>
+        </div>
+
+        <div class="md:col-span-3">
+            <div class="text-cream text-[13px] tracking-widest uppercase mb-4">ניווט</div>
+            <ul class="space-y-2 text-[14px]">
+                <li><a href="#about" class="hover:text-gold transition">אודות</a></li>
+                <li><a href="#expertise" class="hover:text-gold transition">תחומי התמחות</a></li>
+                <li><a href="#projects" class="hover:text-gold transition">פרויקטים</a></li>
+                <li><a href="#knowledge" class="hover:text-gold transition">מרכז ידע</a></li>
+                <li><a href="../digital/" class="hover:text-gold transition">שירותים דיגיטליים</a></li>
+            </ul>
+        </div>
+
+        <div class="md:col-span-4">
+            <div class="text-cream text-[13px] tracking-widest uppercase mb-4">יצירת קשר</div>
+            <ul class="space-y-2 text-[14px]">
+                <li><a href="tel:02-5000275" class="hover:text-gold transition">02-5000275</a></li>
+                <li><a href="mailto:office@asor-law.com" class="hover:text-gold transition">office@asor-law.com</a></li>
+                <li>נחום חפצדי 17, ירושלים</li>
+                <li>א׳-ה׳, 09:00-18:00</li>
+            </ul>
+        </div>
+    </div>
+    <div class="max-w-7xl mx-auto px-6 mt-14 pt-6 border-t border-cream/10 flex flex-wrap items-center justify-between gap-3 text-[12px] text-cream/40">
+        <div>© 2026 עשור ושות׳ — עורכי דין. כל הזכויות שמורות.</div>
+        <div class="flex items-center gap-4">
+            <a href="#" class="hover:text-gold transition">תקנון</a>
+            <a href="#" class="hover:text-gold transition">פרטיות</a>
+            <a href="#" class="hover:text-gold transition">הצהרת נגישות</a>
+        </div>
+    </div>
+</footer>
+
+<!-- =================== Floating CTAs =================== -->
+<a href="https://wa.me/972546302880" target="_blank" rel="noopener"
+   class="fixed bottom-6 left-6 w-14 h-14 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-luxe hover:scale-105 transition z-30"
+   aria-label="WhatsApp">
+    <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 00.611.611l4.458-1.495A11.952 11.952 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.387 0-4.607-.798-6.387-2.144l-.446-.344-2.633.882.882-2.633-.344-.446A9.935 9.935 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg>
+</a>
+
+<button id="toTop"
+        class="fixed bottom-6 right-6 w-12 h-12 rounded-full bg-navy text-cream flex items-center justify-center shadow-luxe opacity-0 pointer-events-none transition z-30"
+        aria-label="חזרה למעלה">
+    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+
+<script>
+    // Sticky nav darken on scroll
+    const nav = document.getElementById('nav');
+    const toTop = document.getElementById('toTop');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) nav.classList.add('shadow-soft','bg-ivory/95'); else nav.classList.remove('shadow-soft','bg-ivory/95');
+        if (window.scrollY > 600) {
+            toTop.classList.remove('opacity-0','pointer-events-none');
+            toTop.classList.add('opacity-100');
+        } else {
+            toTop.classList.add('opacity-0','pointer-events-none');
+            toTop.classList.remove('opacity-100');
+        }
+    });
+    toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    // Reveal on scroll
+    const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    // Project carousel arrows
+    const track = document.getElementById('prjTrack');
+    const step = () => Math.min(track.clientWidth * 0.85, 500);
+    document.querySelector('.prj-prev')?.addEventListener('click', () => track.scrollBy({ left: step(), behavior: 'smooth' })); // RTL: prev = scroll right (positive)
+    document.querySelector('.prj-next')?.addEventListener('click', () => track.scrollBy({ left: -step(), behavior: 'smooth' }));
+</script>
+</body>
+</html>
