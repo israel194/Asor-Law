@@ -15,6 +15,10 @@ Thumbs.db
 *.swp
 *~
 
+# Python bytecode cache (from .claude skills)
+__pycache__/
+*.pyc
+
 # wrangler files
 .wrangler
 .dev.vars*
