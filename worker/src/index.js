@@ -29,6 +29,7 @@ import { createPaymentRedirect } from "./sumit.js";
 import { sendEmail } from "./email.js";
 import { getProduct, listProducts } from "./products/index.js";
 import { intakeChat } from "./intake.js";
+import { securityHeaders, rateLimit } from "./security.js";
 
 /**
  * Generic order processing — used for both Type A products (with PDF
@@ -103,6 +104,9 @@ async function processPaidOrder(env, order) {
 
 const app = new Hono();
 
+// Security hardening headers on every response.
+app.use("*", securityHeaders());
+
 // CORS — only allow from our own domains (configured in wrangler.toml [vars])
 app.use("/api/*", async (c, next) => {
     const origins = c.env.CORS_ORIGINS.split(",").map(s => s.trim());
@@ -117,7 +121,7 @@ app.use("/api/*", async (c, next) => {
 app.get("/healthz", c => c.json({ ok: true, service: "asor-digital-api" }));
 
 // ===== Create payment for rental agreement =====
-app.post("/api/rental/create-payment", async c => {
+app.post("/api/rental/create-payment", rateLimit({ limit: 15, prefix: "rl:pay" }), async c => {
     let payload;
     try {
         payload = await c.req.json();
@@ -207,7 +211,7 @@ app.post("/api/rental/payment-callback", c => paymentCallbackHandler(c));
 app.post("/api/orders/:id/payment-callback", c => paymentCallbackHandler(c, c.req.param("id")));
 
 // ===== Generic create-payment for any registered product =====
-app.post("/api/products/:productId/create-payment", async c => {
+app.post("/api/products/:productId/create-payment", rateLimit({ limit: 15, prefix: "rl:pay" }), async c => {
     const productId = c.req.param("productId");
     let product;
     try { product = getProduct(productId); }
@@ -259,7 +263,7 @@ app.post("/api/products/:productId/create-payment", async c => {
 app.get("/api/products", c => c.json({ products: listProducts() }));
 
 // ===== AI Intake assistant (Claude Sonnet 4.6) =====
-app.post("/api/intake/chat", async c => {
+app.post("/api/intake/chat", rateLimit({ limit: 20, prefix: "rl:intake" }), async c => {
     let body;
     try { body = await c.req.json(); }
     catch { return c.json({ error: "Invalid JSON" }, 400); }
@@ -279,7 +283,7 @@ app.post("/api/intake/chat", async c => {
 });
 
 // ===== Consultation request (creates a lead, emails office) =====
-app.post("/api/consultation/request", async c => {
+app.post("/api/consultation/request", rateLimit({ limit: 10, prefix: "rl:consult" }), async c => {
     let body;
     try { body = await c.req.json(); }
     catch { return c.json({ error: "Invalid JSON" }, 400); }
@@ -336,7 +340,7 @@ app.post("/api/consultation/request", async c => {
 });
 
 // ===== Email the document on customer request =====
-app.post("/api/orders/:id/share/email", async c => {
+app.post("/api/orders/:id/share/email", rateLimit({ limit: 10, prefix: "rl:share" }), async c => {
     const id = c.req.param("id");
     let body;
     try { body = await c.req.json(); } catch { return c.json({ error: "Invalid JSON" }, 400); }
