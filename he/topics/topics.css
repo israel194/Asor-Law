@@ -85,6 +85,35 @@
     margin: 0 auto;
 }
 
+/* Article byline + legal disclaimer */
+.topic-byline {
+    margin: 20px auto 0;
+    color: var(--text-light);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.topic-byline strong {
+    color: var(--gold-dark, #7a5c3e);
+    font-weight: 700;
+}
+
+.topic-byline .topic-byline-sep {
+    color: var(--gold);
+    margin: 0 8px;
+}
+
+.topic-disclaimer {
+    margin-top: 40px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(184, 148, 63, 0.2);
+    color: var(--text-light);
+    font-size: 0.82rem;
+    line-height: 1.65;
+    font-style: italic;
+    text-align: center;
+}
+
 .topic-section {
     margin-bottom: 48px;
 }
