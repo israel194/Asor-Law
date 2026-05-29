@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Security headers (meta-tag form for static GH Pages — server-level
+    <!-- Security headers (meta-tag form for static GH Pages; server-level
          alternatives like X-Frame-Options/HSTS need Cloudflare proxy). -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://api.web3forms.com https://asor-digital-api.israel-486.workers.dev; frame-src https://www.google.com https://maps.google.com https://pay.sumit.co.il; font-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com; frame-ancestors 'none'; upgrade-insecure-requests">
     <meta name="referrer" content="strict-origin-when-cross-origin">
@@ -152,7 +152,7 @@
                 <p id="successMessage" class="success-loading">מעדכן את ההזמנה...</p>
 
                 <div class="success-meta" id="successMeta" style="display:none;">
-                    <p><strong>מס׳ הזמנה:</strong> <span id="orderIdDisplay">—</span></p>
+                    <p><strong>מס׳ הזמנה:</strong> <span id="orderIdDisplay">-</span></p>
                     <p id="emailSentLine">ההסכם והנספחים נשלחו אליך במייל.</p>
                     <p>חשבונית מס/קבלה תישלח אליכם אוטומטית.</p>
                 </div>
@@ -196,7 +196,7 @@
 
                         <div class="share-option">
                             <h3><span class="icon">💬</span> שליחה בוואטסאפ</h3>
-                            <p style="margin:0 0 10px;font-size:13px;color:#7c6a55;">תיפתח שיחה בוואטסאפ עם קישור להורדה — תוכל לבחור נמען (למשל, השוכר השני או המשכיר).</p>
+                            <p style="margin:0 0 10px;font-size:13px;color:#7c6a55;">תיפתח שיחה בוואטסאפ עם קישור להורדה, ותוכלו לבחור נמען (למשל, השוכר השני או המשכיר).</p>
                             <div class="share-row">
                                 <button type="button" class="share-btn whatsapp" id="shareWhatsappBtn">פתיחת וואטסאפ</button>
                             </div>
@@ -209,7 +209,7 @@
 
     <footer class="form-footer">
         <div class="container">
-            <p>שאלות? <a href="../../#contact">צרו קשר</a> – office@asor-law.com · 02-500-0275</p>
+            <p>שאלות? <a href="../../#contact">צרו קשר</a> · office@asor-law.com · 02-500-0275</p>
             <p class="form-footer-meta">&copy; כל הזכויות שמורות לישראל עשור, משרד עורכי דין &middot; 2026</p>
         </div>
     </footer>
@@ -236,7 +236,7 @@
             if (!orderId) {
                 msg.textContent = '';
                 errBox.style.display = 'block';
-                errBox.textContent = 'לא נמצא מזהה הזמנה בכתובת. אם בוצע תשלום — צרו קשר עם המשרד.';
+                errBox.textContent = 'לא נמצא מזהה הזמנה בכתובת. אם בוצע תשלום, צרו קשר עם המשרד.';
                 return;
             }
 
@@ -267,7 +267,7 @@
             shareDownloadLink.setAttribute('download', '');
 
             shareWhatsappBtn.addEventListener('click', () => {
-                const text = 'שלום,\n\nמצורף קישור להורדת הסכם השכירות שהופק במשרד עשור ושות׳ — עורכי דין:\n' + docUrl + '\n';
+                const text = 'שלום,\n\nמצורף קישור להורדת הסכם השכירות שהופק במשרד עשור ושות׳, עורכי דין:\n' + docUrl + '\n';
                 window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank', 'noopener');
             });
 
@@ -310,9 +310,9 @@
                     } else {
                         msg.textContent = 'תודה רבה. ההסכם מוכן.';
                         const emailSentLine = document.getElementById('emailSentLine');
-                        if (emailSentLine) emailSentLine.textContent = 'אם המייל לא הגיע — אפשר להוריד או לשלוח מחדש מהחלונית.';
+                        if (emailSentLine) emailSentLine.textContent = 'אם המייל לא הגיע, אפשר להוריד או לשלוח מחדש מהחלונית.';
                         const sub = document.getElementById('shareModalSub');
-                        if (sub) sub.textContent = 'בחרו את הדרך שנוחה לכם — אפשר גם יותר מאחת.';
+                        if (sub) sub.textContent = 'בחרו את הדרך שנוחה לכם, אפשר גם יותר מאחת.';
                     }
                     meta.style.display = 'block';
                     openShareBtn.style.display = 'inline-flex';

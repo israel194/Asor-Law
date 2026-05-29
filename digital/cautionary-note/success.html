@@ -53,7 +53,7 @@
                 <h1>תשלום התקבל בהצלחה</h1>
                 <p id="msg">מעדכן את ההזמנה...</p>
                 <div class="success-meta" id="meta" style="display:none;">
-                    <p><strong>מס׳ הזמנה:</strong> <span id="orderIdDisplay">—</span></p>
+                    <p><strong>מס׳ הזמנה:</strong> <span id="orderIdDisplay">-</span></p>
                     <p>אישור הזמנה נשלח אליך במייל. נחזור אליך תוך 24 שעות עסקים.</p>
                     <p>חשבונית מס/קבלה תישלח אוטומטית.</p>
                 </div>
@@ -83,7 +83,7 @@
             if (!orderId) {
                 msg.textContent = '';
                 errBox.style.display = 'block';
-                errBox.textContent = 'לא נמצא מזהה הזמנה. אם בוצע תשלום — צרו קשר עם המשרד.';
+                errBox.textContent = 'לא נמצא מזהה הזמנה. אם בוצע תשלום, צרו קשר עם המשרד.';
                 return;
             }
             idDisp.textContent = orderId;

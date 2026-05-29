@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Security headers (meta-tag form for static GH Pages — server-level
+    <!-- Security headers (meta-tag form for static GH Pages; server-level
          alternatives like X-Frame-Options/HSTS need Cloudflare proxy). -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://api.web3forms.com https://asor-digital-api.israel-486.workers.dev; frame-src https://www.google.com https://maps.google.com https://pay.sumit.co.il; font-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com; frame-ancestors 'none'; upgrade-insecure-requests">
     <meta name="referrer" content="strict-origin-when-cross-origin">
@@ -67,7 +67,7 @@
                             <input type="text" id="landlord_id" name="landlord_id" required pattern="[0-9]{9}" maxlength="9" inputmode="numeric" placeholder="9 ספרות, ללא מקפים">
                         </div>
                         <div class="form-field form-field-wide">
-                            <label for="landlord_street">כתובת מגורים – רחוב ומספר <span class="req">*</span></label>
+                            <label for="landlord_street">כתובת מגורים (רחוב ומספר) <span class="req">*</span></label>
                             <input type="text" id="landlord_street" name="landlord_street" required autocomplete="street-address" placeholder="לדוגמה: יפו 45">
                         </div>
                         <div class="form-field">
@@ -91,7 +91,7 @@
                     <div class="form-step-header">
                         <span class="form-step-num">שלב 2 מתוך 6</span>
                         <h2>פרטי השוכר</h2>
-                        <p class="form-step-lede">מי שוכר את הנכס. אם יש מספר שוכרים — מלאו את פרטי השוכר הראשי כאן, ניתן יהיה להוסיף שוכרים נוספים בשדה הערות בהמשך.</p>
+                        <p class="form-step-lede">מי שוכר את הנכס. אם יש מספר שוכרים, מלאו כאן את פרטי השוכר הראשי, ותוכלו להוסיף שוכרים נוספים בשדה ההערות בהמשך.</p>
                     </div>
 
                     <div class="form-grid">
@@ -104,7 +104,7 @@
                             <input type="text" id="tenant_id" name="tenant_id" required pattern="[0-9]{9}" maxlength="9" inputmode="numeric" placeholder="9 ספרות, ללא מקפים">
                         </div>
                         <div class="form-field form-field-wide">
-                            <label for="tenant_street">כתובת קודמת – רחוב ומספר <span class="req">*</span></label>
+                            <label for="tenant_street">כתובת קודמת (רחוב ומספר) <span class="req">*</span></label>
                             <input type="text" id="tenant_street" name="tenant_street" required placeholder="לדוגמה: הרצל 12">
                         </div>
                         <div class="form-field">
@@ -121,7 +121,7 @@
                         </div>
                         <div class="form-field form-field-full">
                             <label for="additional_tenants">שוכרים נוספים (אופציונלי)</label>
-                            <textarea id="additional_tenants" name="additional_tenants" rows="2" placeholder="אם יש שוכרים נוספים — שם מלא + ת.ז. של כל אחד, שורה לכל שוכר"></textarea>
+                            <textarea id="additional_tenants" name="additional_tenants" rows="2" placeholder="אם יש שוכרים נוספים: שם מלא + ת.ז. של כל אחד, שורה לכל שוכר"></textarea>
                             <small class="form-help">השוכרים הנוספים יופיעו בחוזה כמשתתפים ויחתמו עליו.</small>
                         </div>
                     </div>
@@ -137,7 +137,7 @@
 
                     <div class="form-grid">
                         <div class="form-field form-field-wide">
-                            <label for="property_street">כתובת הנכס – רחוב ומספר <span class="req">*</span></label>
+                            <label for="property_street">כתובת הנכס (רחוב ומספר) <span class="req">*</span></label>
                             <input type="text" id="property_street" name="property_street" required placeholder="לדוגמה: רש״י 64">
                         </div>
                         <div class="form-field">
@@ -171,8 +171,8 @@
                             <input type="text" id="property_parcel" name="property_parcel" required inputmode="numeric" placeholder="לדוגמה: 47">
                         </div>
                         <div class="form-field">
-                            <label for="property_subparcel">תת-חלקה</label>
-                            <input type="text" id="property_subparcel" name="property_subparcel" inputmode="numeric" placeholder="אם יש – לדוגמה: 12">
+                            <label for="property_subparcel">תת חלקה</label>
+                            <input type="text" id="property_subparcel" name="property_subparcel" inputmode="numeric" placeholder="אם יש, לדוגמה: 12">
                         </div>
 
                         <div class="form-field form-field-full">
@@ -183,7 +183,7 @@
                         </div>
                         <div class="form-field form-field-full" id="furniture_field" style="display:none;">
                             <label for="furniture_list">רשימת חפצים שנשארים בדירה</label>
-                            <textarea id="furniture_list" name="furniture_list" rows="3" placeholder="שורה לכל פריט – לדוגמה: מקרר Samsung, ספה דו-מושבית, מזגן בסלון..."></textarea>
+                            <textarea id="furniture_list" name="furniture_list" rows="3" placeholder="שורה לכל פריט, לדוגמה: מקרר Samsung, ספה דו מושבית, מזגן בסלון..."></textarea>
                             <small class="form-help">תופיע כנספח א׳ להסכם. ניתן להוסיף ולערוך גם בקובץ המוכן.</small>
                         </div>
                     </div>
@@ -212,7 +212,7 @@
                         <div class="form-field form-field-full">
                             <div class="form-derived" id="leaseEndDisplay">
                                 <span class="form-derived-label">תאריך סיום:</span>
-                                <span class="form-derived-value" id="leaseEndValue">—</span>
+                                <span class="form-derived-value" id="leaseEndValue">-</span>
                             </div>
                         </div>
 
@@ -258,7 +258,7 @@
                         <div class="form-field form-field-full">
                             <div class="form-derived" id="depositDisplay">
                                 <span class="form-derived-label">ערבון בנקאי / העברה (3 חודשי שכירות):</span>
-                                <span class="form-derived-value" id="depositValue">—</span>
+                                <span class="form-derived-value" id="depositValue">-</span>
                             </div>
                             <small class="form-help">סכום זה מחושב אוטומטית כפי 3 על דמי השכירות החודשיים. ניתן לשנות בהמשך אם תרצו.</small>
                         </div>
@@ -283,7 +283,7 @@
                                 </label>
                                 <label class="form-radio-label">
                                     <input type="radio" name="has_guarantors" value="yes">
-                                    <span>נדרשים ערבים אישיים — אוסיף פרטים בהערות</span>
+                                    <span>נדרשים ערבים אישיים, אוסיף פרטים בהערות</span>
                                 </label>
                             </div>
                         </div>
@@ -300,7 +300,7 @@
                     <div class="form-step-header">
                         <span class="form-step-num">שלב 6 מתוך 6</span>
                         <h2>סקירה ואישור</h2>
-                        <p class="form-step-lede">בדקו את הפרטים. אם יש משהו לתקן — חזרו אחורה. בלחיצה על "המשך לתשלום" תועברו לדף סליקה מאובטחת, ולאחר תשלום מוצלח ההסכם יישלח אליכם במייל כקובץ PDF.</p>
+                        <p class="form-step-lede">בדקו את הפרטים. אם יש משהו לתקן, חזרו אחורה. בלחיצה על "המשך לתשלום" תועברו לדף סליקה מאובטחת, ולאחר תשלום מוצלח ההסכם יישלח אליכם במייל כקובץ PDF.</p>
                     </div>
 
                     <div id="reviewContent" class="form-review"></div>
@@ -350,7 +350,7 @@
 
     <footer class="form-footer">
         <div class="container">
-            <p>נתקלתם בבעיה? <a href="../../#contact">צרו קשר</a> — אנו כאן לעזור.</p>
+            <p>נתקלתם בבעיה? <a href="../../#contact">צרו קשר</a>, אנו כאן כדי לעזור.</p>
             <p class="form-footer-meta">&copy; כל הזכויות שמורות לישראל עשור, משרד עורכי דין &middot; 2026</p>
         </div>
     </footer>
