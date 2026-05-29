@@ -85,6 +85,33 @@
     margin: 0 auto;
 }
 
+/* Article byline — author + publication date */
+.topic-byline {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 6px 12px;
+    margin: 4px 0 4px;
+    color: var(--text-light);
+    font-size: 0.95rem;
+}
+.topic-byline .topic-byline-author { color: var(--navy); font-weight: 600; }
+.topic-byline .topic-byline-sep { color: var(--gold); }
+
+/* Legal disclaimer — small print after the article body */
+.topic-disclaimer {
+    max-width: 760px;
+    margin: 28px auto 0;
+    padding: 14px 20px;
+    border-inline-start: 3px solid var(--gold-line);
+    background: var(--gold-soft);
+    border-radius: 8px;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    line-height: 1.7;
+}
+
 .topic-section {
     margin-bottom: 48px;
 }
