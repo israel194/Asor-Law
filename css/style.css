@@ -1723,26 +1723,36 @@ section {
 }
 
 @media (max-width: 768px) {
-    .projects-3d {
+    /* On phones the active card flows in normal document flow so its full
+       height (two images + info + status) is never clipped; inactive cards
+       are removed from layout instead of absolutely stacked. */
+    .projects-3d,
+    .projects-3d-stage {
         height: auto;
-        min-height: 600px;
+        min-height: 0;
     }
-    .projects-3d-stage { height: auto; min-height: 600px; }
     .projects-3d-stage .project-card {
+        position: relative;
+        inset: auto;
         height: auto;
-        min-height: 600px;
+        min-height: 0;
+        display: none;
+        opacity: 1;
+        transform: none;
+    }
+    .projects-3d-stage .project-card.is-active {
+        display: flex;
     }
     /* Stack the two images vertically on phones — side-by-side gets too tiny */
     .projects-3d-stage .project-images {
         grid-template-columns: 1fr;
-        grid-auto-rows: 1fr;
+        grid-auto-rows: 200px;
         gap: 2px;
-        flex: 1;
-        min-height: 360px;
+        flex: none;
     }
     .projects-3d-stage .project-image {
-        height: 100%;
-        min-height: 180px;
+        height: 200px;
+        min-height: 0;
     }
     /* Info row becomes a column on phones */
     .projects-3d-stage .project-info {
@@ -1761,9 +1771,11 @@ section {
     .projects-3d-stage .project-info .project-status {
         max-width: none;
     }
+    /* Keep the arrows over the image block (centred on the seam), never over text */
     .projects-slider-btn {
         width: 44px;
         height: 44px;
+        top: 200px;
     }
     .projects-slider-btn[data-dir="prev"] { inset-inline-start: 8px; }
     .projects-slider-btn[data-dir="next"] { inset-inline-end: 8px; }
