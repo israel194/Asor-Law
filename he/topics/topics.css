@@ -120,7 +120,8 @@
 }
 
 .topic-section {
-    margin-bottom: 8px;
+    padding: 0;
+    margin-bottom: 12px;
 }
 
 .topic-section h2 {
