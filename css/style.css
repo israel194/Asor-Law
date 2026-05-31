@@ -1337,6 +1337,37 @@ section {
     margin-top: 3px;
 }
 
+.about-profile-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 18px;
+    padding: 9px 16px;
+    border: 1px solid rgba(193,168,123,0.45);
+    border-radius: 999px;
+    color: var(--gold);
+    background: rgba(193,168,123,0.06);
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.about-profile-link:hover,
+.about-profile-link:focus-visible {
+    background: rgba(193,168,123,0.14);
+    border-color: var(--gold);
+    color: #fff;
+    transform: translateY(-1px);
+}
+
+.about-profile-link svg {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+}
+
 /* Practice Area Cards */
 .practice-cards {
     display: grid;
