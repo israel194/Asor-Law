@@ -68,7 +68,7 @@
     margin-bottom: 1.25rem;
     letter-spacing: -1px;
     line-height: 1.1;
-    font-family: 'Frank Ruhl Libre', serif;
+    font-family: var(--font-display);
     text-shadow: 0 2px 24px rgba(0, 0, 0, 0.3);
 }
 
@@ -172,7 +172,7 @@
     text-align: center;
 }
 .dig-compare-h2 {
-    font-family: 'Frank Ruhl Libre', serif;
+    font-family: var(--font-display);
     font-size: 1.7rem;
     font-weight: 700;
     color: var(--navy-deep);
@@ -206,7 +206,7 @@
 /* Header row */
 .dig-compare-table thead th {
     padding: 16px 14px;
-    font-family: 'Frank Ruhl Libre', serif;
+    font-family: var(--font-display);
     font-size: 1.05rem;
     font-weight: 700;
     border-bottom: 2px solid var(--gold);
@@ -231,7 +231,7 @@
     gap: 5px;
     background: #22c55e;
     color: #fff;
-    font-family: 'Assistant', sans-serif;
+    font-family: var(--font-body);
     font-size: 0.68rem;
     font-weight: 700;
     letter-spacing: 0.5px;
@@ -263,7 +263,7 @@
 .dig-compare-table tbody td.row-label {
     background: #faf8f3;
     color: var(--navy-deep);
-    font-family: 'Frank Ruhl Libre', serif;
+    font-family: var(--font-display);
     font-weight: 700;
     font-size: 0.95rem;
     white-space: nowrap;
@@ -443,7 +443,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Frank Ruhl Libre', serif;
+    font-family: var(--font-display);
     font-weight: 700;
     font-size: 1.1rem;
     box-shadow: 0 4px 12px rgba(184, 148, 63, 0.4);
@@ -569,7 +569,7 @@
 }
 
 .dig-product-price {
-    font-family: 'Frank Ruhl Libre', serif;
+    font-family: var(--font-display);
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--navy);
@@ -693,7 +693,7 @@
 }
 
 .dig-product-hero h1 {
-    font-family: 'Frank Ruhl Libre', serif;
+    font-family: var(--font-display);
     font-size: 3rem;
     font-weight: 700;
     line-height: 1.15;
@@ -750,7 +750,7 @@
 }
 
 .dig-product-card-cta .price {
-    font-family: 'Frank Ruhl Libre', serif;
+    font-family: var(--font-display);
     font-size: 3.4rem;
     font-weight: 700;
     color: var(--navy);
