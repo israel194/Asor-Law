@@ -290,6 +290,7 @@ async function handleSubmit(e) {
             [rtl + 'שם מלא']: rtl + form.querySelector('#name').value,
             [rtl + 'טלפון']: rtl + form.querySelector('#phone').value,
             [rtl + 'דואל']: rtl + form.querySelector('#email').value,
+            [rtl + 'נושא']: rtl + (form.querySelector('#topic')?.value || ''),
             [rtl + 'הודעה']: rtl + form.querySelector('#message').value,
             [rtl + 'פרטים טכניים']: rtl + meta,
         };
