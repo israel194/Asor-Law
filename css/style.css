@@ -4018,3 +4018,135 @@ textarea:focus-visible,
     color: #fff !important;
     border: 1px solid rgba(255, 255, 255, 0.55) !important;
 }
+
+/* ===================================================================== */
+/* Editorial layer: David Libre display face, tighter rhythm, start-aligned
+   headings, no tracking on Hebrew, no decorative rules or reveal effects. */
+@font-face { font-family: 'David Libre'; font-style: normal; font-weight: 400; font-display: swap; src: url('fonts/david-libre-400-hebrew.woff2') format('woff2'); unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F; }
+@font-face { font-family: 'David Libre'; font-style: normal; font-weight: 400; font-display: swap; src: url('fonts/david-libre-400-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'David Libre'; font-style: normal; font-weight: 500; font-display: swap; src: url('fonts/david-libre-500-hebrew.woff2') format('woff2'); unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F; }
+@font-face { font-family: 'David Libre'; font-style: normal; font-weight: 500; font-display: swap; src: url('fonts/david-libre-500-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'David Libre'; font-style: normal; font-weight: 700; font-display: swap; src: url('fonts/david-libre-700-hebrew.woff2') format('woff2'); unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F; }
+@font-face { font-family: 'David Libre'; font-style: normal; font-weight: 700; font-display: swap; src: url('fonts/david-libre-700-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+:root {
+    --font-display: 'David Libre', 'Frank Ruhl Libre', 'Amiri', Georgia, serif;
+}
+html[lang="ar"] { --font-display: 'Amiri', 'David Libre', Georgia, serif; }
+
+body { font-size: 17px; line-height: 1.65; letter-spacing: 0; }
+h1, h2, h3, h4 { letter-spacing: 0 !important; font-weight: 700; }
+p { line-height: 1.65; }
+
+/* No letter-spacing on Hebrew/Arabic labels; no ornamental dashes */
+.section-eyebrow, .hero-eyebrow, .about-label, .about-practice-heading,
+.hero-ribbon-label, .project-stat-label, .project-image-label {
+    letter-spacing: 0 !important;
+    text-transform: none !important;
+}
+.section-eyebrow::before, .section-eyebrow::after,
+.hero-eyebrow::before, .hero-eyebrow::after { display: none !important; }
+
+/* Decorative rules and floating ornaments off */
+.gold-line, .hero-gold-line, .about-gold-rule, .about-practice-divider,
+.scroll-progress, .hero-logo-mark, .hero-overlay::after { display: none !important; }
+
+/* Content is simply there: no fade/slide reveal */
+.fade-in, .fade-in.visible { opacity: 1 !important; transform: none !important; transition: none !important; }
+
+/* Section rhythm */
+section { padding: 84px 0; }
+.section-title {
+    text-align: start;
+    font-size: clamp(1.8rem, 2.4vw, 2.3rem);
+    line-height: 1.25;
+    margin: 0 0 12px;
+    max-width: none;
+}
+.section-subtitle {
+    text-align: start;
+    font-size: 1.05rem;
+    line-height: 1.65;
+    max-width: 640px;
+    margin: 0 0 40px;
+    margin-inline: 0;
+}
+@media (max-width: 768px) {
+    section { padding: 56px 0; }
+    .section-title { font-size: 1.7rem; }
+}
+
+/* Flatter, quieter controls */
+.btn-primary, .btn-secondary, .header-cta, .nav-online-service, .cookie-consent-btn {
+    box-shadow: none !important;
+    background-image: none;
+}
+.btn-primary { background: var(--gold) !important; }
+.btn-primary:hover { background: var(--gold-light) !important; transform: none !important; }
+.btn-secondary:hover { transform: none !important; }
+
+/* Small headings in the body face: David Libre bold reads too loose below ~1.4rem */
+h3, h4 { font-family: var(--font-body); font-weight: 700; }
+.why-title, .cta-band h2, .about-bio h2, .footer h3 { font-family: var(--font-display); }
+
+/* Header: plain link instead of a pulsing "live" pill; no copy button */
+.nav-online-service::before { display: none !important; }
+.nav-online-service {
+    background: transparent !important;
+    color: var(--navy) !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    border-bottom: 1px solid var(--gold) !important;
+    font-weight: 600 !important;
+}
+.header-cta-copy { display: none !important; }
+.header-cta { border-radius: 4px 0 0 4px !important; }
+[dir="ltr"] .header-cta { border-radius: 0 4px 4px 0 !important; }
+
+/* Commitments as a plain checked list, not icon cards */
+.commitments-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 0 48px !important;
+    max-width: none !important;
+    margin: 0 !important;
+}
+.commitment-card {
+    display: flex !important;
+    align-items: center;
+    gap: 14px;
+    text-align: start !important;
+    padding: 16px 0 !important;
+    background: none !important;
+    border: 0 !important;
+    border-bottom: 1px solid rgba(13, 44, 79, 0.10) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    transform: none !important;
+}
+.commitment-card::before { display: none !important; }
+.commitment-icon {
+    width: 22px !important;
+    height: 22px !important;
+    min-width: 22px;
+    margin: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+}
+.commitment-icon svg { width: 20px !important; height: 20px !important; }
+.commitment-card h4 { font-size: 1.05rem !important; font-weight: 600 !important; margin: 0 !important; line-height: 1.5; }
+@media (max-width: 768px) { .commitments-grid { grid-template-columns: 1fr !important; } }
+
+/* Cards: less rounding, no glow, no pill tags */
+.knowledge-card, .project-card, .projects-3d-stage .project-card, .team-card, .contact-form {
+    border-radius: 6px !important;
+    box-shadow: 0 1px 2px rgba(8, 22, 39, 0.06) !important;
+}
+.knowledge-card:hover { transform: none !important; }
+.knowledge-card-tag, .project-type-badge {
+    background: none !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    color: var(--gold-deep) !important;
+    font-weight: 600;
+}
+.project-type-badge { color: var(--gold-deep) !important; }
+.projects-3d::before, .projects-3d::after { display: none !important; }
