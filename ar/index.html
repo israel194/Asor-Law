@@ -39,7 +39,8 @@
     <meta name="twitter:image" content="https://www.asor-law.com/images/icon.jpeg">
 
     <link rel="icon" href="../images/logo-mark.png" type="image/png">
-    <link rel="stylesheet" href="../css/style.css?v=2026060103">
+    <link rel="stylesheet" href="../css/style.css?v=2026103101">
+    <link rel="stylesheet" href="../css/premium.css?v=2026103101">
 
     <!-- Schema.org JSON-LD -->
     <script type="application/ld+json">
@@ -204,6 +205,7 @@
     </script>
 </head>
 <body>
+    <a href="#hero" class="skip-link">انتقال إلى المحتوى الرئيسي</a>
 
     <!-- ===== Scroll Progress ===== -->
     <div class="scroll-progress" aria-hidden="true"><span id="scrollProgressBar"></span></div>
@@ -217,12 +219,11 @@
 
             <nav>
                 <ul class="nav-links" id="navLinks">
+                    <li><a href="#why">لماذا نحن</a></li>
+                    <li><a href="#specialties">مجالات التخصص</a></li>
                     <li><a href="#about">حول المكتب</a></li>
-                    <li><a href="#practice">مجالات التخصص</a></li>
                     <li><a href="#projects">المشاريع</a></li>
-                    <li><a href="#approach">نهجنا المهني</a></li>
-                    <li><a href="#commitments">التزاماتنا</a></li>
-                        <li><a href="#faq">أسئلة شائعة</a></li>
+                    <li><a href="#faq">أسئلة شائعة</a></li>
                     <li><a href="#contact">اتصل بنا</a></li>
                     <li><a href="../digital/" class="nav-online-service">خدمة قانونية عبر الإنترنت</a></li>
                 </ul>
@@ -259,78 +260,134 @@
 
     <!-- ===== Hero ===== -->
     <section class="hero" id="hero">
-        <!-- Left building cluster -->
-        <svg class="hero-building hero-building-left" viewBox="0 0 300 500" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
-            <path d="M40 200 L40 500 L120 500 L120 200 L100 200 L100 180 L60 180 L60 200 Z" stroke="#5A8EBA" stroke-width="1.8" fill="none"/>
-            <path d="M140 200 L140 500 L220 500 L220 200 L200 200 L200 180 L160 180 L160 200 Z" stroke="#5A8EBA" stroke-width="1.8" fill="none"/>
-            <line x1="70" y1="190" x2="70" y2="500" stroke="#5A8EBA" stroke-width="1"/>
-            <line x1="90" y1="190" x2="90" y2="500" stroke="#5A8EBA" stroke-width="1"/>
-            <line x1="170" y1="190" x2="170" y2="500" stroke="#5A8EBA" stroke-width="1"/>
-            <line x1="190" y1="190" x2="190" y2="500" stroke="#5A8EBA" stroke-width="1"/>
-            <path d="M80 160 L150 50 L220 160 L220 500 L80 500 Z" stroke="#BFA35D" stroke-width="1.8" fill="none"/>
-            <path d="M100 170 L150 80 L200 170 L200 500 L100 500 Z" stroke="#BFA35D" stroke-width="1.2" fill="none"/>
-            <line x1="130" y1="110" x2="130" y2="500" stroke="#BFA35D" stroke-width="0.8"/>
-            <line x1="170" y1="130" x2="170" y2="500" stroke="#BFA35D" stroke-width="0.8"/>
-            <path d="M110 130 L140 20 L170 130 L170 500 L110 500 Z" stroke="#A0A8B0" stroke-width="1.5" fill="none"/>
-            <path d="M120 140 L140 50 L160 140 L160 500 L120 500 Z" stroke="#A0A8B0" stroke-width="0.8" fill="none"/>
-            <line x1="20" y1="500" x2="240" y2="500" stroke="#BFA35D" stroke-width="1.8"/>
-        </svg>
-        <!-- Right building cluster (mirrored) -->
-        <svg class="hero-building hero-building-right" viewBox="0 0 300 500" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax meet" aria-hidden="true" style="transform: scaleX(-1);">
-            <path d="M40 200 L40 500 L120 500 L120 200 L100 200 L100 180 L60 180 L60 200 Z" stroke="#5A8EBA" stroke-width="1.8" fill="none"/>
-            <path d="M140 200 L140 500 L220 500 L220 200 L200 200 L200 180 L160 180 L160 200 Z" stroke="#5A8EBA" stroke-width="1.8" fill="none"/>
-            <line x1="70" y1="190" x2="70" y2="500" stroke="#5A8EBA" stroke-width="1"/>
-            <line x1="90" y1="190" x2="90" y2="500" stroke="#5A8EBA" stroke-width="1"/>
-            <line x1="170" y1="190" x2="170" y2="500" stroke="#5A8EBA" stroke-width="1"/>
-            <line x1="190" y1="190" x2="190" y2="500" stroke="#5A8EBA" stroke-width="1"/>
-            <path d="M80 160 L150 50 L220 160 L220 500 L80 500 Z" stroke="#BFA35D" stroke-width="1.8" fill="none"/>
-            <path d="M100 170 L150 80 L200 170 L200 500 L100 500 Z" stroke="#BFA35D" stroke-width="1.2" fill="none"/>
-            <line x1="130" y1="110" x2="130" y2="500" stroke="#BFA35D" stroke-width="0.8"/>
-            <line x1="170" y1="130" x2="170" y2="500" stroke="#BFA35D" stroke-width="0.8"/>
-            <path d="M110 130 L140 20 L170 130 L170 500 L110 500 Z" stroke="#A0A8B0" stroke-width="1.5" fill="none"/>
-            <path d="M120 140 L140 50 L160 140 L160 500 L120 500 Z" stroke="#A0A8B0" stroke-width="0.8" fill="none"/>
-            <line x1="20" y1="500" x2="240" y2="500" stroke="#BFA35D" stroke-width="1.8"/>
-        </svg>
-
-        <div class="hero-shapes">
-            <div class="shape shape-1"></div>
-            <div class="shape shape-2"></div>
-            <div class="shape shape-3"></div>
-            <div class="shape shape-4"></div>
-            <div class="shape shape-5"></div>
+        <div class="hero-bg" aria-hidden="true">
+            <img src="../images/projects/project-7-new-1.jpg" alt="" loading="eager" fetchpriority="high">
         </div>
+        <div class="hero-overlay" aria-hidden="true"></div>
 
-        <div class="hero-content">
-            <img class="hero-logo-mark" src="../images/logo-mark.png" alt="عشور وشركاه - محامون">
-            <span class="hero-eyebrow">مكتب محاماة · القدس</span>
-            <h1>عشور وشركاه <span>– محامون</span></h1>
-            <p class="hero-tagline">خبراء في التجديد العمراني والضرائب العقارية</p>
-            <div class="hero-gold-line"></div>
-            <p class="hero-tagline" style="font-size: 1rem; opacity: 0.7;">مرافقة قانونية مهنية من الخطوة الأولى حتى استلام المفتاح</p>
-
-            <div class="hero-stats">
-                <div class="hero-stat">
-                    <div class="hero-stat-number">9</div>
-                    <div class="hero-stat-label">مشاريع نشطة</div>
-                </div>
-                <div class="hero-stat">
-                    <div class="hero-stat-number">3,100+</div>
-                    <div class="hero-stat-label">شقق جديدة مخططة</div>
-                </div>
-                <div class="hero-stat">
-                    <div class="hero-stat-number">8</div>
-                    <div class="hero-stat-label">محامون في الفريق</div>
-                </div>
-            </div>
+        <div class="hero-content hero-content--editorial">
+            <span class="hero-eyebrow">محامون · محاسبون قانونيون · القدس</span>
+            <h1>القانون والضرائب.<br><span>تحت سقف واحد.</span></h1>
+            <p class="hero-headline">مرافقة قانونية ومحاسبية متكاملة في الصفقات العقارية، ومشاريع التجديد العمراني، وأهم قراراتكم الضريبية.</p>
+            <p class="hero-tagline">نفحص كل اتفاقية بعينين: عين المحامي وعين المحاسب القانوني. هكذا تتضح المخاطر القانونية والعبء الضريبي <strong>قبل التوقيع، لا بعده.</strong></p>
 
             <div class="hero-cta">
-                <a href="#contact" class="btn-primary">اتصل بنا</a>
-                <a href="#projects" class="btn-secondary">مشاريعنا</a>
+                <a href="#contact" class="btn-primary">لحجز استشارة</a>
+                <a href="#projects" class="btn-secondary">المشاريع التي نرافقها</a>
             </div>
         </div>
 
-        <div class="scroll-indicator">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
+        <div class="hero-ribbon">
+            <div class="hero-ribbon-inner">
+                <div class="hero-ribbon-cell">
+                    <div class="hero-ribbon-num">11</div>
+                    <div class="hero-ribbon-label">مشاريع تجديد عمراني نرافقها</div>
+                </div>
+                <div class="hero-ribbon-cell">
+                    <div class="hero-ribbon-num">3,100+</div>
+                    <div class="hero-ribbon-label">وحدة سكنية جديدة قيد التخطيط</div>
+                </div>
+                <div class="hero-ribbon-cell">
+                    <div class="hero-ribbon-num hero-ribbon-num--text">محامٍ · محاسب</div>
+                    <div class="hero-ribbon-label">القانون والضرائب في فريق واحد</div>
+                </div>
+                <div class="hero-ribbon-cell hero-ribbon-cell--trust">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <div class="hero-ribbon-trust">برج رام، القدس</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Why Asor (value proposition) ===== -->
+    <section class="why" id="why">
+        <div class="container why-grid">
+            <div class="why-intro fade-in">
+                <span class="section-eyebrow section-eyebrow--start">لماذا عشور وشركاه</span>
+                <h2 class="why-title">القرار القانوني السليم<br>يُقاس أيضاً <em>بما يبقى لكم.</em></h2>
+                <p class="why-lead">في الصفقة العقارية أو مشروع التجديد العمراني، البند القانوني وأثره الضريبي وجهان لقرار واحد. لذلك نفحصهما في مكتبنا معاً، بالفريق نفسه وفي المرحلة نفسها، لا في اجتماعين منفصلين لدى مستشارَين لا يتحدثان معاً.</p>
+                <a href="#contact" class="why-link">لمكالمة تعارف مع المكتب <span aria-hidden="true">←</span></a>
+            </div>
+
+            <ol class="why-list">
+                <li class="why-item fade-in">
+                    <span class="why-num">01</span>
+                    <div>
+                        <h3>محامٍ ومحاسب قانوني في كل ملف</h3>
+                        <p>الشريك المؤسس مرخّص محامياً ومحاسباً قانونياً معاً. تُفحص كل اتفاقية أيضاً من زاوية ضريبة الربح العقاري (מס שבח)، وضريبة الشراء، وضريبة القيمة المضافة، ورسوم التحسين، كي يكون المقابل المتفق عليه هو ما يبقى بين أيديكم فعلاً.</p>
+                    </div>
+                </li>
+                <li class="why-item fade-in">
+                    <span class="why-num">02</span>
+                    <div>
+                        <h3>مكانة مهنية في نقابة المحامين</h3>
+                        <p>رئيس لجنة التجديد العمراني في نقابة المحامين بالقدس، ونائب رئيس لجنة الضرائب العقارية، وعضو بديل في لجنة الضرائب العامة. معرفة معمّقة بالسياسات وبالسلطات وبالقضايا المطروحة.</p>
+                    </div>
+                </li>
+                <li class="why-item fade-in">
+                    <span class="why-num">03</span>
+                    <div>
+                        <h3>خبرة مثبتة في التجديد العمراني</h3>
+                        <p>تمثيل أصحاب الشقق في أحد عشر مشروعاً للإخلاء والبناء (פינוי ובינוי) وتاما 38 في القدس وبيت شيمش، من توقيع السكان واختيار المطوّر، مروراً بالتفاوض على الاتفاقية، وحتى رخصة البناء.</p>
+                    </div>
+                </li>
+                <li class="why-item fade-in">
+                    <span class="why-num">04</span>
+                    <div>
+                        <h3>مرافقة شخصية وشفافة</h3>
+                        <p>مشاركة مباشرة للشريك المؤسس في القرارات الجوهرية، واتفاقية أتعاب واضحة مسبقاً، وإطلاع مستمر على كل تطور في الملف.</p>
+                    </div>
+                </li>
+            </ol>
+        </div>
+    </section>
+
+    <!-- ===== Practice Areas ===== -->
+    <section class="practice" id="specialties">
+        <div class="container">
+            <span class="section-eyebrow fade-in">مجالات التخصص</span>
+            <h2 class="section-title fade-in">خبرة مركّزة، حيث يلتقي القانون بالمال</h2>
+            <div class="gold-line fade-in"></div>
+            <p class="section-subtitle fade-in">يركّز المكتب على المجالات التي يكون فيها للدمج بين المعرفة القانونية والمحاسبية أثر مالي مباشر على الموكّل</p>
+
+            <div class="practice-grid">
+                <a href="#contact" class="practice-tile practice-tile--featured fade-in">
+                    <span class="practice-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="6" width="6" height="14" rx="1"/><rect x="9" y="3" width="6" height="17" rx="1"/><rect x="17" y="8" width="6" height="12" rx="1"/></svg></span>
+                    <h3>التجديد العمراني</h3>
+                    <p>تمثيل أصحاب الشقق في مشاريع الإخلاء والبناء وتاما 38: تنظيم السكان، واختيار المطوّر، والتفاوض على الاتفاقية، والضمانات والكفالات، والإشراف القانوني حتى استلام المفتاح.</p>
+                    <span class="practice-tile-more">لحجز استشارة <span aria-hidden="true">←</span></span>
+                </a>
+                <a href="#contact" class="practice-tile fade-in">
+                    <span class="practice-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
+                    <h3>ضرائب العقارات</h3>
+                    <p>ضريبة الربح العقاري وضريبة الشراء والإعفاءات، وتخطيط ضريبي مشروع قبل الصفقة، والاعتراضات والاستئنافات أمام سلطة الضرائب.</p>
+                    <span class="practice-tile-more">لحجز استشارة <span aria-hidden="true">←</span></span>
+                </a>
+                <a href="#contact" class="practice-tile fade-in">
+                    <span class="practice-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg></span>
+                    <h3>الصفقات العقارية</h3>
+                    <p>اتفاقيات البيع والشراء، وصفقات المقايضة (קומבינציה)، والإيجار السكني والتجاري، والتسجيل في الطابو وملاحظات التحذير.</p>
+                    <span class="practice-tile-more">لحجز استشارة <span aria-hidden="true">←</span></span>
+                </a>
+                <a href="#contact" class="practice-tile fade-in">
+                    <span class="practice-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>
+                    <h3>ضريبة الدخل وضريبة القيمة المضافة</h3>
+                    <p>استشارة وتمثيل للأفراد والمستقلين والشركات: هيكلة الصفقات، والتقارير، والتدقيقات، والاعتراضات والاستئنافات.</p>
+                    <span class="practice-tile-more">لحجز استشارة <span aria-hidden="true">←</span></span>
+                </a>
+                <a href="#contact" class="practice-tile fade-in">
+                    <span class="practice-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M5 20V9l7-5 7 5v11"/><path d="M9 20v-6h6v6"/></svg></span>
+                    <h3>التخطيط والبناء ورسوم التحسين</h3>
+                    <p>مرافقة تعديلات الخرائط الهيكلية، والتمثيل أمام لجان التخطيط، والاعتراض على تقديرات رسوم التحسين.</p>
+                    <span class="practice-tile-more">لحجز استشارة <span aria-hidden="true">←</span></span>
+                </a>
+                <a href="#contact" class="practice-tile fade-in">
+                    <span class="practice-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+                    <h3>الوصايا والمواريث وأملاك العائلة</h3>
+                    <p>الوصايا، وأوامر الإرث وتنفيذ الوصية، والتوكيل المستمر، ونقل الأملاك بين الأقارب بتخطيط ضريبي سليم.</p>
+                    <span class="practice-tile-more">لحجز استشارة <span aria-hidden="true">←</span></span>
+                </a>
+            </div>
         </div>
     </section>
 
@@ -345,8 +402,8 @@
         </div>
 
         <div class="container about-content-wrap">
-            <span class="section-eyebrow fade-in" style="color: var(--gold-light);">معرفة · خبرة · تمثيل حازم</span>
-            <h2 class="section-title fade-in" style="color: #fff;">حول المكتب</h2>
+            <span class="section-eyebrow section-eyebrow--light fade-in">حول المكتب</span>
+            <h2 class="section-title fade-in" style="color: #fff;">مَن يجلس أمامكم في الغرفة</h2>
             <div class="gold-line fade-in"></div>
 
             <div class="about-glass-card fade-in">
@@ -360,8 +417,9 @@
                         <span class="about-label">الشريك المؤسس</span>
                         <h2>إسرائيل عشور، محامٍ (محاسب قانوني)</h2>
                         <div class="about-gold-rule"></div>
-                        <p>يقع مكتب المحاماة إسرائيل عشور وشركاه في برج رام في القدس ويضم ثمانية محامين ذوي خبرة عميقة في مرافقة صفقات العقارات والتجديد العمراني والضرائب العقارية.</p>
-                        <p>يتخصص المكتب في تمثيل السكان في مشاريع البينوي بينوي (الإخلاء والبناء) وتما 38 للهدم وإعادة البناء، مع خبرة واسعة في مرافقة عشرات المشاريع في القدس ومحيطها — من مراحل التخطيط المبكرة حتى الاتفاقيات النهائية والحصول على تصريح البناء.</p>
+                        <p class="about-bio-lead">محامٍ ومحاسب قانوني، مؤسس مكتب عشور وشركاه ومديره، ومقرّه برج رام في القدس.</p>
+                        <p>يمثّل المكتب أصحاب الشقق والمطوّرين والمستثمرين والعائلات في الصفقات العقارية، ومشاريع الإخلاء والبناء وتاما 38، وفي القضايا الضريبية المعقّدة. تبدأ المرافقة في مراحل التخطيط المبكرة، وتمر بالتفاوض على الاتفاقية، ولا تنتهي إلا بالحصول على رخصة البناء واستكمال التسجيل وتسوية الضرائب.</p>
+                        <p>يتيح التأهيل المزدوج في القانون والمحاسبة رؤية الصورة كاملة: ليس فقط هل تحميكم الاتفاقية، بل أيضاً كم ستكلّفكم فعلاً.</p>
 
                         <ul class="about-roles">
                             <li>
@@ -378,40 +436,10 @@
                             </li>
                         </ul>
 
-                        <a class="about-profile-link" href="https://www.lawfirms.co.il/lawyers/%D7%99%D7%A9%D7%A8%D7%90%D7%9C-%D7%A2%D7%A9%D7%95%D7%A8" target="_blank" rel="noopener noreferrer" aria-label="صفحة الملف الشخصي للمحامي إسرائيل عاسور على موقع lawfirms.co.il (يفتح في علامة تبويب جديدة)">
+                        <a class="about-profile-link" href="https://www.lawfirms.co.il/lawyers/%D7%99%D7%A9%D7%A8%D7%90%D7%9C-%D7%A2%D7%A9%D7%95%D7%A8" target="_blank" rel="noopener noreferrer" aria-label="الملف الشخصي على موقع lawfirms.co.il (يفتح في علامة تبويب جديدة)">
                             <span>الملف الشخصي على lawfirms.co.il</span>
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                         </a>
-                    </div>
-                </div>
-
-                <div class="about-practice-divider" aria-hidden="true"></div>
-                <h3 class="about-practice-heading" id="specialties">مجالات التخصص</h3>
-
-                <div class="practice-cards practice-cards--row">
-                    <div class="practice-card">
-                        <div class="practice-card-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-                        </div>
-                        <h4>ضريبة الدخل</h4>
-                    </div>
-                    <div class="practice-card">
-                        <div class="practice-card-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                        </div>
-                        <h4>ضريبة القيمة المضافة</h4>
-                    </div>
-                    <div class="practice-card">
-                        <div class="practice-card-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-                        </div>
-                        <h4>الضرائب العقارية</h4>
-                    </div>
-                    <div class="practice-card">
-                        <div class="practice-card-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="6" width="6" height="14" rx="1"/><rect x="9" y="3" width="6" height="17" rx="1"/><rect x="17" y="8" width="6" height="12" rx="1"/></svg>
-                        </div>
-                        <h4>التجديد العمراني</h4>
                     </div>
                 </div>
 
@@ -457,7 +485,7 @@
             <div class="gold-line fade-in"></div>
             <p class="section-subtitle fade-in">يدير المكتب مشاريع تجديد عمراني رائدة في القدس وبيت شيمش</p>
 
-            <div class="projects-3d" id="projectsSlider" role="region" aria-label="פרויקטים — סליידר תלת ממדי" tabindex="0">
+            <div class="projects-3d" id="projectsSlider" role="region" aria-label="عرض المشاريع" tabindex="0">
               <div class="projects-3d-stage" id="projectsTrack">
 
                 <!-- Project 1 -->
@@ -919,52 +947,39 @@
         </div>
     </section>
 
-    <!-- ===== Approach (Philosophy & Principles) ===== -->
-    <section class="approach" id="approach">
+    <!-- ===== Process ===== -->
+    <section class="process" id="approach">
         <div class="container">
-            <span class="section-eyebrow fade-in">فلسفة المكتب</span>
-            <h2 class="section-title fade-in">نهجنا المهني</h2>
+            <span class="section-eyebrow fade-in">طريقتنا</span>
+            <h2 class="section-title fade-in">هكذا نعمل معاً</h2>
             <div class="gold-line fade-in"></div>
-            <p class="section-subtitle fade-in">أربعة مبادئ توجه المرافقة القانونية في كل مشروع</p>
+            <p class="section-subtitle fade-in">عملية منظّمة وشفافة، تعرفون فيها في كل مرحلة أين يقف الملف، وما الخطوة التالية، وما التكلفة.</p>
 
-            <div class="approach-grid">
-                <div class="approach-card fade-in">
-                    <span class="approach-quote-mark" aria-hidden="true">&ldquo;</span>
-                    <p class="approach-text">نؤمن بالتمثيل الحازم لأصحاب الحقوق، مع الحفاظ الدقيق على مصالحهم في كل مرحلة من مراحل المشروع.</p>
-                    <div class="approach-attribution">
-                        <span class="approach-attr-source">إسرائيل عشور، محامٍ (محاسب قانوني)</span>
-                        <span class="approach-attr-tag">الشريك المؤسس</span>
-                    </div>
-                </div>
-                <div class="approach-card fade-in">
-                    <span class="approach-quote-mark" aria-hidden="true">&ldquo;</span>
-                    <p class="approach-text">يبدأ التجديد العمراني الجيد بمرافقة قانونية تعرف كل بند في الاتفاقية — وتعرف أين تختبئ المخاطر.</p>
-                    <div class="approach-attribution">
-                        <span class="approach-attr-source">فريق المكتب</span>
-                        <span class="approach-attr-tag">خبرة عشرات المشاريع</span>
-                    </div>
-                </div>
-                <div class="approach-card fade-in">
-                    <span class="approach-quote-mark" aria-hidden="true">&ldquo;</span>
-                    <p class="approach-text">كل مشروع فريد. نحن نكيّف الاستراتيجية القانونية لبنية المجموعة واحتياجات السكان الخاصة.</p>
-                    <div class="approach-attribution">
-                        <span class="approach-attr-source">المنهجية</span>
-                        <span class="approach-attr-tag">مرافقة شخصية</span>
-                    </div>
-                </div>
-                <div class="approach-card fade-in">
-                    <span class="approach-quote-mark" aria-hidden="true">&ldquo;</span>
-                    <p class="approach-text">الجمع بين التمثيل القانوني والخبرة في الضرائب العقارية يوفر للسكان مبالغ كبيرة — أحيانًا عشرات آلاف الشواقل.</p>
-                    <div class="approach-attribution">
-                        <span class="approach-attr-source">ميزة مهنية</span>
-                        <span class="approach-attr-tag">محامٍ ومحاسب في مكتب واحد</span>
-                    </div>
-                </div>
-            </div>
+            <ol class="process-steps">
+                <li class="process-step fade-in">
+                    <span class="process-step-num">1</span>
+                    <h3>لقاء تعارف وتشخيص</h3>
+                    <p>نتعرّف على الوقائع وعلى أهدافكم وجداولكم الزمنية، ونرسم خريطة المسائل القانونية والضريبية المطروحة.</p>
+                </li>
+                <li class="process-step fade-in">
+                    <span class="process-step-num">2</span>
+                    <h3>تحليل قانوني وضريبي</h3>
+                    <p>فحص المستندات والحقوق والمخاطر، إلى جانب دراسة الآثار الضريبية لكل بديل، قبل أي التزام.</p>
+                </li>
+                <li class="process-step fade-in">
+                    <span class="process-step-num">3</span>
+                    <h3>استراتيجية وتفاوض</h3>
+                    <p>بلورة موقف واضح، وصياغة الاتفاقية، والتفاوض بحزم مع الطرف الآخر أو المطوّر أو السلطة، لتحقيق أفضل الشروط لكم.</p>
+                </li>
+                <li class="process-step fade-in">
+                    <span class="process-step-num">4</span>
+                    <h3>مرافقة حتى النهاية</h3>
+                    <p>التقارير لسلطة الضرائب، والتسجيل في الطابو، ومتابعة تنفيذ الالتزامات، وعند الحاجة التمثيل في الإجراءات القضائية.</p>
+                </li>
+            </ol>
         </div>
     </section>
 
-    
     <!-- ===== FAQ ===== -->
     <section class="faq" id="faq">
         <div class="container">
@@ -1040,17 +1055,31 @@
         </div>
     </section>
 
+    <!-- ===== CTA band ===== -->
+    <section class="cta-band" aria-labelledby="ctaBandTitle">
+        <div class="container cta-band-inner">
+            <div class="cta-band-text fade-in">
+                <h2 id="ctaBandTitle">هل أنتم مقبلون على توقيع أو صفقة أو قرار ضريبي؟</h2>
+                <p>محادثة واحدة قبل الالتزام قد تجنّبكم خطأً مكلفاً. أخبرونا بالموضوع وسنعود إليكم بالاتجاه الصحيح.</p>
+            </div>
+            <div class="cta-band-actions fade-in">
+                <a href="tel:02-5000275" class="btn-primary">اتصلوا: 02-5000275</a>
+                <a href="https://wa.me/972546302880" class="btn-secondary" target="_blank" rel="noopener">راسلونا عبر WhatsApp</a>
+            </div>
+        </div>
+    </section>
+
     <!-- ===== Contact ===== -->
     <section class="contact" id="contact">
         <div class="container">
-            <span class="section-eyebrow fade-in">تواصل معنا</span>
-            <h2 class="section-title fade-in">اتصل بنا</h2>
+            <span class="section-eyebrow fade-in">اتصل بنا</span>
+            <h2 class="section-title fade-in">لنتحدث عن ملفكم</h2>
             <div class="gold-line fade-in"></div>
-            <p class="section-subtitle fade-in">يسعدنا مساعدتكم في أي استفسار</p>
+            <p class="section-subtitle fade-in">اتركوا تفاصيلكم وسنعود إليكم قريباً. نتعامل مع كل توجّه بسرية تامة.</p>
 
             <div class="contact-grid">
                 <div class="contact-form fade-in">
-                    <h3>اتركوا تفاصيلكم وسنعود إليكم</h3>
+                    <h3>إرسال توجّه</h3>
                     <form id="contactForm" onsubmit="handleSubmit(event)" novalidate>
                         <input type="hidden" name="access_key" value="50c491ee-83db-4906-bb6f-3b3a287cbbab">
                         <input type="hidden" name="subject" value="פנייה חדשה מהאתר - עשור ושות׳">
@@ -1071,10 +1100,24 @@
                             <span class="form-error">يرجى إدخال بريد إلكتروني صحيح</span>
                         </div>
                         <div class="form-group">
+                            <label for="topic">موضوع التوجّه</label>
+                            <select id="topic" name="נושא">
+                                <option value="">اختاروا موضوعاً</option>
+                                <option>التجديد العمراني (إخلاء وبناء / تاما 38)</option>
+                                <option>ضرائب العقارات (ضريبة الربح العقاري / ضريبة الشراء)</option>
+                                <option>صفقة عقارية / اتفاقية بيع</option>
+                                <option>ضريبة الدخل / ضريبة القيمة المضافة</option>
+                                <option>التخطيط والبناء / رسوم التحسين</option>
+                                <option>الوصايا والمواريث والتوكيل المستمر</option>
+                                <option>أخرى</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label for="message">الرسالة</label>
                             <textarea id="message" name="הודעה" placeholder="اكتبوا رسالتكم..."></textarea>
                         </div>
-                        <button type="submit" class="form-submit" data-sending="جارٍ الإرسال..." data-success="تم إرسال الرسالة بنجاح!" data-error="خطأ في الإرسال، يرجى المحاولة مرة أخرى">إرسال</button>
+                        <button type="submit" class="form-submit" data-sending="جارٍ الإرسال..." data-success="تم إرسال الرسالة بنجاح!" data-error="خطأ في الإرسال، يرجى المحاولة مرة أخرى">إرسال التوجّه</button>
+                        <p class="form-note">تقديم التفاصيل طوعي وليس واجباً قانونياً، وبدونها لا يمكننا الرد عليكم. ستُستخدم التفاصيل فقط للرد على توجّهكم ولدراسة تقديم خدمة قانونية. المسؤول عن المعلومات: عشور وشركاه - محامون، office@asor-law.com. يُرسَل النموذج إلينا عبر مزوّد خدمة النماذج Web3Forms، مع تفاصيل تقنية أساسية (نوع الجهاز والمتصفح، والصفحة التي أُرسل منها). لكم الحق في الاطلاع على المعلومات وطلب تصحيحها. التوجّه عبر الموقع لا يُنشئ علاقة محامٍ وموكّل ولا يُعدّ استشارة قانونية. <a href="privacy.html">سياسة الخصوصية</a></p>
                     </form>
                 </div>
 
@@ -1130,8 +1173,8 @@
                         </div>
                     </div>
 
-                    <div class="contact-map">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3389!2d35.1892236!3d31.7892031!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z16DXl9eV150g15fXpNem15PXmSAxNywg15nXqNeV16nXnNeZ150!5e0!3m2!1siw!2sil!4v1730000000000" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="خريطة المكتب"></iframe>
+                    <div class="contact-map" data-map-text="يتم عرض الخريطة عبر خرائط Google، التي قد تضع ملفات تعريف الارتباط على جهازكم." data-map-btn="عرض الخريطة" data-map-link-text="فتح في خرائط Google" data-map-link="https://www.google.com/maps/search/?api=1&amp;query=%D7%A0%D7%97%D7%95%D7%9D+%D7%97%D7%A4%D7%A6%D7%93%D7%99+17+%D7%99%D7%A8%D7%95%D7%A9%D7%9C%D7%99%D7%9D">
+                        <iframe data-consent-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3389!2d35.1892236!3d31.7892031!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z16DXl9eV150g15fXpNem15PXmSAxNywg15nXqNeV16nXnNeZ150!5e0!3m2!1siw!2sil!4v1730000000000" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="خريطة المكتب"></iframe>
                     </div>
                 </div>
             </div>
@@ -1177,6 +1220,7 @@
                 <span class="footer-legal-links">
                     <a href="privacy.html">سياسة الخصوصية</a>
                     <a href="terms.html">شروط الاستخدام</a>
+                    <a href="#" data-cookie-settings>إعدادات ملفات تعريف الارتباط</a>
                     <a href="#" id="footerA11yLink">بيان إمكانية الوصول</a>
                 </span>
                 <span>&copy; جميع الحقوق محفوظة لإسرائيل عشور، مكتب محاماة · 2026</span>
@@ -1195,10 +1239,13 @@
     </button>
 
     <!-- ===== Cookie Consent ===== -->
-    <div class="cookie-consent" id="cookieConsent">
+    <div class="cookie-consent" id="cookieConsent" role="region" aria-label="إعدادات ملفات تعريف الارتباط">
         <div class="cookie-consent-inner">
-            <p><strong>نحن نحترم خصوصيتكم.</strong> يستخدم هذا الموقع ملفات تعريف الارتباط (cookies) وتقنيات مماثلة لتحسين تجربة التصفح، تحليل الاستخدام، وحفظ التفضيلات. خلال زيارتكم قد يتم جمع معلومات مجهولة (عنوان IP، نوع المتصفح والجهاز، الصفحات المعروضة، أوقات التصفح) إلى جانب المعلومات التي تقدمونها في نموذج الاتصال (الاسم، الهاتف، البريد الإلكتروني، ومحتوى الرسالة). يتم تخزين المعلومات بشكل آمن وتُستخدم فقط للرد على استفساركم وتحسين الخدمة، ولن تُشارك مع طرف ثالث لأي غرض آخر. الاستمرار في استخدام الموقع يُعتبر موافقة على جمع ومعالجة هذه المعلومات. للتفاصيل الكاملة: <a href="privacy.html">سياسة الخصوصية</a> · <a href="terms.html">شروط الاستخدام</a></p>
-            <button class="cookie-consent-btn" id="cookieAccept">أفهم وأوافق</button>
+            <p><strong>ملفات تعريف الارتباط والخصوصية.</strong> لا يستخدم هذا الموقع ملفات تعريف ارتباط إعلانية أو للتتبّع. يحفظ متصفحكم فقط تفضيلات إمكانية الوصول واختياركم بشأن ملفات تعريف الارتباط. قد تضع خريطة Google المضمّنة ملفات تعريف ارتباط خاصة بـ Google، لذلك لا تُحمَّل إلا بموافقتكم. <a href="privacy.html">سياسة الخصوصية</a></p>
+            <div class="cookie-consent-actions">
+                <button class="cookie-consent-btn" id="cookieAccept">موافقة</button>
+                <button class="cookie-consent-btn cookie-consent-btn--ghost" id="cookieEssential">الضرورية فقط</button>
+            </div>
         </div>
     </div>
 
@@ -1275,12 +1322,12 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
             </button>
             <div class="a11y-statement-content">
-                <h3>بيان إمكانية الوصول</h3><p><strong>عشور وشركاه - محامون</strong> ملتزمون بتمكين كل شخص، بما في ذلك الأشخاص ذوي الإعاقة، من استخدام هذا الموقع بشكل متساوٍ وكامل وبكرامة.</p><h4>معيار إمكانية الوصول</h4><p>يتوافق هذا الموقع مع متطلبات لوائح المساواة في الحقوق للأشخاص ذوي الإعاقة (تعديلات إمكانية الوصول للخدمات)، 2013، وفقًا للمعيار الإسرائيلي 5568 بمستوى AA من إرشادات WCAG 2.0.</p><h4>ميزات إمكانية الوصول</h4><ul><li>تعديل حجم النص</li><li>تعديل تباين الألوان</li><li>تمييز الروابط</li><li>إيقاف الرسوم المتحركة</li><li>خط مقروء</li><li>مؤشر كبير</li><li>تنقل كامل بلوحة المفاتيح</li><li>دعم قارئ الشاشة</li></ul><h4>استفسارات حول إمكانية الوصول</h4><p>إذا واجهتم مشكلة في إمكانية الوصول، يرجى الاتصال بنا:</p><p>هاتف: 02-5000275<br>بريد إلكتروني: office@asor-law.com<br>عنوان: شارع نحوم حفتسادي 17، برج رام - الطابق 11، القدس</p><p><strong>تاريخ تحديث البيان:</strong> أبريل 2026</p>
+                <h3>بيان إمكانية الوصول</h3><p><strong>عشور وشركاه - محامون</strong> يعمل على إتاحة هذا الموقع لعامة الجمهور، بمن فيهم الأشخاص ذوو الإعاقة، ليتمكن الجميع من استخدامه بشكل متساوٍ ومستقل وبكرامة.</p><h4>مستوى الإتاحة</h4><p>أُجريت في الموقع ملاءمات إتاحة وفقاً لأنظمة المساواة في الحقوق للأشخاص ذوي الإعاقة (ملاءمات إتاحة الخدمة)، 2013، والمواصفة الإسرائيلية IS 5568 (ت״י 5568) المستندة إلى إرشادات WCAG 2.0، بالمستوى AA. تم فحص الموقع في متصفحات Chrome وEdge وFirefox وSafari، على الحاسوب والهاتف.</p><h4>الملاءمات التي أُجريت</h4><ul><li>ترميز دلالي وبنية عناوين هرمية</li><li>نص بديل للصور</li><li>تباين ألوان وفق المواصفة</li><li>تصفح كامل بلوحة المفاتيح مع مؤشر تركيز واضح</li><li>رابط "انتقال إلى المحتوى الرئيسي"</li><li>تسميات لحقول النموذج ورسائل خطأ واضحة</li><li>دعم إعداد تقليل الحركة وتكبير النص حتى 200%</li><li>قائمة إتاحة: حجم النص، التباين، إبراز الروابط، إيقاف الحركة، خط مقروء، مؤشر مكبّر</li></ul><h4>قيود معروفة</h4><ul><li>خريطة Google المضمّنة محتوى لطرف ثالث. عنوان المكتب يظهر أيضاً كنص، ويمكن فتح الخريطة بشكل منفصل في خرائط Google.</li><li>صور المشاريع توضيحية، وتفاصيل كل مشروع تظهر أيضاً كنص.</li></ul><p>إذا واجهتم أي عائق آخر، نرجو إبلاغنا وسنعمل على إصلاحه في أقرب وقت.</p><h4>التواصل بشأن إمكانية الوصول</h4><p>عند التوجّه، يرجى وصف المشكلة، والصفحة التي واجهتموها فيها، ونوع المتصفح والتقنية المساعدة المستخدمة.</p><p>جهة الاتصال: المحامي إسرائيل عشور<br>هاتف: 02-5000275<br>بريد إلكتروني: office@asor-law.com<br>العنوان: شارع نحوم حفتسادي 17، برج رام، الطابق 11، القدس</p><p><strong>تاريخ آخر تحديث للبيان:</strong> 31 أكتوبر 2026</p>
             </div>
         </div>
     </div>
 
     <!-- ===== JavaScript ===== -->
-    <script src="../js/main.js?v=2026042905"></script>
+    <script src="../js/main.js?v=2026103101"></script>
 </body>
 </html>

@@ -3913,3 +3913,108 @@ body.a11y-stop-animations *::after {
     .about-pillar-icon { width: 20px; height: 20px; }
     .about-pillar-divider { height: 18px; }
 }
+
+/* =====================================================================
+   Accessibility compliance layer (IS 5568 / WCAG 2.0 AA, reg. 35A)
+   Contrast: no white text on champagne gold (2.3:1); small gold text on
+   light backgrounds uses the deep gold (≥4.5:1).
+   ===================================================================== */
+:root { --text-muted: #5f6877; }
+
+.btn-primary,
+.nav-online-service,
+.nav-online-service:hover,
+.header-cta,
+.cookie-consent-btn,
+.project-image-new .project-image-label,
+.projects-slider-btn:hover {
+    color: var(--navy-deep) !important;
+}
+
+.section-eyebrow,
+.practice-tile-more,
+.project-card .project-status,
+.projects-3d-stage .project-info .project-status,
+.lang-switcher a.active,
+.knowledge-card-arrow,
+.knowledge-link-all,
+.privacy-page a {
+    color: var(--gold-deep);
+}
+
+.about .section-eyebrow,
+.section-eyebrow--light,
+.practice-tile--featured .practice-tile-more { color: var(--gold-light); }
+
+/* Off-canvas accessibility panel must not be reachable by keyboard while closed */
+.a11y-panel { visibility: hidden; transition: right 0.3s ease, left 0.3s ease, visibility 0s linear 0.3s; }
+.a11y-panel.open { visibility: visible; transition: right 0.3s ease, left 0.3s ease, visibility 0s; }
+
+/* Skip link */
+.skip-link {
+    position: absolute;
+    top: -100px;
+    inset-inline-start: 16px;
+    z-index: 20000;
+    background: var(--navy-deep);
+    color: #fff;
+    padding: 12px 22px;
+    border-radius: 4px;
+    font-weight: 700;
+    text-decoration: none;
+}
+.skip-link:focus { top: 12px; outline: 3px solid var(--gold); }
+
+/* Visible keyboard focus everywhere */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+    outline: 3px solid var(--gold-dark);
+    outline-offset: 3px;
+}
+
+/* Respect reduced-motion preference */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Click-to-load map placeholder (no third-party request before consent) */
+.map-consent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    min-height: 250px;
+    height: 100%;
+    padding: 24px;
+    text-align: center;
+    background: var(--off-white);
+    color: var(--text-dark);
+    font-size: 0.92rem;
+    line-height: 1.6;
+}
+.map-consent button {
+    background: var(--navy-deep);
+    color: #fff;
+    border: 0;
+    border-radius: 4px;
+    padding: 11px 22px;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+.cookie-consent-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.cookie-consent-btn--ghost {
+    background: transparent !important;
+    color: #fff !important;
+    border: 1px solid rgba(255, 255, 255, 0.55) !important;
+}

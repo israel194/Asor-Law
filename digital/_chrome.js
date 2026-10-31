@@ -19,8 +19,11 @@
             cookie.id = 'cookieConsent';
             cookie.innerHTML = `
                 <div class="cookie-consent-inner">
-                    <p><strong>אנו מכבדים את פרטיותכם.</strong> אתר זה משתמש בעוגיות (cookies) ובטכנולוגיות דומות לצורך שיפור חוויית הגלישה, ניתוח שימוש ושמירת העדפות. במהלך השימוש באתר ייתכן איסוף של מידע אנונימי וכן של מידע שאתם מוסרים בטפסים. המידע נשמר באבטחה ומשמש למתן השירות בלבד, ולא יועבר לצד שלישי שלא לצורך זה. המשך השימוש באתר מהווה הסכמה לאיסוף ולעיבוד המידע. לפרטים מלאים: <a href="/he/privacy.html">מדיניות פרטיות</a> · <a href="/he/terms.html">תנאי שימוש</a></p>
-                    <button class="cookie-consent-btn" id="cookieAccept">הבנתי ואני מסכים/ה</button>
+                    <p><strong>עוגיות ופרטיות.</strong> האתר אינו משתמש בעוגיות פרסום או מעקב. בדפדפן שלכם נשמרות רק העדפות הנגישות ובחירתכם לגבי עוגיות. מידע שתמסרו בטפסים ישמש למתן השירות שהזמנתם, ויועבר רק לספקים הנדרשים לשם כך, כגון ספק סליקת התשלום. <a href="/he/privacy.html">מדיניות פרטיות</a></p>
+                    <div class="cookie-consent-actions">
+                        <button class="cookie-consent-btn" id="cookieAccept">אישור</button>
+                        <button class="cookie-consent-btn cookie-consent-btn--ghost" id="cookieEssential">הכרחיות בלבד</button>
+                    </div>
                 </div>`;
             document.body.appendChild(cookie);
         }
@@ -87,16 +90,7 @@
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                     </button>
                     <div class="a11y-statement-content">
-                        <h3>הצהרת נגישות</h3>
-                        <p><strong>עשור ושות׳ - עורכי דין</strong> מחויבים לאפשר לכל אדם, כולל אנשים עם מוגבלות, להשתמש באתר בצורה שוויונית, מלאה ובכבוד.</p>
-                        <h4>תקן הנגישות</h4>
-                        <p>אתר זה עומד בדרישות תקנות שוויון זכויות לאנשים עם מוגבלות (התאמות נגישות לשירות), התשע"ג-2013, ובהתאם לתקן הישראלי ת"י 5568 ברמת AA של הנחיות WCAG 2.0.</p>
-                        <h4>אמצעי הנגישות באתר</h4>
-                        <ul><li>התאמת גודל הטקסט</li><li>שינוי ניגודיות צבעים</li><li>הדגשת קישורים</li><li>הפסקת אנימציות</li><li>פונט קריא</li><li>סמן גדול</li><li>ניווט מלא באמצעות מקלדת</li><li>תמיכה בתוכנות קורא מסך</li></ul>
-                        <h4>פניות בנושא נגישות</h4>
-                        <p>אם נתקלתם בבעיית נגישות באתר, אנא פנו אלינו:</p>
-                        <p>טלפון: 02-5000275<br>דוא"ל: office@asor-law.com<br>כתובת: רח' נחום חפצדי 17, מגדל רם - קומה 11, ירושלים</p>
-                        <p><strong>תאריך עדכון ההצהרה:</strong> מאי 2026</p>
+                        <h3>הצהרת נגישות</h3><p><strong>עשור ושות׳ - עורכי דין</strong> פועל להנגשת אתר זה לכלל הציבור, לרבות אנשים עם מוגבלות, כדי שכל אדם יוכל להשתמש בו באופן שוויוני, עצמאי ומכבד.</p><h4>רמת הנגישות</h4><p>באתר בוצעו התאמות נגישות בהתאם לתקנות שוויון זכויות לאנשים עם מוגבלות (התאמות נגישות לשירות), התשע״ג-2013, ולתקן הישראלי ת״י 5568, המבוסס על הנחיות WCAG 2.0, ברמה AA. האתר נבדק בדפדפנים Chrome, Edge, Firefox ו־Safari, בתצוגת מחשב ונייד.</p><h4>התאמות שבוצעו</h4><ul><li>סימון סמנטי ומבנה כותרות היררכי</li><li>טקסט חלופי לתמונות</li><li>ניגודיות צבעים בהתאם לתקן</li><li>ניווט מלא באמצעות מקלדת, עם סימון מיקוד בולט</li><li>קישור "דילוג לתוכן העיקרי"</li><li>תוויות לשדות הטופס והודעות שגיאה ברורות</li><li>תמיכה בהגדרת הפחתת תנועה ובהגדלת טקסט עד 200%</li><li>תפריט נגישות: גודל טקסט, ניגודיות, הדגשת קישורים, עצירת אנימציות, גופן קריא וסמן מוגדל</li></ul><h4>סייגים לנגישות</h4><ul><li>מפת Google המוטמעת באתר היא תוכן של צד שלישי. כתובת המשרד מופיעה גם כטקסט, וניתן לפתוח את המפה בנפרד ב־Google Maps.</li><li>הדמיות הפרויקטים הן תמונות להמחשה, ופרטי כל פרויקט מופיעים גם כטקסט.</li></ul><p>אם נתקלתם בקושי נוסף, נשמח שתעדכנו אותנו ונפעל לתקנו בהקדם.</p><h4>פניות בנושא נגישות</h4><p>בפנייה, נא לפרט את תיאור הבעיה, את העמוד שבו נתקלתם בה, ואת סוג הדפדפן והטכנולוגיה המסייעת שבהם השתמשתם.</p><p>איש קשר: עו״ד ישראל עשור<br>טלפון: 02-5000275<br>דוא״ל: office@asor-law.com<br>כתובת: רח׳ נחום חפצדי 17, מגדל רם, קומה 11, ירושלים</p><p><strong>תאריך עדכון ההצהרה:</strong> 31 באוקטובר 2026</p>
                     </div>
                 </div>`;
             document.body.appendChild(overlay);
@@ -168,11 +162,10 @@
                     .chrome-back-home {
                         font-weight: 600;
                         text-decoration: none;
-                        color: var(--gold-dark, #9b8458);
+                        color: var(--gold-deep, #7a6a44);
                     }
                     .chrome-back-home:hover { text-decoration: underline; }
                     .chrome-copy {
-                        opacity: 0.85;
                         font-size: 12.5px;
                     }
                     .chrome-legal-footer {
@@ -193,10 +186,13 @@
         const accept = document.getElementById('cookieAccept');
         if (!banner || !accept) return;
         setTimeout(() => banner.classList.add('visible'), 800);
-        accept.addEventListener('click', () => {
-            localStorage.setItem('cookieConsent', 'accepted');
+        const choose = (v) => {
+            localStorage.setItem('cookieConsent', v);
             banner.classList.remove('visible');
-        });
+        };
+        accept.addEventListener('click', () => choose('accepted'));
+        const essential = document.getElementById('cookieEssential');
+        if (essential) essential.addEventListener('click', () => choose('essential'));
     }
 
     // === Accessibility widget handler — same logic as js/main.js ===

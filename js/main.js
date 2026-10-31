@@ -364,19 +364,68 @@ const heroObserver = new IntersectionObserver((entries) => {
 });
 heroObserver.observe(document.querySelector('.hero'));
 
-// Cookie consent
+// Cookie consent: "accepted" (all) or "essential" (no third-party embeds).
+// The site itself sets no tracking cookies; only Google Maps (third party) does,
+// so the map is loaded only after consent or an explicit click.
+function loadConsentMaps() {
+    document.querySelectorAll('iframe[data-consent-src]').forEach(f => {
+        f.src = f.getAttribute('data-consent-src');
+        f.removeAttribute('data-consent-src');
+        f.hidden = false;
+        const ph = f.parentElement.querySelector('.map-consent');
+        if (ph) ph.remove();
+    });
+}
+
 (function() {
+    // Map placeholders
+    document.querySelectorAll('iframe[data-consent-src]').forEach(f => {
+        const box = f.parentElement;
+        f.hidden = true;
+        const ph = document.createElement('div');
+        ph.className = 'map-consent';
+        const p = document.createElement('p');
+        p.textContent = box.dataset.mapText || '';
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.textContent = box.dataset.mapBtn || 'Show map';
+        btn.addEventListener('click', loadConsentMaps);
+        const link = document.createElement('a');
+        link.href = box.dataset.mapLink || 'https://maps.google.com';
+        link.target = '_blank';
+        link.rel = 'noopener';
+        link.textContent = box.dataset.mapLinkText || 'Google Maps';
+        ph.append(p, btn, link);
+        box.appendChild(ph);
+    });
+
     const banner = document.getElementById('cookieConsent');
     const acceptBtn = document.getElementById('cookieAccept');
+    const essentialBtn = document.getElementById('cookieEssential');
+    const choice = localStorage.getItem('cookieConsent');
+
+    if (choice === 'accepted') loadConsentMaps();
     if (!banner || !acceptBtn) return;
 
-    if (!localStorage.getItem('cookieConsent')) {
+    const close = (value) => {
+        localStorage.setItem('cookieConsent', value);
+        banner.classList.remove('visible');
+        if (value === 'accepted') loadConsentMaps();
+    };
+
+    if (!choice) {
         setTimeout(() => banner.classList.add('visible'), 1000);
     }
 
-    acceptBtn.addEventListener('click', () => {
-        localStorage.setItem('cookieConsent', 'accepted');
-        banner.classList.remove('visible');
+    acceptBtn.addEventListener('click', () => close('accepted'));
+    if (essentialBtn) essentialBtn.addEventListener('click', () => close('essential'));
+
+    document.querySelectorAll('[data-cookie-settings]').forEach(el => {
+        el.addEventListener('click', (e) => {
+            e.preventDefault();
+            banner.classList.add('visible');
+            acceptBtn.focus();
+        });
     });
 })();
 

@@ -920,3 +920,12 @@
         font-size: 2.6rem;
     }
 }
+
+/* Accessibility: contrast fixes (IS 5568 / WCAG AA) */
+.dig-compare-table thead th .dig-tag { background: #15803d; }
+.dig-product-cta { color: var(--navy-deep) !important; }
+.dig-product-tag { color: var(--gold-deep); }
+.dig-product-card.coming-soon { opacity: 1; }
+.dig-product-card.coming-soon p { color: var(--text-light); }
+.dig-product-card.coming-soon .dig-product-tag { color: var(--gold-deep); }
+.start-btn { color: var(--navy-deep) !important; }

@@ -557,3 +557,16 @@
         margin-top: 6px;
     }
 }
+
+/* Accessibility: contrast fixes (IS 5568 / WCAG AA) */
+.step.active,
+.form-step-num,
+.chrome-back-home,
+.footer-legal-links > a,
+#footerA11yLink,
+a[href$="#contact"] { color: var(--gold-deep) !important; }
+#nextBtn { color: var(--navy-deep) !important; }
+.form-footer-meta { color: var(--text-muted) !important; }
+.price { background: var(--gold-deep) !important; color: #fff !important; }
+#submitBtn { color: var(--navy-deep) !important; }
+a[href^="mailto:"] { color: var(--gold-deep) !important; }

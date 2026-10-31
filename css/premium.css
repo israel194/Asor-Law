@@ -31,7 +31,7 @@ section { padding: 128px 0; }
     letter-spacing: 0.32em;
     font-size: 0.78rem;
     font-weight: 700;
-    color: var(--gold-dark);
+    color: var(--gold-deep);
 }
 
 .section-eyebrow--start {
@@ -67,6 +67,11 @@ section { padding: 128px 0; }
         linear-gradient(180deg, rgba(4, 18, 36, 0.10) 0%, rgba(4, 18, 36, 0.65) 100%);
 }
 .hero-overlay::after { opacity: 0.25; }
+[dir="ltr"] .hero-overlay {
+    background:
+        linear-gradient(90deg, rgba(4, 18, 36, 0.94) 0%, rgba(4, 18, 36, 0.82) 38%, rgba(4, 18, 36, 0.45) 72%, rgba(4, 18, 36, 0.30) 100%),
+        linear-gradient(180deg, rgba(4, 18, 36, 0.10) 0%, rgba(4, 18, 36, 0.65) 100%);
+}
 
 .hero-content--editorial {
     max-width: 1240px;
@@ -199,7 +204,7 @@ section { padding: 128px 0; }
     font-family: var(--font-display);
     font-size: 2.1rem;
     font-weight: 500;
-    color: var(--gold);
+    color: var(--gold-dark);
     line-height: 1;
 }
 
@@ -279,7 +284,7 @@ section { padding: 128px 0; }
 .practice-tile-more {
     font-weight: 700;
     font-size: 0.92rem;
-    color: var(--gold-dark);
+    color: var(--gold-deep);
     display: inline-flex;
     gap: 8px;
     transition: gap 0.3s ease;

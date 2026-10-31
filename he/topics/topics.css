@@ -391,3 +391,7 @@ ol.topic-list li {
     margin-top: 8px;
     font-weight: 700;
 }
+
+/* Accessibility: contrast fixes (IS 5568 / WCAG AA) */
+.topics-index-card-arrow { color: var(--gold-deep); }
+.topic-breadcrumb a { color: var(--gold-deep); }
