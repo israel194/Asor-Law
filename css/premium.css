@@ -99,8 +99,9 @@ section { padding: 128px 0; }
 .hero-content--editorial .hero-eyebrow::after { display: none; }
 
 .hero-content--editorial h1 {
-    font-size: clamp(2.7rem, 5.6vw, 5.1rem);
+    font-size: clamp(2.3rem, 4.4vw, 4.1rem);
     font-weight: 900;
+    max-width: 900px;
     line-height: 1.06;
     letter-spacing: -0.025em;
     margin-bottom: 30px;
