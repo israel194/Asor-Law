@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.asor-law.com/sitemap.xml
+Sitemap: https://asor-law.com/sitemap.xml
