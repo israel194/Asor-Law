@@ -39,8 +39,9 @@
     <meta name="twitter:image" content="https://asor-law.com/images/icon.jpeg">
 
     <link rel="icon" href="../images/logo-mark.png" type="image/png">
-    <link rel="stylesheet" href="../css/style.css?v=2026110101">
-    <link rel="stylesheet" href="../css/premium.css?v=2026110101">
+    <link rel="stylesheet" href="../css/style.css?v=2026111101">
+    <link rel="stylesheet" href="../css/premium.css?v=2026111101">
+    <link rel="stylesheet" href="../css/theme.css?v=2026111101">
 
     <!-- Schema.org JSON-LD -->
     <script type="application/ld+json">
@@ -259,43 +260,30 @@
     </header>
 
     <!-- ===== Hero ===== -->
-    <section class="hero" id="hero">
-        <div class="hero-bg" aria-hidden="true">
-            <img src="../images/projects/project-7-new-1.jpg" alt="" loading="eager" fetchpriority="high">
-        </div>
-        <div class="hero-overlay" aria-hidden="true"></div>
-
-        <div class="hero-content hero-content--editorial">
-            <span class="hero-eyebrow">مكتب محاماة · القدس</span>
-            <h1>عشور وشركاه<br><span>محامون</span></h1>
-            <p class="hero-headline">العقارات، التجديد العمراني وضرائب العقارات.</p>
-            <p class="hero-tagline">يمثّل المكتب أصحاب الشقق والمطوّرين والمستثمرين في الصفقات العقارية وفي مشاريع الإخلاء والبناء وتاما 38 في القدس وبيت شيمش، ويفحص كل اتفاقية أيضاً من حيث آثارها الضريبية.</p>
-
-            <div class="hero-cta">
-                <a href="#contact" class="btn-primary">لحجز استشارة</a>
-                <a href="#projects" class="btn-secondary">المشاريع التي نرافقها</a>
-            </div>
-        </div>
-
-        <div class="hero-ribbon">
-            <div class="hero-ribbon-inner">
-                <div class="hero-ribbon-cell">
-                    <div class="hero-ribbon-num">11</div>
-                    <div class="hero-ribbon-label">مشاريع تجديد عمراني نرافقها</div>
-                </div>
-                <div class="hero-ribbon-cell">
-                    <div class="hero-ribbon-num">3,100+</div>
-                    <div class="hero-ribbon-label">وحدة سكنية جديدة قيد التخطيط</div>
-                </div>
-                <div class="hero-ribbon-cell">
-                    <div class="hero-ribbon-num hero-ribbon-num--text">رئيس اللجنة</div>
-                    <div class="hero-ribbon-label">للتجديد العمراني، نقابة المحامين بالقدس</div>
-                </div>
-                <div class="hero-ribbon-cell hero-ribbon-cell--trust">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                    <div class="hero-ribbon-trust">برج رام، القدس</div>
+    <section class="home-hero" id="hero">
+        <div class="container home-hero-grid">
+            <div class="home-hero-copy">
+                <p class="home-hero-eyebrow">مكتب محاماة · القدس</p>
+                <h1>عشور وشركاه<br><span>محامون</span></h1>
+                <p class="home-hero-lead">العقارات، التجديد العمراني وضرائب العقارات.</p>
+                <p class="home-hero-text">يمثّل المكتب أصحاب الشقق والمطوّرين والمستثمرين في الصفقات العقارية وفي مشاريع الإخلاء والبناء وتاما 38 في القدس وبيت شيمش، ويفحص كل اتفاقية أيضاً من حيث آثارها الضريبية.</p>
+                <div class="home-hero-cta">
+                    <a href="#contact" class="btn-primary">لحجز استشارة</a>
+                    <a href="#projects" class="btn-secondary">المشاريع التي نرافقها</a>
                 </div>
             </div>
+            <figure class="home-hero-visual">
+                <img src="../images/hero-renewal.webp" srcset="../images/hero-renewal-800.webp 800w, ../images/hero-renewal.webp 1400w" sizes="(max-width: 992px) 100vw, 620px" width="1400" height="933" alt="حيل هأفير، حاييم لاسكوف، هاسايرت هايروشلميت - تصوّر" fetchpriority="high" decoding="async">
+                <figcaption><span class="home-hero-tag">تصوّر</span>حيل هأفير، حاييم لاسكوف، هاسايرت هايروشلميت</figcaption>
+            </figure>
+        </div>
+        <div class="container">
+            <ul class="home-hero-stats">
+                <li class="home-hero-stat"><strong>11</strong><span>مشاريع تجديد عمراني نرافقها</span></li>
+                <li class="home-hero-stat"><strong>3,100+</strong><span>وحدة سكنية جديدة قيد التخطيط</span></li>
+                <li class="home-hero-stat home-hero-stat--text"><strong>رئيس اللجنة</strong><span>للتجديد العمراني، نقابة المحامين بالقدس</span></li>
+                <li class="home-hero-stat home-hero-stat--place"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>برج رام، القدس</span></li>
+            </ul>
         </div>
     </section>
 
@@ -390,21 +378,14 @@
 
     <!-- ===== About ===== -->
     <section class="about" id="about">
-        <div class="about-slides" aria-hidden="true">
-            <div class="about-slide active" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Jerusalem_Pisgat_Zeev_Mall_and_Light_Rail.jpg/1600px-Jerusalem_Pisgat_Zeev_Mall_and_Light_Rail.jpg');"></div>
-            <div class="about-slide" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Sunrise_in_Neve_Ya%27akov_Jerusalem-1_%287138361135%29.jpg/1600px-Sunrise_in_Neve_Ya%27akov_Jerusalem-1_%287138361135%29.jpg');"></div>
-            <div class="about-slide" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Kiryat_Menachem_and_Kiryat_Yovel.jpg/1600px-Kiryat_Menachem_and_Kiryat_Yovel.jpg');"></div>
-            <div class="about-slide" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/5/5c/Ramot_Alon_Jerusalem_2.jpg');"></div>
-            <div class="about-slides-overlay"></div>
-        </div>
 
         <div class="container about-content-wrap">
-            <h2 class="section-title fade-in" style="color: #fff;">حول المكتب</h2>
+            <h2 class="section-title fade-in">حول المكتب</h2>
 
             <div class="about-glass-card fade-in">
                 <div class="about-leadership">
                     <figure class="about-portrait">
-                        <img src="../images/attorney-asor.png" alt="إسرائيل عشور، محامٍ (محاسب قانوني)" loading="lazy" decoding="async">
+                        <img src="../images/attorney-asor.webp" width="720" height="1081" alt="إسرائيل عشور، محامٍ (محاسب قانوني)" loading="lazy" decoding="async">
                         <span class="about-portrait-frame" aria-hidden="true"></span>
                     </figure>
 
@@ -444,7 +425,7 @@
                 <div class="team-grid">
                     <figure class="team-card">
                         <div class="team-card-photo">
-                            <img src="../images/attorney-malka.jpg" alt="المحامي أورال مالكا" loading="lazy" decoding="async">
+                            <img src="../images/attorney-malka.webp" width="560" height="840" alt="المحامي أورال مالكا" loading="lazy" decoding="async">
                         </div>
                         <figcaption class="team-card-info">
                             <span class="team-card-name">المحامي أورال مالكا</span>
@@ -453,7 +434,7 @@
                     </figure>
                     <figure class="team-card">
                         <div class="team-card-photo">
-                            <img src="../images/intern-shir.png" alt="إلحانان شير" loading="lazy" decoding="async">
+                            <img src="../images/intern-shir.webp" width="560" height="841" alt="إلحانان شير" loading="lazy" decoding="async">
                         </div>
                         <figcaption class="team-card-info">
                             <span class="team-card-name">إلحانان شير</span>
@@ -464,12 +445,6 @@
             </div>
         </div>
 
-        <div class="about-dots" id="aboutDots">
-            <button class="about-dot active" data-slide="0" aria-label="1"></button>
-            <button class="about-dot" data-slide="1" aria-label="2"></button>
-            <button class="about-dot" data-slide="2" aria-label="3"></button>
-            <button class="about-dot" data-slide="3" aria-label="4"></button>
-        </div>
     </section>
 
     <!-- ===== Projects ===== -->
@@ -1214,6 +1189,13 @@
         </div>
     </footer>
 
+    <!-- ===== Mobile action bar ===== -->
+    <nav class="action-bar" aria-label="إجراءات سريعة">
+        <a href="tel:02-5000275" class="action-bar-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span dir="ltr">02-5000275</span></a>
+        <a href="https://wa.me/972546302880?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%2C%20%D9%88%D8%B5%D9%84%D8%AA%20%D8%A5%D9%84%D9%8A%D9%83%D9%85%20%D9%85%D9%86%20%D9%85%D9%88%D9%82%D8%B9%20%D8%B9%D8%B4%D9%88%D8%B1%20%D9%88%D8%B4%D8%B1%D9%83%D8%A7%D9%87%20%D9%88%D8%A3%D8%B1%D8%BA%D8%A8%20%D8%A8%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%85%D8%B2%D9%8A%D8%AF%20%D9%85%D9%86%20%D8%A7%D9%84%D8%AA%D9%81%D8%A7%D8%B5%D9%8A%D9%84." class="action-bar-item" target="_blank" rel="noopener"><svg aria-hidden="true" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg><span>WhatsApp</span></a>
+        <a href="#contact" class="action-bar-item action-bar-item--primary">لحجز استشارة</a>
+    </nav>
+
     <!-- ===== WhatsApp Float ===== -->
     <a href="https://wa.me/972546302880?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%2C%20%D9%88%D8%B5%D9%84%D8%AA%20%D8%A5%D9%84%D9%8A%D9%83%D9%85%20%D9%85%D9%86%20%D9%85%D9%88%D9%82%D8%B9%20%D8%B9%D8%B4%D9%88%D8%B1%20%D9%88%D8%B4%D8%B1%D9%83%D8%A7%D9%87%20%D9%88%D8%A3%D8%B1%D8%BA%D8%A8%20%D8%A8%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%85%D8%B2%D9%8A%D8%AF%20%D9%85%D9%86%20%D8%A7%D9%84%D8%AA%D9%81%D8%A7%D8%B5%D9%8A%D9%84." class="whatsapp-float" target="_blank" rel="noopener" aria-label="أرسل لنا رسالة عبر واتساب">
         <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
@@ -1314,6 +1296,6 @@
     </div>
 
     <!-- ===== JavaScript ===== -->
-    <script src="../js/main.js?v=2026103101"></script>
+    <script src="../js/main.js?v=2026111101"></script>
 </body>
 </html>

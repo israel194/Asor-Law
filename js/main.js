@@ -362,7 +362,8 @@ const heroObserver = new IntersectionObserver((entries) => {
         heroObserver.disconnect();
     }
 });
-heroObserver.observe(document.querySelector('.hero'));
+const heroEl = document.querySelector('.hero');
+if (heroEl) heroObserver.observe(heroEl);
 
 // Cookie consent: "accepted" (all) or "essential" (no third-party embeds).
 // The site itself sets no tracking cookies; only Google Maps (third party) does,
