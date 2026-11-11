@@ -206,7 +206,7 @@ function validateField(field) {
 }
 
 // Attach instant validation: validate on blur, update on input
-document.querySelectorAll('#contactForm input:not([type=hidden]), #contactForm textarea').forEach(f => {
+document.querySelectorAll('.lead-form input:not([type=hidden]), .lead-form textarea').forEach(f => {
     f.addEventListener('blur', () => {
         f.dataset.touched = 'true';
         validateField(f);
@@ -280,18 +280,19 @@ async function handleSubmit(e) {
             'זמן שהייה בעמוד: ' + timeOnPage
         ].join('\n');
 
-        const subjectSuffix = pageLang !== 'he' ? ' (' + langLabel + ')' : '';
+        const subjectSuffix = (pageLang !== 'he' ? ' (' + langLabel + ')' : '') + (form.dataset.source === 'hero' ? ' · טופס מהיר' : '');
+        const val = k => (form.querySelector('[data-k="' + k + '"]') || {}).value || '';
 
         const payload = {
             access_key: '50c491ee-83db-4906-bb6f-3b3a287cbbab',
             subject: 'פנייה חדשה מהאתר - עשור ושות׳' + subjectSuffix,
             from_name: 'אתר עשור ושות׳',
-            replyto: form.querySelector('#email').value || undefined,
-            [rtl + 'שם מלא']: rtl + form.querySelector('#name').value,
-            [rtl + 'טלפון']: rtl + form.querySelector('#phone').value,
-            [rtl + 'דואל']: rtl + form.querySelector('#email').value,
-            [rtl + 'נושא']: rtl + (form.querySelector('#topic')?.value || ''),
-            [rtl + 'הודעה']: rtl + form.querySelector('#message').value,
+            replyto: val('email') || undefined,
+            [rtl + 'שם מלא']: rtl + val('name'),
+            [rtl + 'טלפון']: rtl + val('phone'),
+            [rtl + 'דואל']: rtl + val('email'),
+            [rtl + 'נושא']: rtl + val('topic'),
+            [rtl + 'הודעה']: rtl + val('message'),
             [rtl + 'פרטים טכניים']: rtl + meta,
         };
         const res = await fetch('https://api.web3forms.com/submit', {
@@ -645,3 +646,20 @@ function loadConsentMaps() {
     // Load saved preferences on page load
     loadPrefs();
 })();
+
+// Residents login. Set TENANT_PORTAL_URL to the portal address (e.g. GetStatus)
+// and the header button will go there; while empty it opens a short notice.
+const TENANT_PORTAL_URL = '';
+document.querySelectorAll('[data-tenant-login]').forEach(el => {
+    if (TENANT_PORTAL_URL) {
+        el.href = TENANT_PORTAL_URL;
+        el.target = '_blank';
+        el.rel = 'noopener';
+        return;
+    }
+    el.addEventListener('click', e => {
+        e.preventDefault();
+        const dlg = document.getElementById('tenantDialog');
+        if (dlg && dlg.showModal) dlg.showModal();
+    });
+});
