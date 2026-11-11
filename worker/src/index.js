@@ -30,6 +30,7 @@ import { sendEmail } from "./email.js";
 import { getProduct, listProducts } from "./products/index.js";
 import { intakeChat } from "./intake.js";
 import { securityHeaders, rateLimit } from "./security.js";
+import signApp from "./sign.js";
 
 /**
  * Generic order processing — used for both Type A products (with PDF
@@ -109,6 +110,8 @@ app.use("*", securityHeaders());
 
 // CORS — only allow from our own domains (configured in wrangler.toml [vars])
 app.use("/api/*", async (c, next) => {
+    // Office-only remote-signing endpoints are server-to-server: no CORS at all.
+    if (c.req.path.startsWith("/api/sign/requests")) return next();
     const origins = c.env.CORS_ORIGINS.split(",").map(s => s.trim());
     return cors({
         origin: origins,
@@ -424,6 +427,9 @@ app.get("/api/orders/:id", async c => {
         customerEmail: order.payload?.tenant_email || null,
     });
 });
+
+// ===== Remote signing (office API + client endpoints) — see docs/remote-signing-api.md =====
+app.route("/api/sign", signApp);
 
 app.notFound(c => c.json({ error: "Not found" }, 404));
 app.onError((err, c) => {

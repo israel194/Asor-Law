@@ -12,6 +12,8 @@ PRODUCT_RENTAL_NAME = "הסכם שכירות דירת מגורים"
 RETURN_URL_BASE = "https://asor-law.com"
 OFFICE_EMAIL = "office@asor-law.com"
 EMAIL_FROM = "עשור ושות׳ - עורכי דין <office@asor-law.com>"
+# Remote signing: base of the client page; the Worker appends "#<id>.<key>".
+SIGN_PAGE_URL = "https://asor-law.com/sign/"
 
 # KV namespace for orders (one row per order, keyed by orderId).
 # Run once:  npx wrangler kv namespace create ORDERS_KV
@@ -31,4 +33,6 @@ binding = "BROWSER"
 #   npx wrangler secret put SUMIT_COMPANY_ID
 #   npx wrangler secret put SUMIT_API_KEY
 #   npx wrangler secret put RESEND_API_KEY
+#   npx wrangler secret put SIGN_API_KEY      (remote signing, office app key, 32+ chars;
+#                                              until it is set the office endpoints answer 503)
 # (not stored in this file)

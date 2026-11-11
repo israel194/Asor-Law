@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Strict CSP: own scripts and styles only, no inline code, no third parties.
+         connect-src lists the firm's Worker (and the local dev Worker). -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://asor-digital-api.israel-486.workers.dev; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+    <meta name="referrer" content="no-referrer">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="theme-color" content="#0d2c4f">
+    <title>חתימה על מסמך | עשור ושות׳</title>
+    <link rel="icon" href="../images/logo-mark.png" type="image/png">
+    <link rel="stylesheet" href="sign.css">
+</head>
+<body>
+    <a class="skip-link" href="#main">דילוג לתוכן</a>
+
+    <header class="s-header">
+        <div class="s-wrap s-header-in">
+            <img class="s-logo" src="../images/logo-he.png" alt="עשור ושות׳, עורכי דין" width="180" height="44">
+            <span class="s-header-tag">חתימה על מסמך</span>
+        </div>
+    </header>
+
+    <main id="main" class="s-main" tabindex="-1">
+        <div class="s-wrap">
+
+            <ol class="s-steps" id="steps" aria-label="שלבי התהליך" hidden>
+                <li data-step="1"><span class="s-step-num" aria-hidden="true">1</span>זיהוי</li>
+                <li data-step="2"><span class="s-step-num" aria-hidden="true">2</span>עיון במסמך</li>
+                <li data-step="3"><span class="s-step-num" aria-hidden="true">3</span>חתימה</li>
+            </ol>
+
+            <!-- ===== loading ===== -->
+            <section class="s-card s-center" data-screen="loading" aria-live="polite">
+                <div class="s-spinner" aria-hidden="true"></div>
+                <p class="s-muted">טוען את פרטי המסמך...</p>
+            </section>
+
+            <!-- ===== identity ===== -->
+            <section class="s-card" data-screen="verify" hidden>
+                <p class="s-eyebrow">מסמך לחתימה</p>
+                <h1 id="docTitle" class="s-title"></h1>
+                <p class="s-from">נשלח על ידי <strong id="firmName"></strong></p>
+                <p class="s-hello" id="hello"></p>
+                <div class="s-note" id="officeMessageBox" hidden>
+                    <p class="s-note-label">הודעה מהמשרד</p>
+                    <p id="officeMessage" class="s-note-text"></p>
+                </div>
+
+                <form id="verifyForm" class="s-form" novalidate>
+                    <h2 class="s-h2">זיהוי</h2>
+                    <label for="verifyInput" id="verifyLabel" class="s-label"></label>
+                    <input id="verifyInput" class="s-input s-input-code" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" dir="ltr" aria-describedby="verifyHint verifyError" required>
+                    <p id="verifyHint" class="s-hint"></p>
+                    <p id="verifyError" class="s-error" role="alert" hidden></p>
+                    <button type="submit" class="s-btn s-btn-primary" id="verifyBtn">המשך למסמך</button>
+                </form>
+            </section>
+
+            <!-- ===== document + signature ===== -->
+            <section data-screen="document" hidden>
+                <div class="s-card s-doc-head">
+                    <p class="s-eyebrow">מסמך לחתימה</p>
+                    <h1 id="docTitle2" class="s-title s-title-sm"></h1>
+                    <p class="s-muted" id="docInfo"></p>
+                    <div class="s-doc-actions">
+                        <button type="button" class="s-btn s-btn-ghost s-btn-sm" id="jumpField" hidden>מעבר למקום החתימה במסמך</button>
+                        <a class="s-btn s-btn-ghost s-btn-sm" id="downloadLink" download="document.pdf" hidden>הורדת המסמך לקריאה</a>
+                    </div>
+                </div>
+
+                <div class="s-pages" id="pages" aria-label="עמודי המסמך"></div>
+                <p class="s-error s-card" id="docError" role="alert" hidden></p>
+
+                <form class="s-card s-sign" id="signForm" novalidate>
+                    <h2 class="s-h2" id="signHeading" tabindex="-1">חתימה</h2>
+                    <p class="s-muted" id="fieldNote"></p>
+
+                    <label class="s-check">
+                        <input type="checkbox" id="consent" aria-describedby="consentError">
+                        <span id="consentText"></span>
+                    </label>
+                    <p id="consentError" class="s-error" role="alert" hidden></p>
+
+                    <label for="signedName" class="s-label">שם מלא</label>
+                    <input id="signedName" class="s-input" type="text" autocomplete="name" maxlength="120" aria-describedby="nameError">
+                    <p id="nameError" class="s-error" role="alert" hidden></p>
+
+                    <div class="s-pad-head">
+                        <span class="s-label" id="padLabel">חתימה</span>
+                        <button type="button" class="s-btn s-btn-ghost s-btn-sm" id="padClear">ניקוי</button>
+                    </div>
+                    <div class="s-pad-box">
+                        <canvas id="pad" class="s-pad" role="img" aria-labelledby="padLabel" aria-describedby="padHint padError"></canvas>
+                        <span class="s-pad-line" aria-hidden="true"></span>
+                    </div>
+                    <p id="padHint" class="s-hint">יש לחתום באצבע או בעכבר בתוך המסגרת.</p>
+                    <p id="padError" class="s-error" role="alert" hidden></p>
+
+                    <p id="submitError" class="s-error" role="alert" hidden></p>
+                    <button type="submit" class="s-btn s-btn-primary" id="submitBtn">חתימה ושליחה למשרד</button>
+
+                    <div class="s-decline">
+                        <button type="button" class="s-link" id="declineToggle" aria-expanded="false" aria-controls="declinePanel">איני מעוניין/ת לחתום על המסמך</button>
+                        <div id="declinePanel" class="s-decline-panel" hidden>
+                            <label for="declineReason" class="s-label">סיבה (לא חובה)</label>
+                            <textarea id="declineReason" class="s-input" rows="3" maxlength="500"></textarea>
+                            <p id="declineError" class="s-error" role="alert" hidden></p>
+                            <div class="s-row">
+                                <button type="button" class="s-btn s-btn-danger s-btn-sm" id="declineBtn">אישור: איני חותם/ת</button>
+                                <button type="button" class="s-btn s-btn-ghost s-btn-sm" id="declineCancel">ביטול</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="s-bar" id="signBar">
+                    <button type="button" class="s-btn s-btn-primary" id="toSign">מעבר לחתימה</button>
+                </div>
+            </section>
+
+            <!-- ===== confirmation ===== -->
+            <section class="s-card s-center" data-screen="done" hidden>
+                <div class="s-icon s-icon-ok" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <h1 class="s-title" tabindex="-1" id="doneTitle">החתימה התקבלה</h1>
+                <p id="doneWhen" class="s-lead"></p>
+                <p class="s-muted">עותק חתום של המסמך יישלח אליכם מהמשרד.</p>
+                <p class="s-muted">אפשר לסגור את הדף.</p>
+            </section>
+
+            <!-- ===== terminal / error states ===== -->
+            <section class="s-card s-center" data-screen="state" hidden>
+                <div class="s-icon s-icon-info" id="stateIcon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="12.5"/><circle cx="12" cy="16" r="0.6" fill="currentColor"/></svg>
+                </div>
+                <h1 class="s-title" id="stateTitle" tabindex="-1"></h1>
+                <p class="s-lead" id="stateText"></p>
+                <p class="s-muted" id="stateSub"></p>
+                <button type="button" class="s-btn s-btn-primary" id="stateRetry" hidden>ניסיון חוזר</button>
+            </section>
+
+            <noscript>
+                <section class="s-card s-center">
+                    <h1 class="s-title">נדרש JavaScript</h1>
+                    <p class="s-lead">כדי לצפות במסמך ולחתום עליו יש להפעיל JavaScript בדפדפן.</p>
+                </section>
+            </noscript>
+        </div>
+    </main>
+
+    <footer class="s-footer">
+        <div class="s-wrap">
+            <p>המסמך מוצג בחיבור מוצפן ונמחק משרת האתר לאחר החתימה.</p>
+            <p>שאלות? <a href="mailto:office@asor-law.com">office@asor-law.com</a> · <a href="tel:025000275" dir="ltr">02-500-0275</a> · <a href="/he/privacy.html">מדיניות פרטיות</a></p>
+        </div>
+    </footer>
+
+    <script type="module" src="sign.js"></script>
+</body>
+</html>

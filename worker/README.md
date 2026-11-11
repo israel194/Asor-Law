@@ -57,6 +57,11 @@ Custom domain (e.g. `api.asor-law.com`) can be wired in the Cloudflare dashboard
 
 - `GET /healthz` — liveness.
 
+- `/api/sign/*` — remote signing (office API + the client page `/sign/`). Full contract,
+  retention and setup: `../docs/remote-signing-api.md`. Needs the secret `SIGN_API_KEY`
+  (`npx wrangler secret put SIGN_API_KEY`); until it is set the office endpoints answer 503.
+  Tests: `npm test`.
+
 ## Architecture
 
 ```
