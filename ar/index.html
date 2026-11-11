@@ -39,9 +39,9 @@
     <meta name="twitter:image" content="https://asor-law.com/images/icon.jpeg">
 
     <link rel="icon" href="../images/logo-mark.png" type="image/png">
-    <link rel="stylesheet" href="../css/style.css?v=2026111101">
-    <link rel="stylesheet" href="../css/premium.css?v=2026111101">
-    <link rel="stylesheet" href="../css/theme.css?v=2026111101">
+    <link rel="stylesheet" href="../css/style.css?v=2026111103">
+    <link rel="stylesheet" href="../css/premium.css?v=2026111103">
+    <link rel="stylesheet" href="../css/theme.css?v=2026111103">
 
     <!-- Schema.org JSON-LD -->
     <script type="application/ld+json">
@@ -227,6 +227,7 @@
                     <li><a href="#faq">أسئلة شائعة</a></li>
                     <li><a href="#contact">اتصل بنا</a></li>
                     <li><a href="../digital/" class="nav-online-service">خدمة قانونية عبر الإنترنت</a></li>
+                    <li class="nav-lang" aria-label="اللغة"><a href="../he/" lang="he">עברית</a><a href="../en/" lang="en">English</a><a href="../ar/" lang="ar">العربية</a></li>
                 </ul>
             </nav>
 
@@ -251,6 +252,8 @@
                 </a>
             </div>
 
+            <a href="#" class="tenant-login" data-tenant-login><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>دخول السكان</span></a>
+
             <button class="hamburger" id="hamburger" aria-label="القائمة">
                 <span></span>
                 <span></span>
@@ -260,22 +263,57 @@
     </header>
 
     <!-- ===== Hero ===== -->
-    <section class="home-hero" id="hero">
+    <section class="home-hero home-hero--lead" id="hero">
+        <div class="home-hero-bg" aria-hidden="true"><img src="../images/hero-renewal.webp" srcset="../images/hero-renewal-800.webp 800w, ../images/hero-renewal.webp 1400w" sizes="100vw" width="1400" height="933" alt="" fetchpriority="high" decoding="async"></div>
         <div class="container home-hero-grid">
             <div class="home-hero-copy">
-                <p class="home-hero-eyebrow">مكتب محاماة · القدس</p>
-                <h1>عشور وشركاه<br><span>محامون</span></h1>
-                <p class="home-hero-lead">العقارات، التجديد العمراني وضرائب العقارات.</p>
-                <p class="home-hero-text">يمثّل المكتب أصحاب الشقق والمطوّرين والمستثمرين في الصفقات العقارية وفي مشاريع الإخلاء والبناء وتاما 38 في القدس وبيت شيمش، ويفحص كل اتفاقية أيضاً من حيث آثارها الضريبية.</p>
+                <p class="home-hero-eyebrow">عشور وشركاه · محامون · القدس</p>
+                <h1>قبل التوقيع مع المطوّر،<br><span>ليكن لكم محامٍ خاص بكم.</span></h1>
+                <p class="home-hero-lead">نمثّل أصحاب الشقق ولجان السكان في مشاريع الإخلاء والبناء وتاما 38 في القدس وبيت شيمش، من تنظيم السكان وحتى استلام المفتاح.</p>
+                <ul class="home-hero-points">
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span>في الإخلاء والبناء نمثّل السكان فقط، لا المطوّرين</span></li>
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span>رئيس لجنة التجديد العمراني في نقابة المحامين بالقدس</span></li>
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span>كل اتفاقية تُفحص أيضاً من حيث آثارها الضريبية</span></li>
+                </ul>
                 <div class="home-hero-cta">
-                    <a href="#contact" class="btn-primary">لحجز استشارة</a>
+                    <a href="#lead" class="btn-primary">لحجز استشارة</a>
                     <a href="#projects" class="btn-secondary">المشاريع التي نرافقها</a>
                 </div>
             </div>
-            <figure class="home-hero-visual">
-                <img src="../images/hero-renewal.webp" srcset="../images/hero-renewal-800.webp 800w, ../images/hero-renewal.webp 1400w" sizes="(max-width: 992px) 100vw, 620px" width="1400" height="933" alt="حيل هأفير، حاييم لاسكوف، هاسايرت هايروشلميت - تصوّر" fetchpriority="high" decoding="async">
-                <figcaption><span class="home-hero-tag">تصوّر</span>حيل هأفير، حاييم لاسكوف، هاسايرت هايروشلميت</figcaption>
-            </figure>
+            <div class="lead-card" id="lead">
+                <h2>اتركوا بياناتكم وسنعود إليكم</h2>
+                <p class="lead-card-sub">كل توجّه يُعالَج بسرّية.</p>
+                <form class="lead-form" id="leadForm" data-source="hero" onsubmit="handleSubmit(event)" novalidate>
+                    <input type="hidden" name="access_key" value="50c491ee-83db-4906-bb6f-3b3a287cbbab">
+                    <input type="hidden" name="subject" value="פנייה חדשה מהאתר - עשור ושות׳">
+                    <input type="hidden" name="from_name" value="אתר עשור ושות׳">
+                    <div class="form-group">
+                        <label for="leadName">الاسم الكامل *</label>
+                        <input type="text" id="leadName" data-k="name" name="שם מלא" required minlength="2" pattern=".*\S+\s+\S+.*" placeholder="أدخلوا اسمكم">
+                        <span class="form-error">يرجى إدخال الاسم الكامل</span>
+                        </div>
+                    <div class="form-group">
+                        <label for="leadPhone">الهاتف *</label>
+                        <input type="tel" id="leadPhone" data-k="phone" name="טלפון" required pattern="^0[2-9]\d?-?\d{7}$" placeholder="050-0000000">
+                        <span class="form-error">يرجى إدخال رقم هاتف صحيح</span>
+                        </div>
+                    <div class="form-group">
+                        <label for="leadTopic">موضوع التوجّه</label>
+                        <select id="leadTopic" data-k="topic" name="נושא">
+                        <option value="">اختاروا موضوعاً</option>
+                        <option>التجديد العمراني (إخلاء وبناء / تاما 38)</option>
+                        <option>ضرائب العقارات (ضريبة الربح العقاري / ضريبة الشراء)</option>
+                        <option>صفقة عقارية / اتفاقية بيع</option>
+                        <option>ضريبة الدخل / ضريبة القيمة المضافة</option>
+                        <option>التخطيط والبناء / رسوم التحسين</option>
+                        <option>الوصايا والمواريث والتوكيل المستمر</option>
+                        <option>أخرى</option>
+                        </select>
+                        </div>
+                    <button type="submit" class="form-submit" data-sending="جارٍ الإرسال..." data-success="تم إرسال الرسالة بنجاح!" data-error="خطأ في الإرسال، يرجى المحاولة مرة أخرى">إرسال التوجّه</button>
+                    <p class="form-note">تقديم التفاصيل طوعي وليس واجباً قانونياً، وبدونها لا يمكننا الرد عليكم. ستُستخدم التفاصيل فقط للرد على توجّهكم ولدراسة تقديم خدمة قانونية. المسؤول عن المعلومات: عشور وشركاه - محامون، office@asor-law.com. يُرسَل النموذج إلينا عبر مزوّد خدمة النماذج Web3Forms، مع تفاصيل تقنية أساسية (نوع الجهاز والمتصفح، والصفحة التي أُرسل منها). لكم الحق في الاطلاع على المعلومات وطلب تصحيحها. التوجّه عبر الموقع لا يُنشئ علاقة محامٍ وموكّل ولا يُعدّ استشارة قانونية. <a href="privacy.html">سياسة الخصوصية</a></p>
+                </form>
+            </div>
         </div>
         <div class="container">
             <ul class="home-hero-stats">
@@ -287,164 +325,85 @@
         </div>
     </section>
 
-    <!-- ===== Why Asor (value proposition) ===== -->
-    <section class="why" id="why">
-        <div class="container why-grid">
-            <div class="why-intro fade-in">
-                <h2 class="why-title">لماذا عشور وشركاه</h2>
-                <p class="why-lead">في الصفقة العقارية، كل بند في الاتفاقية هو أيضاً قرار اقتصادي. نفحص كل اتفاقية ليس فقط من حيث حمايتها لكم، بل أيضاً من حيث آثارها الضريبية وما سيبقى لكم في النهاية.</p>
-                <a href="#contact" class="why-link">لمكالمة تعارف مع المكتب <span aria-hidden="true">←</span></a>
-            </div>
-
-            <ol class="why-list">
-                <li class="why-item fade-in">
-                    <span class="why-num">01</span>
-                    <div>
-                        <h3>تخصص قانوني في ضرائب العقارات</h3>
-                        <p>يعمل المكتب في قوانين ضريبة الربح العقاري، وضريبة الشراء، وضريبة القيمة المضافة في الصفقات العقارية، ورسوم التحسين. تُفحص كل اتفاقية أيضاً من حيث آثارها الضريبية، كي يكون المقابل المتفق عليه هو ما يبقى بين أيديكم فعلاً.</p>
-                    </div>
+    <!-- ===== Journey (where is your building) ===== -->
+    <section class="journey" id="journey">
+        <div class="container">
+            <h2 class="section-title">في أي مرحلة مبناكم؟</h2>
+            <p class="section-subtitle">يمكن الانضمام في أي مرحلة. كلما بكّرتم، بقي مجال أوسع للتأثير على الاتفاقية.</p>
+            <ol class="journey-steps">
+                <li class="journey-step">
+                    <span class="journey-num" aria-hidden="true">1</span>
+                    <h3>مرحلة التنظيم</h3>
+                    <p>يبدأ الحديث في المبنى عن التجديد. نشرح للجنة السكان المسارات الممكنة وترتيب الخطوات.</p>
+                    <a href="#lead" class="journey-link">لحجز استشارة <span aria-hidden="true">←</span></a>
                 </li>
-                <li class="why-item fade-in">
-                    <span class="why-num">02</span>
-                    <div>
-                        <h3>مكانة مهنية في نقابة المحامين</h3>
-                        <p>رئيس لجنة التجديد العمراني في نقابة المحامين بالقدس، ونائب رئيس لجنة الضرائب العقارية، وعضو بديل في لجنة الضرائب العامة. معرفة معمّقة بالسياسات وبالسلطات وبالقضايا المطروحة.</p>
-                    </div>
+                <li class="journey-step">
+                    <span class="journey-num" aria-hidden="true">2</span>
+                    <h3>اختيار المطوّر</h3>
+                    <p>نرافق اللجنة في مقارنة العروض وفحص المطوّر قبل أي التزام.</p>
+                    <a href="#lead" class="journey-link">لحجز استشارة <span aria-hidden="true">←</span></a>
                 </li>
-                <li class="why-item fade-in">
-                    <span class="why-num">03</span>
-                    <div>
-                        <h3>خبرة في التجديد العمراني</h3>
-                        <p>تمثيل أصحاب الشقق في أحد عشر مشروعاً للإخلاء والبناء (بينوي بينوي) وتاما 38 في القدس وبيت شيمش، من توقيع السكان واختيار المطوّر، مروراً بالتفاوض على الاتفاقية، وحتى رخصة البناء.</p>
-                    </div>
+                <li class="journey-step">
+                    <span class="journey-num" aria-hidden="true">3</span>
+                    <h3>التفاوض</h3>
+                    <p>الاتفاقية، المقابل، الضمانات والكفالات، والآثار الضريبية لكل بند.</p>
+                    <a href="#lead" class="journey-link">لحجز استشارة <span aria-hidden="true">←</span></a>
                 </li>
-                <li class="why-item fade-in">
-                    <span class="why-num">04</span>
-                    <div>
-                        <h3>مرافقة شخصية وشفافة</h3>
-                        <p>مشاركة مباشرة للشريك المؤسس في القرارات الجوهرية، وتواصل مباشر مع المكتب، وإطلاع مستمر على كل تطور في الملف.</p>
-                    </div>
+                <li class="journey-step">
+                    <span class="journey-num" aria-hidden="true">4</span>
+                    <h3>حتى استلام المفتاح</h3>
+                    <p>إشراف قانوني على تنفيذ الالتزامات، من رخصة البناء وحتى التسجيل والتسليم.</p>
+                    <a href="#lead" class="journey-link">لحجز استشارة <span aria-hidden="true">←</span></a>
                 </li>
             </ol>
         </div>
     </section>
 
-    <!-- ===== Practice Areas ===== -->
-    <section class="practice" id="specialties">
+    <!-- ===== Commitments ===== -->
+    <section class="commitments" id="commitments">
         <div class="container">
-            <h2 class="section-title fade-in">مجالات العمل</h2>
-            <p class="section-subtitle fade-in">يتركز عمل المكتب في قانون العقارات وضرائب العقارات، إلى جانب مجالات قريبة.</p>
+            <h2 class="section-title fade-in">التزامنا تجاه السكان</h2>
+            <p class="section-subtitle fade-in">نحن نمثل المصالح الكاملة للسكان وأصحاب الحقوق، مع الإصرار على تلبية كل مطلب</p>
 
-            <div class="practice-grid">
-                <a href="#contact" class="practice-tile practice-tile--featured fade-in">
-                    <span class="practice-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="6" width="6" height="14" rx="1"/><rect x="9" y="3" width="6" height="17" rx="1"/><rect x="17" y="8" width="6" height="12" rx="1"/></svg></span>
-                    <h3>التجديد العمراني</h3>
-                    <p>تمثيل أصحاب الشقق في مشاريع الإخلاء والبناء وتاما 38: تنظيم السكان، واختيار المطوّر، والتفاوض على الاتفاقية، والضمانات والكفالات، والإشراف القانوني حتى استلام المفتاح.</p>
-                    <span class="practice-tile-more">لحجز استشارة <span aria-hidden="true">←</span></span>
-                </a>
-                <a href="#contact" class="practice-tile fade-in">
-                    <span class="practice-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
-                    <h3>ضرائب العقارات</h3>
-                    <p>ضريبة الربح العقاري وضريبة الشراء والإعفاءات، وتخطيط ضريبي مشروع قبل الصفقة، والاعتراضات والاستئنافات أمام سلطة الضرائب.</p>
-                    <span class="practice-tile-more">لحجز استشارة <span aria-hidden="true">←</span></span>
-                </a>
-                <a href="#contact" class="practice-tile fade-in">
-                    <span class="practice-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg></span>
-                    <h3>الصفقات العقارية</h3>
-                    <p>اتفاقيات البيع والشراء، وصفقات المقايضة، والإيجار السكني والتجاري، والتسجيل في الطابو وملاحظات التحذير.</p>
-                    <span class="practice-tile-more">لحجز استشارة <span aria-hidden="true">←</span></span>
-                </a>
-                <a href="#contact" class="practice-tile fade-in">
-                    <span class="practice-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>
-                    <h3>ضريبة الدخل وضريبة القيمة المضافة</h3>
-                    <p>استشارة قانونية وتمثيل للأفراد والمستقلين والشركات في قوانين ضريبة الدخل وضريبة القيمة المضافة: الهيكلة القانونية للصفقات، والاعتراضات والاستئنافات على التقديرات.</p>
-                    <span class="practice-tile-more">لحجز استشارة <span aria-hidden="true">←</span></span>
-                </a>
-                <a href="#contact" class="practice-tile fade-in">
-                    <span class="practice-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M5 20V9l7-5 7 5v11"/><path d="M9 20v-6h6v6"/></svg></span>
-                    <h3>التخطيط والبناء ورسوم التحسين</h3>
-                    <p>مرافقة تعديلات الخرائط الهيكلية، والتمثيل أمام لجان التخطيط، والاعتراض على تقديرات رسوم التحسين.</p>
-                    <span class="practice-tile-more">لحجز استشارة <span aria-hidden="true">←</span></span>
-                </a>
-                <a href="#contact" class="practice-tile fade-in">
-                    <span class="practice-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
-                    <h3>الوصايا والمواريث وأملاك العائلة</h3>
-                    <p>الوصايا، وأوامر الإرث وتنفيذ الوصية، والتوكيل المستمر، ونقل الأملاك بين الأقارب بتخطيط ضريبي سليم.</p>
-                    <span class="practice-tile-more">لحجز استشارة <span aria-hidden="true">←</span></span>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== About ===== -->
-    <section class="about" id="about">
-
-        <div class="container about-content-wrap">
-            <h2 class="section-title fade-in">حول المكتب</h2>
-
-            <div class="about-glass-card fade-in">
-                <div class="about-leadership">
-                    <figure class="about-portrait">
-                        <img src="../images/attorney-asor.webp" width="720" height="1081" alt="إسرائيل عشور، محامٍ (محاسب قانوني)" loading="lazy" decoding="async">
-                        <span class="about-portrait-frame" aria-hidden="true"></span>
-                    </figure>
-
-                    <div class="about-bio">
-                        <span class="about-label">الشريك المؤسس</span>
-                        <h2>إسرائيل عشور، محامٍ (محاسب قانوني)</h2>
-                        <div class="about-gold-rule"></div>
-                        <p class="about-bio-lead">محامٍ (محاسب قانوني)، مؤسس مكتب عشور وشركاه ومديره، ومقرّه برج رام في القدس.</p>
-                        <p>يمثّل المكتب أصحاب الشقق والمطوّرين والمستثمرين والعائلات في الصفقات العقارية، ومشاريع الإخلاء والبناء وتاما 38، وفي القضايا الضريبية المعقّدة. تبدأ المرافقة في مراحل التخطيط المبكرة، وتمر بالتفاوض على الاتفاقية، ولا تنتهي إلا بالحصول على رخصة البناء واستكمال التسجيل وتسوية الضرائب.</p>
-                        <p>تتيح المعرفة المعمّقة بقوانين الضرائب تحديد الآثار الضريبية للاتفاقية منذ مرحلة التفاوض، كجزء لا يتجزأ من الاستشارة القانونية.</p>
-
-                        <ul class="about-roles">
-                            <li>
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                                رئيس لجنة التجديد العمراني في نقابة المحامين بالقدس
-                            </li>
-                            <li>
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                                نائب رئيس لجنة الضرائب العقارية في نقابة المحامين بالقدس
-                            </li>
-                            <li>
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                                عضو بديل في لجنة الضرائب العامة
-                            </li>
-                        </ul>
-
-                        <a class="about-profile-link" href="https://www.lawfirms.co.il/lawyers/%D7%99%D7%A9%D7%A8%D7%90%D7%9C-%D7%A2%D7%A9%D7%95%D7%A8" target="_blank" rel="noopener noreferrer" aria-label="الملف الشخصي على موقع lawfirms.co.il (يفتح في علامة تبويب جديدة)">
-                            <span>الملف الشخصي على lawfirms.co.il</span>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                        </a>
+            <div class="commitments-grid">
+                <div class="commitment-card fade-in">
+                    <div class="commitment-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="6" width="6" height="14" rx="1"/><rect x="9" y="3" width="6" height="17" rx="1"/><rect x="17" y="8" width="6" height="12" rx="1"/></svg>
                     </div>
+                    <h4>ارتفاع البناء والمواصفات الفنية للشقق الجديدة</h4>
                 </div>
-
-                <div class="about-practice-divider" aria-hidden="true"></div>
-                <h3 class="about-practice-heading">فريق المكتب</h3>
-
-                <div class="team-grid">
-                    <figure class="team-card">
-                        <div class="team-card-photo">
-                            <img src="../images/attorney-malka.webp" width="560" height="840" alt="المحامي أورال مالكا" loading="lazy" decoding="async">
-                        </div>
-                        <figcaption class="team-card-info">
-                            <span class="team-card-name">المحامي أورال مالكا</span>
-                            <span class="team-card-title">التجديد العمراني والعقارات</span>
-                        </figcaption>
-                    </figure>
-                    <figure class="team-card">
-                        <div class="team-card-photo">
-                            <img src="../images/intern-shir.webp" width="560" height="841" alt="إلحانان شير" loading="lazy" decoding="async">
-                        </div>
-                        <figcaption class="team-card-info">
-                            <span class="team-card-name">إلحانان شير</span>
-                            <span class="team-card-title">متدرب</span>
-                        </figcaption>
-                    </figure>
+                <div class="commitment-card fade-in">
+                    <div class="commitment-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg>
+                    </div>
+                    <h4>شرفات بما فيها شرفات السوكا</h4>
+                </div>
+                <div class="commitment-card fade-in">
+                    <div class="commitment-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>
+                    </div>
+                    <h4>تصميم معماري عالي الجودة ومساحات خضراء</h4>
+                </div>
+                <div class="commitment-card fade-in">
+                    <div class="commitment-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+                    </div>
+                    <h4>مصاعد ومضخات مياه تحت إشراف حلاخي صارم</h4>
+                </div>
+                <div class="commitment-card fade-in">
+                    <div class="commitment-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <h4>شركة إدارة مهنية بعد السكن</h4>
+                </div>
+                <div class="commitment-card fade-in">
+                    <div class="commitment-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>
+                    </div>
+                    <h4>أي مطلب إضافي بموافقة غالبية أصحاب الحقوق</h4>
                 </div>
             </div>
         </div>
-
     </section>
 
     <!-- ===== Projects ===== -->
@@ -866,51 +825,164 @@
         </div>
     </section>
 
-    <!-- ===== Commitments ===== -->
-    <section class="commitments" id="commitments">
-        <div class="container">
-            <h2 class="section-title fade-in">التزامنا تجاه السكان</h2>
-            <p class="section-subtitle fade-in">نحن نمثل المصالح الكاملة للسكان وأصحاب الحقوق، مع الإصرار على تلبية كل مطلب</p>
+    <!-- ===== Why Asor (value proposition) ===== -->
+    <section class="why" id="why">
+        <div class="container why-grid">
+            <div class="why-intro fade-in">
+                <h2 class="why-title">لماذا عشور وشركاه</h2>
+                <p class="why-lead">في الصفقة العقارية، كل بند في الاتفاقية هو أيضاً قرار اقتصادي. نفحص كل اتفاقية ليس فقط من حيث حمايتها لكم، بل أيضاً من حيث آثارها الضريبية وما سيبقى لكم في النهاية.</p>
+                <a href="#contact" class="why-link">لمكالمة تعارف مع المكتب <span aria-hidden="true">←</span></a>
+            </div>
 
-            <div class="commitments-grid">
-                <div class="commitment-card fade-in">
-                    <div class="commitment-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="6" width="6" height="14" rx="1"/><rect x="9" y="3" width="6" height="17" rx="1"/><rect x="17" y="8" width="6" height="12" rx="1"/></svg>
+            <ol class="why-list">
+                <li class="why-item fade-in">
+                    <span class="why-num">01</span>
+                    <div>
+                        <h3>تخصص قانوني في ضرائب العقارات</h3>
+                        <p>يعمل المكتب في قوانين ضريبة الربح العقاري، وضريبة الشراء، وضريبة القيمة المضافة في الصفقات العقارية، ورسوم التحسين. تُفحص كل اتفاقية أيضاً من حيث آثارها الضريبية، كي يكون المقابل المتفق عليه هو ما يبقى بين أيديكم فعلاً.</p>
                     </div>
-                    <h4>ارتفاع البناء والمواصفات الفنية للشقق الجديدة</h4>
+                </li>
+                <li class="why-item fade-in">
+                    <span class="why-num">02</span>
+                    <div>
+                        <h3>مكانة مهنية في نقابة المحامين</h3>
+                        <p>رئيس لجنة التجديد العمراني في نقابة المحامين بالقدس، ونائب رئيس لجنة الضرائب العقارية، وعضو بديل في لجنة الضرائب العامة. معرفة معمّقة بالسياسات وبالسلطات وبالقضايا المطروحة.</p>
+                    </div>
+                </li>
+                <li class="why-item fade-in">
+                    <span class="why-num">03</span>
+                    <div>
+                        <h3>خبرة في التجديد العمراني</h3>
+                        <p>تمثيل أصحاب الشقق في أحد عشر مشروعاً للإخلاء والبناء (بينوي بينوي) وتاما 38 في القدس وبيت شيمش، من توقيع السكان واختيار المطوّر، مروراً بالتفاوض على الاتفاقية، وحتى رخصة البناء.</p>
+                    </div>
+                </li>
+                <li class="why-item fade-in">
+                    <span class="why-num">04</span>
+                    <div>
+                        <h3>مرافقة شخصية وشفافة</h3>
+                        <p>مشاركة مباشرة للشريك المؤسس في القرارات الجوهرية، وتواصل مباشر مع المكتب، وإطلاع مستمر على كل تطور في الملف.</p>
+                    </div>
+                </li>
+            </ol>
+        </div>
+    </section>
+
+    <!-- ===== Practice Areas ===== -->
+    <section class="practice" id="specialties">
+        <div class="container">
+            <h2 class="section-title fade-in">مجالات العمل</h2>
+            <p class="section-subtitle fade-in">يتركز عمل المكتب في قانون العقارات وضرائب العقارات، إلى جانب مجالات قريبة.</p>
+
+            <div class="practice-grid">
+                <a href="#contact" class="practice-tile practice-tile--featured fade-in">
+                    <span class="practice-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="6" width="6" height="14" rx="1"/><rect x="9" y="3" width="6" height="17" rx="1"/><rect x="17" y="8" width="6" height="12" rx="1"/></svg></span>
+                    <h3>التجديد العمراني</h3>
+                    <p>تمثيل أصحاب الشقق في مشاريع الإخلاء والبناء وتاما 38: تنظيم السكان، واختيار المطوّر، والتفاوض على الاتفاقية، والضمانات والكفالات، والإشراف القانوني حتى استلام المفتاح.</p>
+                    <span class="practice-tile-more">لحجز استشارة <span aria-hidden="true">←</span></span>
+                </a>
+                <a href="#contact" class="practice-tile fade-in">
+                    <span class="practice-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
+                    <h3>ضرائب العقارات</h3>
+                    <p>ضريبة الربح العقاري وضريبة الشراء والإعفاءات، وتخطيط ضريبي مشروع قبل الصفقة، والاعتراضات والاستئنافات أمام سلطة الضرائب.</p>
+                    <span class="practice-tile-more">لحجز استشارة <span aria-hidden="true">←</span></span>
+                </a>
+                <a href="#contact" class="practice-tile fade-in">
+                    <span class="practice-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg></span>
+                    <h3>الصفقات العقارية</h3>
+                    <p>اتفاقيات البيع والشراء، وصفقات المقايضة، والإيجار السكني والتجاري، والتسجيل في الطابو وملاحظات التحذير.</p>
+                    <span class="practice-tile-more">لحجز استشارة <span aria-hidden="true">←</span></span>
+                </a>
+                <a href="#contact" class="practice-tile fade-in">
+                    <span class="practice-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>
+                    <h3>ضريبة الدخل وضريبة القيمة المضافة</h3>
+                    <p>استشارة قانونية وتمثيل للأفراد والمستقلين والشركات في قوانين ضريبة الدخل وضريبة القيمة المضافة: الهيكلة القانونية للصفقات، والاعتراضات والاستئنافات على التقديرات.</p>
+                    <span class="practice-tile-more">لحجز استشارة <span aria-hidden="true">←</span></span>
+                </a>
+                <a href="#contact" class="practice-tile fade-in">
+                    <span class="practice-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M5 20V9l7-5 7 5v11"/><path d="M9 20v-6h6v6"/></svg></span>
+                    <h3>التخطيط والبناء ورسوم التحسين</h3>
+                    <p>مرافقة تعديلات الخرائط الهيكلية، والتمثيل أمام لجان التخطيط، والاعتراض على تقديرات رسوم التحسين.</p>
+                    <span class="practice-tile-more">لحجز استشارة <span aria-hidden="true">←</span></span>
+                </a>
+                <a href="#contact" class="practice-tile fade-in">
+                    <span class="practice-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+                    <h3>الوصايا والمواريث وأملاك العائلة</h3>
+                    <p>الوصايا، وأوامر الإرث وتنفيذ الوصية، والتوكيل المستمر، ونقل الأملاك بين الأقارب بتخطيط ضريبي سليم.</p>
+                    <span class="practice-tile-more">لحجز استشارة <span aria-hidden="true">←</span></span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== About ===== -->
+    <section class="about" id="about">
+
+        <div class="container about-content-wrap">
+            <h2 class="section-title fade-in">حول المكتب</h2>
+
+            <div class="about-glass-card fade-in">
+                <div class="about-leadership">
+                    <figure class="about-portrait">
+                        <img src="../images/attorney-asor.webp" width="720" height="1081" alt="إسرائيل عشور، محامٍ (محاسب قانوني)" loading="lazy" decoding="async">
+                        <span class="about-portrait-frame" aria-hidden="true"></span>
+                    </figure>
+
+                    <div class="about-bio">
+                        <span class="about-label">الشريك المؤسس</span>
+                        <h2>إسرائيل عشور، محامٍ (محاسب قانوني)</h2>
+                        <div class="about-gold-rule"></div>
+                        <p class="about-bio-lead">محامٍ (محاسب قانوني)، مؤسس مكتب عشور وشركاه ومديره، ومقرّه برج رام في القدس.</p>
+                        <p>يمثّل المكتب أصحاب الشقق والمطوّرين والمستثمرين والعائلات في الصفقات العقارية، ومشاريع الإخلاء والبناء وتاما 38، وفي القضايا الضريبية المعقّدة. في مشاريع الإخلاء والبناء يمثّل المكتب السكان فقط ولا يمثّل المطوّرين. تبدأ المرافقة في مراحل التخطيط المبكرة، وتمر بالتفاوض على الاتفاقية، ولا تنتهي إلا بالحصول على رخصة البناء واستكمال التسجيل وتسوية الضرائب.</p>
+                        <p>تتيح المعرفة المعمّقة بقوانين الضرائب تحديد الآثار الضريبية للاتفاقية منذ مرحلة التفاوض، كجزء لا يتجزأ من الاستشارة القانونية.</p>
+
+                        <ul class="about-roles">
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                                رئيس لجنة التجديد العمراني في نقابة المحامين بالقدس
+                            </li>
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                                نائب رئيس لجنة الضرائب العقارية في نقابة المحامين بالقدس
+                            </li>
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                                عضو بديل في لجنة الضرائب العامة
+                            </li>
+                        </ul>
+
+                        <a class="about-profile-link" href="https://www.lawfirms.co.il/lawyers/%D7%99%D7%A9%D7%A8%D7%90%D7%9C-%D7%A2%D7%A9%D7%95%D7%A8" target="_blank" rel="noopener noreferrer" aria-label="الملف الشخصي على موقع lawfirms.co.il (يفتح في علامة تبويب جديدة)">
+                            <span>الملف الشخصي على lawfirms.co.il</span>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        </a>
+                    </div>
                 </div>
-                <div class="commitment-card fade-in">
-                    <div class="commitment-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg>
-                    </div>
-                    <h4>شرفات بما فيها شرفات السوكا</h4>
-                </div>
-                <div class="commitment-card fade-in">
-                    <div class="commitment-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>
-                    </div>
-                    <h4>تصميم معماري عالي الجودة ومساحات خضراء</h4>
-                </div>
-                <div class="commitment-card fade-in">
-                    <div class="commitment-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
-                    </div>
-                    <h4>مصاعد ومضخات مياه تحت إشراف حلاخي صارم</h4>
-                </div>
-                <div class="commitment-card fade-in">
-                    <div class="commitment-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                    </div>
-                    <h4>شركة إدارة مهنية بعد السكن</h4>
-                </div>
-                <div class="commitment-card fade-in">
-                    <div class="commitment-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>
-                    </div>
-                    <h4>أي مطلب إضافي بموافقة غالبية أصحاب الحقوق</h4>
+
+                <div class="about-practice-divider" aria-hidden="true"></div>
+                <h3 class="about-practice-heading">فريق المكتب</h3>
+
+                <div class="team-grid">
+                    <figure class="team-card">
+                        <div class="team-card-photo">
+                            <img src="../images/attorney-malka.webp" width="560" height="840" alt="المحامي أورال مالكا" loading="lazy" decoding="async">
+                        </div>
+                        <figcaption class="team-card-info">
+                            <span class="team-card-name">المحامي أورال مالكا</span>
+                            <span class="team-card-title">التجديد العمراني والعقارات</span>
+                        </figcaption>
+                    </figure>
+                    <figure class="team-card">
+                        <div class="team-card-photo">
+                            <img src="../images/intern-shir.webp" width="560" height="841" alt="إلحانان شير" loading="lazy" decoding="async">
+                        </div>
+                        <figcaption class="team-card-info">
+                            <span class="team-card-name">إلحانان شير</span>
+                            <span class="team-card-title">متدرب</span>
+                        </figcaption>
+                    </figure>
                 </div>
             </div>
         </div>
+
     </section>
 
     <!-- ===== Process ===== -->
@@ -1040,28 +1112,28 @@
             <div class="contact-grid">
                 <div class="contact-form fade-in">
                     <h3>إرسال توجّه</h3>
-                    <form id="contactForm" onsubmit="handleSubmit(event)" novalidate>
+                    <form id="contactForm" class="lead-form" onsubmit="handleSubmit(event)" novalidate>
                         <input type="hidden" name="access_key" value="50c491ee-83db-4906-bb6f-3b3a287cbbab">
                         <input type="hidden" name="subject" value="פנייה חדשה מהאתר - עשור ושות׳">
                         <input type="hidden" name="from_name" value="אתר עשור ושות׳">
                         <div class="form-group">
                             <label for="name">الاسم الكامل *</label>
-                            <input type="text" id="name" name="שם מלא" required minlength="2" pattern=".*\S+\s+\S+.*" placeholder="أدخلوا اسمكم">
+                            <input type="text" id="name" data-k="name" name="שם מלא" required minlength="2" pattern=".*\S+\s+\S+.*" placeholder="أدخلوا اسمكم">
                             <span class="form-error">يرجى إدخال الاسم الكامل</span>
                         </div>
                         <div class="form-group">
                             <label for="phone">الهاتف *</label>
-                            <input type="tel" id="phone" name="טלפון" required pattern="^0[2-9]\d?-?\d{7}$" placeholder="050-0000000">
+                            <input type="tel" id="phone" data-k="phone" name="טלפון" required pattern="^0[2-9]\d?-?\d{7}$" placeholder="050-0000000">
                             <span class="form-error">يرجى إدخال رقم هاتف صحيح</span>
                         </div>
                         <div class="form-group">
                             <label for="email">البريد الإلكتروني</label>
-                            <input type="email" id="email" name="דואל" placeholder="email@example.com">
+                            <input type="email" id="email" data-k="email" name="דואל" placeholder="email@example.com">
                             <span class="form-error">يرجى إدخال بريد إلكتروني صحيح</span>
                         </div>
                         <div class="form-group">
                             <label for="topic">موضوع التوجّه</label>
-                            <select id="topic" name="נושא">
+                            <select id="topic" data-k="topic" name="נושא">
                                 <option value="">اختاروا موضوعاً</option>
                                 <option>التجديد العمراني (إخلاء وبناء / تاما 38)</option>
                                 <option>ضرائب العقارات (ضريبة الربح العقاري / ضريبة الشراء)</option>
@@ -1074,7 +1146,7 @@
                         </div>
                         <div class="form-group">
                             <label for="message">الرسالة</label>
-                            <textarea id="message" name="הודעה" placeholder="اكتبوا رسالتكم..."></textarea>
+                            <textarea id="message" data-k="message" name="הודעה" placeholder="اكتبوا رسالتكم..."></textarea>
                         </div>
                         <button type="submit" class="form-submit" data-sending="جارٍ الإرسال..." data-success="تم إرسال الرسالة بنجاح!" data-error="خطأ في الإرسال، يرجى المحاولة مرة أخرى">إرسال التوجّه</button>
                         <p class="form-note">تقديم التفاصيل طوعي وليس واجباً قانونياً، وبدونها لا يمكننا الرد عليكم. ستُستخدم التفاصيل فقط للرد على توجّهكم ولدراسة تقديم خدمة قانونية. المسؤول عن المعلومات: عشور وشركاه - محامون، office@asor-law.com. يُرسَل النموذج إلينا عبر مزوّد خدمة النماذج Web3Forms، مع تفاصيل تقنية أساسية (نوع الجهاز والمتصفح، والصفحة التي أُرسل منها). لكم الحق في الاطلاع على المعلومات وطلب تصحيحها. التوجّه عبر الموقع لا يُنشئ علاقة محامٍ وموكّل ولا يُعدّ استشارة قانونية. <a href="privacy.html">سياسة الخصوصية</a></p>
@@ -1189,11 +1261,18 @@
         </div>
     </footer>
 
+    <!-- ===== Residents login (placeholder until the portal URL is set in js/main.js) ===== -->
+    <dialog class="tenant-dialog" id="tenantDialog" aria-labelledby="tenantDialogTitle">
+        <h2 id="tenantDialogTitle">منطقة السكان</h2>
+        <p>المنطقة الشخصية لسكان المشاريع التي يرافقها المكتب ستُفتح هنا قريباً. حتى ذلك الحين يمكن التواصل مع المكتب على الهاتف <a href="tel:02-5000275" dir="ltr">02-5000275</a>.</p>
+        <form method="dialog"><button class="btn-primary">إغلاق</button></form>
+    </dialog>
+
     <!-- ===== Mobile action bar ===== -->
     <nav class="action-bar" aria-label="إجراءات سريعة">
         <a href="tel:02-5000275" class="action-bar-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span dir="ltr">02-5000275</span></a>
         <a href="https://wa.me/972546302880?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%2C%20%D9%88%D8%B5%D9%84%D8%AA%20%D8%A5%D9%84%D9%8A%D9%83%D9%85%20%D9%85%D9%86%20%D9%85%D9%88%D9%82%D8%B9%20%D8%B9%D8%B4%D9%88%D8%B1%20%D9%88%D8%B4%D8%B1%D9%83%D8%A7%D9%87%20%D9%88%D8%A3%D8%B1%D8%BA%D8%A8%20%D8%A8%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%85%D8%B2%D9%8A%D8%AF%20%D9%85%D9%86%20%D8%A7%D9%84%D8%AA%D9%81%D8%A7%D8%B5%D9%8A%D9%84." class="action-bar-item" target="_blank" rel="noopener"><svg aria-hidden="true" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg><span>WhatsApp</span></a>
-        <a href="#contact" class="action-bar-item action-bar-item--primary">لحجز استشارة</a>
+        <a href="#lead" class="action-bar-item action-bar-item--primary">لحجز استشارة</a>
     </nav>
 
     <!-- ===== WhatsApp Float ===== -->
@@ -1296,6 +1375,6 @@
     </div>
 
     <!-- ===== JavaScript ===== -->
-    <script src="../js/main.js?v=2026111101"></script>
+    <script src="../js/main.js?v=2026111103"></script>
 </body>
 </html>

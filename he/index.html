@@ -39,9 +39,9 @@
     <meta name="twitter:image" content="https://asor-law.com/images/icon.jpeg">
 
     <link rel="icon" href="../images/logo-mark.png" type="image/png">
-    <link rel="stylesheet" href="../css/style.css?v=2026111101">
-    <link rel="stylesheet" href="../css/premium.css?v=2026111101">
-    <link rel="stylesheet" href="../css/theme.css?v=2026111101">
+    <link rel="stylesheet" href="../css/style.css?v=2026111103">
+    <link rel="stylesheet" href="../css/premium.css?v=2026111103">
+    <link rel="stylesheet" href="../css/theme.css?v=2026111103">
 
     <!-- Schema.org JSON-LD -->
     <script type="application/ld+json">
@@ -228,6 +228,7 @@
                     <li><a href="#knowledge">מרכז ידע</a></li>
                     <li><a href="#contact">צור קשר</a></li>
                     <li><a href="../digital/" class="nav-online-service">שירות משפטי אונליין</a></li>
+                    <li class="nav-lang" aria-label="שפה"><a href="../he/" lang="he">עברית</a><a href="../en/" lang="en">English</a><a href="../ar/" lang="ar">العربية</a></li>
                 </ul>
             </nav>
 
@@ -252,6 +253,8 @@
                 </a>
             </div>
 
+            <a href="#" class="tenant-login" data-tenant-login><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>כניסת דיירים</span></a>
+
             <button class="hamburger" id="hamburger" aria-label="תפריט">
                 <span></span>
                 <span></span>
@@ -261,22 +264,57 @@
     </header>
 
     <!-- ===== Hero ===== -->
-    <section class="home-hero" id="hero">
+    <section class="home-hero home-hero--lead" id="hero">
+        <div class="home-hero-bg" aria-hidden="true"><img src="../images/hero-renewal.webp" srcset="../images/hero-renewal-800.webp 800w, ../images/hero-renewal.webp 1400w" sizes="100vw" width="1400" height="933" alt="" fetchpriority="high" decoding="async"></div>
         <div class="container home-hero-grid">
             <div class="home-hero-copy">
-                <p class="home-hero-eyebrow">משרד עורכי דין · ירושלים</p>
-                <h1>עשור ושות׳<br><span>עורכי דין</span></h1>
-                <p class="home-hero-lead">מקרקעין, התחדשות עירונית ומיסוי מקרקעין.</p>
-                <p class="home-hero-text">המשרד מלווה בעלי דירות, יזמים ומשקיעים בעסקאות נדל״ן ובפרויקטי פינוי ובינוי ותמ״א 38 בירושלים ובבית שמש, ובוחן כל הסכם גם בהיבטי המס שלו.</p>
+                <p class="home-hero-eyebrow">עשור ושות׳ · עורכי דין · ירושלים</p>
+                <h1>לפני שחותמים ליזם,<br><span>שיהיה לכם עורך דין משלכם.</span></h1>
+                <p class="home-hero-lead">ייצוג בעלי דירות ונציגויות דיירים בפינוי ובינוי ובתמ״א 38 בירושלים ובבית שמש, מהתארגנות הדיירים ועד קבלת המפתח.</p>
+                <ul class="home-hero-points">
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span>בפינוי ובינוי מייצגים דיירים בלבד, לא יזמים</span></li>
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span>יו״ר ועדת התחדשות עירונית בלשכת עורכי הדין בירושלים</span></li>
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span>כל הסכם נבחן גם בהיבטי המס שלו</span></li>
+                </ul>
                 <div class="home-hero-cta">
-                    <a href="#contact" class="btn-primary">לתיאום פגישת ייעוץ</a>
+                    <a href="#lead" class="btn-primary">לתיאום פגישת ייעוץ</a>
                     <a href="#projects" class="btn-secondary">לפרויקטים שבליווינו</a>
                 </div>
             </div>
-            <figure class="home-hero-visual">
-                <img src="../images/hero-renewal.webp" srcset="../images/hero-renewal-800.webp 800w, ../images/hero-renewal.webp 1400w" sizes="(max-width: 992px) 100vw, 620px" width="1400" height="933" alt="חיל האוויר, חיים לסקוב, הסיירת הירושלמית - הדמיה" fetchpriority="high" decoding="async">
-                <figcaption><span class="home-hero-tag">הדמיה</span>חיל האוויר, חיים לסקוב, הסיירת הירושלמית</figcaption>
-            </figure>
+            <div class="lead-card" id="lead">
+                <h2>השאירו פרטים ונחזור אליכם</h2>
+                <p class="lead-card-sub">כל פנייה מטופלת בדיסקרטיות.</p>
+                <form class="lead-form" id="leadForm" data-source="hero" onsubmit="handleSubmit(event)" novalidate>
+                    <input type="hidden" name="access_key" value="50c491ee-83db-4906-bb6f-3b3a287cbbab">
+                    <input type="hidden" name="subject" value="פנייה חדשה מהאתר - עשור ושות׳">
+                    <input type="hidden" name="from_name" value="אתר עשור ושות׳">
+                    <div class="form-group">
+                        <label for="leadName">שם מלא *</label>
+                        <input type="text" id="leadName" data-k="name" name="שם מלא" required minlength="2" pattern=".*\S+\s+\S+.*" placeholder="הכניסו את שמכם">
+                        <span class="form-error">נא להזין שם פרטי ושם משפחה</span>
+                        </div>
+                    <div class="form-group">
+                        <label for="leadPhone">טלפון *</label>
+                        <input type="tel" id="leadPhone" data-k="phone" name="טלפון" required pattern="^0[2-9]\d?-?\d{7}$" placeholder="050-0000000">
+                        <span class="form-error">נא להזין מספר טלפון תקין</span>
+                        </div>
+                    <div class="form-group">
+                        <label for="leadTopic">נושא הפנייה</label>
+                        <select id="leadTopic" data-k="topic" name="נושא">
+                        <option value="">בחרו נושא</option>
+                        <option>התחדשות עירונית (פינוי ובינוי / תמ״א 38)</option>
+                        <option>מיסוי מקרקעין (מס שבח / מס רכישה)</option>
+                        <option>עסקת מקרקעין / הסכם מכר</option>
+                        <option>מס הכנסה / מע״מ</option>
+                        <option>תכנון ובנייה / היטל השבחה</option>
+                        <option>צוואות, ירושות וייפוי כוח מתמשך</option>
+                        <option>אחר</option>
+                        </select>
+                        </div>
+                    <button type="submit" class="form-submit" data-sending="שולח..." data-success="הפנייה נשלחה בהצלחה!" data-error="שגיאה בשליחה, נסו שוב">שליחת הפנייה</button>
+                    <p class="form-note">מסירת הפרטים נעשית מרצונכם ואינה חובה חוקית, אך בלעדיהם לא נוכל לחזור אליכם. הפרטים ישמשו רק למענה לפנייתכם ולבחינת מתן שירות משפטי. בעל השליטה במידע: עשור ושות׳ - עורכי דין, office@asor-law.com. הטופס מועבר אלינו באמצעות ספק שליחת הטפסים Web3Forms, יחד עם נתונים טכניים בסיסיים (סוג המכשיר והדפדפן, והעמוד שממנו נשלח). עומדת לכם זכות לעיין במידע ולבקש את תיקונו. פנייה דרך האתר אינה יוצרת יחסי עורך דין ולקוח ואינה מהווה ייעוץ משפטי. <a href="privacy.html">מדיניות הפרטיות</a></p>
+                </form>
+            </div>
         </div>
         <div class="container">
             <ul class="home-hero-stats">
@@ -288,164 +326,85 @@
         </div>
     </section>
 
-    <!-- ===== Why Asor (value proposition) ===== -->
-    <section class="why" id="why">
-        <div class="container why-grid">
-            <div class="why-intro fade-in">
-                <h2 class="why-title">למה עשור ושות׳</h2>
-                <p class="why-lead">בעסקת נדל״ן, כל סעיף בהסכם הוא גם החלטה כלכלית. אנחנו בודקים כל הסכם לא רק בשאלה אם הוא מגן עליכם, אלא גם מה יהיו השלכות המס שלו ומה יישאר בידיכם בסוף.</p>
-                <a href="#contact" class="why-link">לשיחת היכרות עם המשרד <span aria-hidden="true">←</span></a>
-            </div>
-
-            <ol class="why-list">
-                <li class="why-item fade-in">
-                    <span class="why-num">01</span>
-                    <div>
-                        <h3>התמחות משפטית במיסוי מקרקעין</h3>
-                        <p>המשרד עוסק בדיני מס שבח, מס רכישה, מע״מ בעסקאות מקרקעין והיטל השבחה. כל הסכם נבחן גם בהשלכותיו המיסויות, כדי שהתמורה שסוכמה תהיה גם התמורה שנשארת בידיכם.</p>
-                    </div>
+    <!-- ===== Journey (where is your building) ===== -->
+    <section class="journey" id="journey">
+        <div class="container">
+            <h2 class="section-title">באיזה שלב הבניין שלכם?</h2>
+            <p class="section-subtitle">אפשר להצטרף בכל שלב. ככל שמקדימים, נשאר יותר מקום להשפיע על ההסכם.</p>
+            <ol class="journey-steps">
+                <li class="journey-step">
+                    <span class="journey-num" aria-hidden="true">1</span>
+                    <h3>מתארגנים</h3>
+                    <p>בבניין מתחילים לדבר על התחדשות. נסביר לנציגות מהם המסלולים האפשריים ומה סדר הפעולות.</p>
+                    <a href="topics/pinui-binui.html" class="journey-link">למדריך פינוי ובינוי <span aria-hidden="true">←</span></a>
                 </li>
-                <li class="why-item fade-in">
-                    <span class="why-num">02</span>
-                    <div>
-                        <h3>מעמד מקצועי בלשכת עורכי הדין</h3>
-                        <p>יו״ר ועדת התחדשות עירונית בלשכת עורכי הדין בירושלים, ומ״מ בוועדת מיסוי מקרקעין ובוועדת מיסים כללי. היכרות מעמיקה עם המדיניות, עם הרשויות ועם הסוגיות שעל סדר היום.</p>
-                    </div>
+                <li class="journey-step">
+                    <span class="journey-num" aria-hidden="true">2</span>
+                    <h3>בוחרים יזם</h3>
+                    <p>מלווים את הנציגות בהשוואת ההצעות ובבדיקת היזם, לפני שמתחייבים.</p>
+                    <a href="articles/mevhar-yazam-pinui-binui.html" class="journey-link">7 קריטריונים לבחירת יזם <span aria-hidden="true">←</span></a>
                 </li>
-                <li class="why-item fade-in">
-                    <span class="why-num">03</span>
-                    <div>
-                        <h3>ניסיון בהתחדשות עירונית</h3>
-                        <p>ייצוג בעלי דירות באחד עשר פרויקטים של פינוי ובינוי ותמ״א 38 בירושלים ובבית שמש, מהחתמת הדיירים ובחירת היזם, דרך המשא ומתן על ההסכם ועד היתר הבנייה.</p>
-                    </div>
+                <li class="journey-step">
+                    <span class="journey-num" aria-hidden="true">3</span>
+                    <h3>מנהלים משא ומתן</h3>
+                    <p>ההסכם, התמורות, הבטוחות והערבויות, והשלכות המס של כל סעיף.</p>
+                    <a href="#lead" class="journey-link">לתיאום פגישת ייעוץ <span aria-hidden="true">←</span></a>
                 </li>
-                <li class="why-item fade-in">
-                    <span class="why-num">04</span>
-                    <div>
-                        <h3>ליווי אישי ושקוף</h3>
-                        <p>מעורבות ישירה של השותף המייסד בהחלטות המהותיות, קשר ישיר עם המשרד, ועדכון שוטף על כל התפתחות בתיק.</p>
-                    </div>
+                <li class="journey-step">
+                    <span class="journey-num" aria-hidden="true">4</span>
+                    <h3>עד קבלת המפתח</h3>
+                    <p>פיקוח משפטי על קיום ההתחייבויות, מהיתר הבנייה ועד הרישום והמסירה.</p>
+                    <a href="#lead" class="journey-link">לתיאום פגישת ייעוץ <span aria-hidden="true">←</span></a>
                 </li>
             </ol>
         </div>
     </section>
 
-    <!-- ===== Practice Areas ===== -->
-    <section class="practice" id="specialties">
+    <!-- ===== Commitments ===== -->
+    <section class="commitments" id="commitments">
         <div class="container">
-            <h2 class="section-title fade-in">תחומי עיסוק</h2>
-            <p class="section-subtitle fade-in">עיקר עבודת המשרד בדיני מקרקעין ובמיסוי מקרקעין, לצד תחומים קרובים.</p>
+            <h2 class="section-title fade-in">המחויבות שלנו לדיירים</h2>
+            <p class="section-subtitle fade-in">אנו מייצגים את האינטרסים המלאים של הדיירים ובעלי הזכויות, תוך עמידה על כל דרישה</p>
 
-            <div class="practice-grid">
-                <a href="topics/pinui-binui.html" class="practice-tile practice-tile--featured fade-in">
-                    <span class="practice-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="6" width="6" height="14" rx="1"/><rect x="9" y="3" width="6" height="17" rx="1"/><rect x="17" y="8" width="6" height="12" rx="1"/></svg></span>
-                    <h3>התחדשות עירונית</h3>
-                    <p>ייצוג בעלי דירות בפינוי ובינוי ובתמ״א 38: התארגנות הדיירים, בחירת יזם, משא ומתן על ההסכם, בטוחות וערבויות, ופיקוח משפטי עד קבלת המפתח.</p>
-                    <span class="practice-tile-more">למדריך המלא <span aria-hidden="true">←</span></span>
-                </a>
-                <a href="topics/mas-shevach.html" class="practice-tile fade-in">
-                    <span class="practice-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
-                    <h3>מיסוי מקרקעין</h3>
-                    <p>מס שבח, מס רכישה ופטורים, תכנון מס לגיטימי לפני העסקה, השגות וערעורים מול רשות המסים.</p>
-                    <span class="practice-tile-more">למדריך <span aria-hidden="true">←</span></span>
-                </a>
-                <a href="topics/heskem-mecher-dira.html" class="practice-tile fade-in">
-                    <span class="practice-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg></span>
-                    <h3>עסקאות מקרקעין</h3>
-                    <p>הסכמי מכר ורכישה, עסקאות קומבינציה, שכירות מגורים ומסחרית, רישום בטאבו והערות אזהרה.</p>
-                    <span class="practice-tile-more">למדריך <span aria-hidden="true">←</span></span>
-                </a>
-                <a href="#contact" class="practice-tile fade-in">
-                    <span class="practice-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>
-                    <h3>מס הכנסה ומע״מ</h3>
-                    <p>ייעוץ משפטי וייצוג ליחידים, לעצמאים ולחברות בדיני מס הכנסה ומע״מ: תכנון משפטי של עסקאות, השגות וערעורים על שומות.</p>
-                    <span class="practice-tile-more">לתיאום ייעוץ <span aria-hidden="true">←</span></span>
-                </a>
-                <a href="#contact" class="practice-tile fade-in">
-                    <span class="practice-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M5 20V9l7-5 7 5v11"/><path d="M9 20v-6h6v6"/></svg></span>
-                    <h3>תכנון ובנייה והיטל השבחה</h3>
-                    <p>ליווי שינויי תב״ע, ייצוג מול ועדות התכנון, והשגה על שומות היטל השבחה.</p>
-                    <span class="practice-tile-more">לתיאום ייעוץ <span aria-hidden="true">←</span></span>
-                </a>
-                <a href="topics/tzavaot-yerushot.html" class="practice-tile fade-in">
-                    <span class="practice-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
-                    <h3>צוואות, ירושות ונכסי משפחה</h3>
-                    <p>צוואות, צווי ירושה וקיום צוואה, ייפוי כוח מתמשך, והעברת נכסים בין קרובים בתכנון מס נכון.</p>
-                    <span class="practice-tile-more">למדריך <span aria-hidden="true">←</span></span>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== About ===== -->
-    <section class="about" id="about">
-
-        <div class="container about-content-wrap">
-            <h2 class="section-title fade-in">אודות המשרד</h2>
-
-            <div class="about-glass-card fade-in">
-                <div class="about-leadership">
-                    <figure class="about-portrait">
-                        <img src="../images/attorney-asor.webp" width="720" height="1081" alt="ישראל עשור, עו״ד (רו״ח)" loading="lazy" decoding="async">
-                        <span class="about-portrait-frame" aria-hidden="true"></span>
-                    </figure>
-
-                    <div class="about-bio">
-                        <span class="about-label">שותף מייסד</span>
-                        <h2>ישראל עשור, עו״ד (רו״ח)</h2>
-                        <div class="about-gold-rule"></div>
-                        <p class="about-bio-lead">עורך דין (רו״ח), המייסד והמוביל של משרד עשור ושות׳, הממוקם במגדל רם בירושלים.</p>
-                        <p>המשרד מייצג בעלי דירות, יזמים, משקיעים ומשפחות בעסקאות מקרקעין, בפרויקטי פינוי ובינוי ותמ״א 38 ובסוגיות מיסוי מורכבות. הליווי מתחיל בשלבי התכנון המוקדמים, עובר דרך המשא ומתן על ההסכם ומסתיים רק עם קבלת היתר הבנייה, השלמת הרישום והסדרת המס.</p>
-                        <p>ההיכרות המעמיקה עם דיני המס מאפשרת לזהות כבר בשלב המשא ומתן את ההשלכות המיסויות של ההסכם, כחלק בלתי נפרד מהייעוץ המשפטי.</p>
-
-                        <ul class="about-roles">
-                            <li>
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                                יו״ר ועדת התחדשות עירונית בלשכת עו״ד בירושלים
-                            </li>
-                            <li>
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                                מ״מ וועדת מיסוי מקרקעין בלשכת עו״ד ירושלים
-                            </li>
-                            <li>
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                                מ״מ בוועדת מיסים כללי
-                            </li>
-                        </ul>
-
-                        <a class="about-profile-link" href="https://www.lawfirms.co.il/lawyers/%D7%99%D7%A9%D7%A8%D7%90%D7%9C-%D7%A2%D7%A9%D7%95%D7%A8" target="_blank" rel="noopener noreferrer" aria-label="עמוד הפרופיל באתר lawfirms.co.il (נפתח בלשונית חדשה)">
-                            <span>עמוד הפרופיל באתר lawfirms.co.il</span>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                        </a>
+            <div class="commitments-grid">
+                <div class="commitment-card fade-in">
+                    <div class="commitment-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="6" width="6" height="14" rx="1"/><rect x="9" y="3" width="6" height="17" rx="1"/><rect x="17" y="8" width="6" height="12" rx="1"/></svg>
                     </div>
+                    <h4>גובה הבינוי ומפרט טכני של הדירות החדשות</h4>
                 </div>
-
-                <div class="about-practice-divider" aria-hidden="true"></div>
-                <h3 class="about-practice-heading">צוות המשרד</h3>
-
-                <div class="team-grid">
-                    <figure class="team-card">
-                        <div class="team-card-photo">
-                            <img src="../images/attorney-malka.webp" width="560" height="840" alt="עו״ד אוראל מלכה" loading="lazy" decoding="async">
-                        </div>
-                        <figcaption class="team-card-info">
-                            <span class="team-card-name">עו״ד אוראל מלכה</span>
-                            <span class="team-card-title">התחדשות עירונית ומקרקעין</span>
-                        </figcaption>
-                    </figure>
-                    <figure class="team-card">
-                        <div class="team-card-photo">
-                            <img src="../images/intern-shir.webp" width="560" height="841" alt="אלחנן שיר" loading="lazy" decoding="async">
-                        </div>
-                        <figcaption class="team-card-info">
-                            <span class="team-card-name">אלחנן שיר</span>
-                            <span class="team-card-title">מתמחה</span>
-                        </figcaption>
-                    </figure>
+                <div class="commitment-card fade-in">
+                    <div class="commitment-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg>
+                    </div>
+                    <h4>מרפסות לרבות מרפסות סוכה</h4>
+                </div>
+                <div class="commitment-card fade-in">
+                    <div class="commitment-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>
+                    </div>
+                    <h4>עיצוב ותכנון אדריכלי איכותי ושטחים ירוקים</h4>
+                </div>
+                <div class="commitment-card fade-in">
+                    <div class="commitment-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+                    </div>
+                    <h4>מעליות ומשאבות מים בפיקוח הלכתי הדוק</h4>
+                </div>
+                <div class="commitment-card fade-in">
+                    <div class="commitment-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <h4>חברת ניהול מקצועית לאחר אכלוס</h4>
+                </div>
+                <div class="commitment-card fade-in">
+                    <div class="commitment-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>
+                    </div>
+                    <h4>כל דרישה נוספת בהסכמת רוב בעלי הזכויות</h4>
                 </div>
             </div>
         </div>
-
     </section>
 
     <!-- ===== Projects ===== -->
@@ -867,51 +826,181 @@
         </div>
     </section>
 
-    <!-- ===== Commitments ===== -->
-    <section class="commitments" id="commitments">
+    <!-- ===== Guide band ===== -->
+    <section class="guide-band" aria-labelledby="guideBandTitle">
         <div class="container">
-            <h2 class="section-title fade-in">המחויבות שלנו לדיירים</h2>
-            <p class="section-subtitle fade-in">אנו מייצגים את האינטרסים המלאים של הדיירים ובעלי הזכויות, תוך עמידה על כל דרישה</p>
-
-            <div class="commitments-grid">
-                <div class="commitment-card fade-in">
-                    <div class="commitment-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="6" width="6" height="14" rx="1"/><rect x="9" y="3" width="6" height="17" rx="1"/><rect x="17" y="8" width="6" height="12" rx="1"/></svg>
-                    </div>
-                    <h4>גובה הבינוי ומפרט טכני של הדירות החדשות</h4>
+            <div class="guide-band-inner">
+                <div>
+                    <p class="guide-band-eyebrow">מדריך לנציגות דיירים</p>
+                    <h2 id="guideBandTitle">איך לבחור יזם בפרויקט פינוי בינוי: 7 קריטריונים</h2>
+                    <p>7 קריטריונים שכל נציגות דיירים חייבת לבדוק.</p>
                 </div>
-                <div class="commitment-card fade-in">
-                    <div class="commitment-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg>
-                    </div>
-                    <h4>מרפסות לרבות מרפסות סוכה</h4>
-                </div>
-                <div class="commitment-card fade-in">
-                    <div class="commitment-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>
-                    </div>
-                    <h4>עיצוב ותכנון אדריכלי איכותי ושטחים ירוקים</h4>
-                </div>
-                <div class="commitment-card fade-in">
-                    <div class="commitment-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
-                    </div>
-                    <h4>מעליות ומשאבות מים בפיקוח הלכתי הדוק</h4>
-                </div>
-                <div class="commitment-card fade-in">
-                    <div class="commitment-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                    </div>
-                    <h4>חברת ניהול מקצועית לאחר אכלוס</h4>
-                </div>
-                <div class="commitment-card fade-in">
-                    <div class="commitment-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>
-                    </div>
-                    <h4>כל דרישה נוספת בהסכמת רוב בעלי הזכויות</h4>
+                <div class="guide-band-actions">
+                    <a href="articles/mevhar-yazam-pinui-binui.html" class="btn-primary">לקריאת המדריך <span aria-hidden="true">←</span></a>
+                    <a href="#lead" class="btn-secondary">לתיאום פגישת ייעוץ</a>
                 </div>
             </div>
         </div>
+    </section>
+
+    <!-- ===== Why Asor (value proposition) ===== -->
+    <section class="why" id="why">
+        <div class="container why-grid">
+            <div class="why-intro fade-in">
+                <h2 class="why-title">למה עשור ושות׳</h2>
+                <p class="why-lead">בעסקת נדל״ן, כל סעיף בהסכם הוא גם החלטה כלכלית. אנחנו בודקים כל הסכם לא רק בשאלה אם הוא מגן עליכם, אלא גם מה יהיו השלכות המס שלו ומה יישאר בידיכם בסוף.</p>
+                <a href="#contact" class="why-link">לשיחת היכרות עם המשרד <span aria-hidden="true">←</span></a>
+            </div>
+
+            <ol class="why-list">
+                <li class="why-item fade-in">
+                    <span class="why-num">01</span>
+                    <div>
+                        <h3>התמחות משפטית במיסוי מקרקעין</h3>
+                        <p>המשרד עוסק בדיני מס שבח, מס רכישה, מע״מ בעסקאות מקרקעין והיטל השבחה. כל הסכם נבחן גם בהשלכותיו המיסויות, כדי שהתמורה שסוכמה תהיה גם התמורה שנשארת בידיכם.</p>
+                    </div>
+                </li>
+                <li class="why-item fade-in">
+                    <span class="why-num">02</span>
+                    <div>
+                        <h3>מעמד מקצועי בלשכת עורכי הדין</h3>
+                        <p>יו״ר ועדת התחדשות עירונית בלשכת עורכי הדין בירושלים, ומ״מ בוועדת מיסוי מקרקעין ובוועדת מיסים כללי. היכרות מעמיקה עם המדיניות, עם הרשויות ועם הסוגיות שעל סדר היום.</p>
+                    </div>
+                </li>
+                <li class="why-item fade-in">
+                    <span class="why-num">03</span>
+                    <div>
+                        <h3>ניסיון בהתחדשות עירונית</h3>
+                        <p>ייצוג בעלי דירות באחד עשר פרויקטים של פינוי ובינוי ותמ״א 38 בירושלים ובבית שמש, מהחתמת הדיירים ובחירת היזם, דרך המשא ומתן על ההסכם ועד היתר הבנייה.</p>
+                    </div>
+                </li>
+                <li class="why-item fade-in">
+                    <span class="why-num">04</span>
+                    <div>
+                        <h3>ליווי אישי ושקוף</h3>
+                        <p>מעורבות ישירה של השותף המייסד בהחלטות המהותיות, קשר ישיר עם המשרד, ועדכון שוטף על כל התפתחות בתיק.</p>
+                    </div>
+                </li>
+            </ol>
+        </div>
+    </section>
+
+    <!-- ===== Practice Areas ===== -->
+    <section class="practice" id="specialties">
+        <div class="container">
+            <h2 class="section-title fade-in">תחומי עיסוק</h2>
+            <p class="section-subtitle fade-in">עיקר עבודת המשרד בדיני מקרקעין ובמיסוי מקרקעין, לצד תחומים קרובים.</p>
+
+            <div class="practice-grid">
+                <a href="topics/pinui-binui.html" class="practice-tile practice-tile--featured fade-in">
+                    <span class="practice-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="6" width="6" height="14" rx="1"/><rect x="9" y="3" width="6" height="17" rx="1"/><rect x="17" y="8" width="6" height="12" rx="1"/></svg></span>
+                    <h3>התחדשות עירונית</h3>
+                    <p>ייצוג בעלי דירות בפינוי ובינוי ובתמ״א 38: התארגנות הדיירים, בחירת יזם, משא ומתן על ההסכם, בטוחות וערבויות, ופיקוח משפטי עד קבלת המפתח.</p>
+                    <span class="practice-tile-more">למדריך המלא <span aria-hidden="true">←</span></span>
+                </a>
+                <a href="topics/mas-shevach.html" class="practice-tile fade-in">
+                    <span class="practice-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
+                    <h3>מיסוי מקרקעין</h3>
+                    <p>מס שבח, מס רכישה ופטורים, תכנון מס לגיטימי לפני העסקה, השגות וערעורים מול רשות המסים.</p>
+                    <span class="practice-tile-more">למדריך <span aria-hidden="true">←</span></span>
+                </a>
+                <a href="topics/heskem-mecher-dira.html" class="practice-tile fade-in">
+                    <span class="practice-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg></span>
+                    <h3>עסקאות מקרקעין</h3>
+                    <p>הסכמי מכר ורכישה, עסקאות קומבינציה, שכירות מגורים ומסחרית, רישום בטאבו והערות אזהרה.</p>
+                    <span class="practice-tile-more">למדריך <span aria-hidden="true">←</span></span>
+                </a>
+                <a href="#contact" class="practice-tile fade-in">
+                    <span class="practice-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>
+                    <h3>מס הכנסה ומע״מ</h3>
+                    <p>ייעוץ משפטי וייצוג ליחידים, לעצמאים ולחברות בדיני מס הכנסה ומע״מ: תכנון משפטי של עסקאות, השגות וערעורים על שומות.</p>
+                    <span class="practice-tile-more">לתיאום ייעוץ <span aria-hidden="true">←</span></span>
+                </a>
+                <a href="#contact" class="practice-tile fade-in">
+                    <span class="practice-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M5 20V9l7-5 7 5v11"/><path d="M9 20v-6h6v6"/></svg></span>
+                    <h3>תכנון ובנייה והיטל השבחה</h3>
+                    <p>ליווי שינויי תב״ע, ייצוג מול ועדות התכנון, והשגה על שומות היטל השבחה.</p>
+                    <span class="practice-tile-more">לתיאום ייעוץ <span aria-hidden="true">←</span></span>
+                </a>
+                <a href="topics/tzavaot-yerushot.html" class="practice-tile fade-in">
+                    <span class="practice-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+                    <h3>צוואות, ירושות ונכסי משפחה</h3>
+                    <p>צוואות, צווי ירושה וקיום צוואה, ייפוי כוח מתמשך, והעברת נכסים בין קרובים בתכנון מס נכון.</p>
+                    <span class="practice-tile-more">למדריך <span aria-hidden="true">←</span></span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== About ===== -->
+    <section class="about" id="about">
+
+        <div class="container about-content-wrap">
+            <h2 class="section-title fade-in">אודות המשרד</h2>
+
+            <div class="about-glass-card fade-in">
+                <div class="about-leadership">
+                    <figure class="about-portrait">
+                        <img src="../images/attorney-asor.webp" width="720" height="1081" alt="ישראל עשור, עו״ד (רו״ח)" loading="lazy" decoding="async">
+                        <span class="about-portrait-frame" aria-hidden="true"></span>
+                    </figure>
+
+                    <div class="about-bio">
+                        <span class="about-label">שותף מייסד</span>
+                        <h2>ישראל עשור, עו״ד (רו״ח)</h2>
+                        <div class="about-gold-rule"></div>
+                        <p class="about-bio-lead">עורך דין (רו״ח), המייסד והמוביל של משרד עשור ושות׳, הממוקם במגדל רם בירושלים.</p>
+                        <p>המשרד מייצג בעלי דירות, יזמים, משקיעים ומשפחות בעסקאות מקרקעין, בפרויקטי פינוי ובינוי ותמ״א 38 ובסוגיות מיסוי מורכבות. בפרויקטי פינוי ובינוי המשרד מייצג דיירים בלבד ואינו מייצג יזמים. הליווי מתחיל בשלבי התכנון המוקדמים, עובר דרך המשא ומתן על ההסכם ומסתיים רק עם קבלת היתר הבנייה, השלמת הרישום והסדרת המס.</p>
+                        <p>ההיכרות המעמיקה עם דיני המס מאפשרת לזהות כבר בשלב המשא ומתן את ההשלכות המיסויות של ההסכם, כחלק בלתי נפרד מהייעוץ המשפטי.</p>
+
+                        <ul class="about-roles">
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                                יו״ר ועדת התחדשות עירונית בלשכת עו״ד בירושלים
+                            </li>
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                                מ״מ וועדת מיסוי מקרקעין בלשכת עו״ד ירושלים
+                            </li>
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                                מ״מ בוועדת מיסים כללי
+                            </li>
+                        </ul>
+
+                        <a class="about-profile-link" href="https://www.lawfirms.co.il/lawyers/%D7%99%D7%A9%D7%A8%D7%90%D7%9C-%D7%A2%D7%A9%D7%95%D7%A8" target="_blank" rel="noopener noreferrer" aria-label="עמוד הפרופיל באתר lawfirms.co.il (נפתח בלשונית חדשה)">
+                            <span>עמוד הפרופיל באתר lawfirms.co.il</span>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="about-practice-divider" aria-hidden="true"></div>
+                <h3 class="about-practice-heading">צוות המשרד</h3>
+
+                <div class="team-grid">
+                    <figure class="team-card">
+                        <div class="team-card-photo">
+                            <img src="../images/attorney-malka.webp" width="560" height="840" alt="עו״ד אוראל מלכה" loading="lazy" decoding="async">
+                        </div>
+                        <figcaption class="team-card-info">
+                            <span class="team-card-name">עו״ד אוראל מלכה</span>
+                            <span class="team-card-title">התחדשות עירונית ומקרקעין</span>
+                        </figcaption>
+                    </figure>
+                    <figure class="team-card">
+                        <div class="team-card-photo">
+                            <img src="../images/intern-shir.webp" width="560" height="841" alt="אלחנן שיר" loading="lazy" decoding="async">
+                        </div>
+                        <figcaption class="team-card-info">
+                            <span class="team-card-name">אלחנן שיר</span>
+                            <span class="team-card-title">מתמחה</span>
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>
+        </div>
+
     </section>
 
     <!-- ===== Process ===== -->
@@ -1142,28 +1231,28 @@
             <div class="contact-grid">
                 <div class="contact-form fade-in">
                     <h3>פנייה למשרד</h3>
-                    <form id="contactForm" onsubmit="handleSubmit(event)" novalidate>
+                    <form id="contactForm" class="lead-form" onsubmit="handleSubmit(event)" novalidate>
                         <input type="hidden" name="access_key" value="50c491ee-83db-4906-bb6f-3b3a287cbbab">
                         <input type="hidden" name="subject" value="פנייה חדשה מהאתר - עשור ושות׳">
                         <input type="hidden" name="from_name" value="אתר עשור ושות׳">
                         <div class="form-group">
                             <label for="name">שם מלא *</label>
-                            <input type="text" id="name" name="שם מלא" required minlength="2" pattern=".*\S+\s+\S+.*" placeholder="הכניסו את שמכם">
+                            <input type="text" id="name" data-k="name" name="שם מלא" required minlength="2" pattern=".*\S+\s+\S+.*" placeholder="הכניסו את שמכם">
                             <span class="form-error">נא להזין שם פרטי ושם משפחה</span>
                         </div>
                         <div class="form-group">
                             <label for="phone">טלפון *</label>
-                            <input type="tel" id="phone" name="טלפון" required pattern="^0[2-9]\d?-?\d{7}$" placeholder="050-0000000">
+                            <input type="tel" id="phone" data-k="phone" name="טלפון" required pattern="^0[2-9]\d?-?\d{7}$" placeholder="050-0000000">
                             <span class="form-error">נא להזין מספר טלפון תקין</span>
                         </div>
                         <div class="form-group">
                             <label for="email">דוא״ל</label>
-                            <input type="email" id="email" name="דואל" placeholder="email@example.com">
+                            <input type="email" id="email" data-k="email" name="דואל" placeholder="email@example.com">
                             <span class="form-error">נא להזין כתובת דוא״ל תקינה</span>
                         </div>
                         <div class="form-group">
                             <label for="topic">נושא הפנייה</label>
-                            <select id="topic" name="נושא">
+                            <select id="topic" data-k="topic" name="נושא">
                                 <option value="">בחרו נושא</option>
                                 <option>התחדשות עירונית (פינוי ובינוי / תמ״א 38)</option>
                                 <option>מיסוי מקרקעין (מס שבח / מס רכישה)</option>
@@ -1176,7 +1265,7 @@
                         </div>
                         <div class="form-group">
                             <label for="message">הודעה</label>
-                            <textarea id="message" name="הודעה" placeholder="כתבו את הודעתכם..."></textarea>
+                            <textarea id="message" data-k="message" name="הודעה" placeholder="כתבו את הודעתכם..."></textarea>
                         </div>
                         <button type="submit" class="form-submit" data-sending="שולח..." data-success="הפנייה נשלחה בהצלחה!" data-error="שגיאה בשליחה, נסו שוב">שליחת הפנייה</button>
                         <p class="form-note">מסירת הפרטים נעשית מרצונכם ואינה חובה חוקית, אך בלעדיהם לא נוכל לחזור אליכם. הפרטים ישמשו רק למענה לפנייתכם ולבחינת מתן שירות משפטי. בעל השליטה במידע: עשור ושות׳ - עורכי דין, office@asor-law.com. הטופס מועבר אלינו באמצעות ספק שליחת הטפסים Web3Forms, יחד עם נתונים טכניים בסיסיים (סוג המכשיר והדפדפן, והעמוד שממנו נשלח). עומדת לכם זכות לעיין במידע ולבקש את תיקונו. פנייה דרך האתר אינה יוצרת יחסי עורך דין ולקוח ואינה מהווה ייעוץ משפטי. <a href="privacy.html">מדיניות הפרטיות</a></p>
@@ -1293,11 +1382,18 @@
         </div>
     </footer>
 
+    <!-- ===== Residents login (placeholder until the portal URL is set in js/main.js) ===== -->
+    <dialog class="tenant-dialog" id="tenantDialog" aria-labelledby="tenantDialogTitle">
+        <h2 id="tenantDialogTitle">אזור הדיירים</h2>
+        <p>האזור האישי לדיירים בפרויקטים שבליווי המשרד ייפתח כאן בקרוב. עד אז אפשר לפנות למשרד בטלפון <a href="tel:02-5000275" dir="ltr">02-5000275</a>.</p>
+        <form method="dialog"><button class="btn-primary">סגירה</button></form>
+    </dialog>
+
     <!-- ===== Mobile action bar ===== -->
     <nav class="action-bar" aria-label="פעולות מהירות">
         <a href="tel:02-5000275" class="action-bar-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span dir="ltr">02-5000275</span></a>
         <a href="https://wa.me/972546302880?text=%D7%A9%D7%9C%D7%95%D7%9D%2C%20%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8%20%D7%A9%D7%9C%20%D7%A2%D7%A9%D7%95%D7%A8%20%D7%95%D7%A9%D7%95%D7%AA%D7%B3%20%D7%95%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A7%D7%91%D7%9C%20%D7%A4%D7%A8%D7%98%D7%99%D7%9D%20%D7%A0%D7%95%D7%A1%D7%A4%D7%99%D7%9D." class="action-bar-item" target="_blank" rel="noopener"><svg aria-hidden="true" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg><span>WhatsApp</span></a>
-        <a href="#contact" class="action-bar-item action-bar-item--primary">לתיאום פגישת ייעוץ</a>
+        <a href="#lead" class="action-bar-item action-bar-item--primary">לתיאום פגישת ייעוץ</a>
     </nav>
 
     <!-- ===== WhatsApp Float ===== -->
@@ -1400,6 +1496,6 @@
     </div>
 
     <!-- ===== JavaScript ===== -->
-    <script src="../js/main.js?v=2026111101"></script>
+    <script src="../js/main.js?v=2026111103"></script>
 </body>
 </html>
