@@ -630,7 +630,7 @@ html[lang="ar"] .nav-links a { font-size: 0.9rem; }
     font-size: 0.9rem;
     font-weight: 700;
 }
-.projects-3d-stage .project-info-main h4 { color: var(--t-ink); font-size: 1.4rem; }
+.projects-3d-stage .project-info-main h3, .projects-3d-stage .project-info-main h4 { color: var(--t-ink); font-size: 1.4rem; }
 .projects-3d-stage .project-info-main .project-location { color: var(--t-text-3); font-size: 0.98rem; }
 .projects-3d-stage .project-info .project-stat-value {
     font-family: var(--font-display);
@@ -691,7 +691,7 @@ html[lang="ar"] .nav-links a { font-size: 0.9rem; }
     color: var(--t-gold-ink) !important;
 }
 .commitment-icon svg { width: 22px !important; height: 22px !important; }
-.commitment-card h4 { font-size: 1.08rem !important; font-weight: 700 !important; color: var(--t-ink); }
+.commitment-card h3, .commitment-card h4 { font-size: 1.08rem !important; font-weight: 700 !important; color: var(--t-ink); }
 
 /* ---------- Process ---------- */
 .process { background: var(--t-card); }
@@ -1248,7 +1248,7 @@ html[lang="ar"] .nav-links a { font-size: 0.9rem; }
 }
 .lead-card .form-note {
     margin-top: 14px;
-    font-size: 0.74rem;
+    font-size: 0.8125rem;
     line-height: 1.5;
     max-height: 4.6em;
     overflow-y: auto;
@@ -1457,4 +1457,16 @@ html[lang="ar"] .nav-links a { font-size: 0.9rem; }
     html[lang="ar"] .nav-links { gap: 7px; }
     html[lang="ar"] .nav-links a { font-size: 0.78rem; }
     html[lang="ar"] .header-cta-group { display: none; }
+}
+
+/* ---------- UX pass: compact cookie notice on phones ----------
+   The notice sat above the action bar at ~180px tall and hid the hero's
+   secondary CTA on first load. Tighter padding and a 3-line text box keep
+   the same content and both buttons (still 44px tall) in ~130px. */
+@media (max-width: 768px) {
+    .cookie-consent { padding: 12px 14px !important; }
+    .cookie-consent-inner { gap: 10px; }
+    .cookie-consent-inner p { font-size: 0.78rem; line-height: 1.5; max-height: 4.5em; }
+    .cookie-consent-actions { display: flex; gap: 8px; }
+    .cookie-consent-actions .cookie-consent-btn { flex: 1; padding-block: 8px; }
 }
