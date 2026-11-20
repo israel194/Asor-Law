@@ -1,0 +1,12 @@
+# Cloudflare Pages response headers for every page.
+# These are real HTTP headers, so the browser enforces them; the same
+# directives inside a <meta> tag are ignored (frame-ancestors, X-Frame-Options).
+# The page-level CSP stays in each page's <meta> tag; a second CSP header
+# only adds frame-ancestors, and browsers enforce both policies together.
+/*
+  Content-Security-Policy: frame-ancestors 'none'
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Strict-Transport-Security: max-age=31536000
+  Permissions-Policy: geolocation=(), microphone=(), camera=()

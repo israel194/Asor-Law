@@ -6,8 +6,13 @@
 ## 1. הגנות שכבר מיושמות בקוד
 
 ### עמודי האתר (סטטי, GitHub Pages)
-- **Content-Security-Policy** (meta) — מגביל מקורות סקריפט/סגנון/תמונה/iframe, חוסם
-  `object-src`, ומונע clickjacking דרך `frame-ancestors 'none'`.
+- **Content-Security-Policy** (meta) — מגביל מקורות סקריפט/סגנון/תמונה/iframe וחוסם
+  `object-src`.
+- **הגנה מפני clickjacking** בקובץ `_headers` (כותרות HTTP של Cloudflare Pages):
+  `Content-Security-Policy: frame-ancestors 'none'` ו-`X-Frame-Options: DENY`.
+  דפדפנים מתעלמים מ-`frame-ancestors` בתגית meta, ולכן ההנחיה הוסרה משם.
+  הקובץ מוסיף גם nosniff, Referrer-Policy, HSTS ו-Permissions-Policy.
+  הוא נאכף רק כש-Cloudflare Pages מגיש את האתר (לא ב-GitHub Pages).
 - **Referrer-Policy**: `strict-origin-when-cross-origin`.
 - **X-Content-Type-Options**: `nosniff`.
 - **Permissions-Policy** — משבית גישה למצלמה/מיקרופון/מיקום/תשלום שאינם בשימוש.
