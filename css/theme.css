@@ -165,7 +165,7 @@ section { padding: 104px 0; }
 .header-inner,
 .header.scrolled .header-inner { height: var(--t-header-h); gap: 20px; }
 .logo img,
-.header.scrolled .logo img { height: 64px; filter: none; }
+.header.scrolled .logo img { height: 54px; filter: none; }
 .logo:hover img { transform: none; filter: none; }
 
 .nav-links { gap: 26px; }
@@ -926,7 +926,7 @@ html[lang="ar"] .nav-links a { font-size: 0.9rem; }
     .header-inner, .header.scrolled .header-inner { gap: 12px; }
     .header-cta-whatsapp { display: none; }
     .header-cta-group .header-cta, .header-cta { padding: 10px 12px; font-size: 0.9rem; gap: 6px; }
-    .logo img, .header.scrolled .logo img { height: 54px; }
+    .logo img, .header.scrolled .logo img { height: 45px; }
     .lang-switcher a { min-width: 34px; }
     html[lang="ar"] .nav-links { gap: 9px; }
     html[lang="ar"] .nav-links a { font-size: 0.82rem; }
@@ -942,7 +942,7 @@ html[lang="ar"] .nav-links a { font-size: 0.9rem; }
     section, .about, .knowledge, .faq { padding: 80px 0; }
     .cta-band { padding: 0 0 80px; }
 
-    .logo img, .header.scrolled .logo img { height: 50px; }
+    .logo img, .header.scrolled .logo img { height: 42px; }
     .header-inner { gap: 10px; }
     .lang-switcher { margin: 0; margin-inline-start: auto; }
 
@@ -1418,7 +1418,7 @@ html[lang="ar"] .nav-links a { font-size: 0.9rem; }
 @media (max-width: 1180px) {
     .nav-links { gap: 10px; }
     .nav-links a { font-size: 0.84rem; }
-    .logo img, .header.scrolled .logo img { height: 48px; }
+    .logo img, .header.scrolled .logo img { height: 40px; }
     .header-cta svg { display: none; }
     html[lang="ar"] .nav-links { gap: 7px; }
     html[lang="ar"] .nav-links a { font-size: 0.78rem; }
@@ -1469,4 +1469,11 @@ html[lang="ar"] .nav-links a { font-size: 0.9rem; }
     .cookie-consent-inner p { font-size: 0.78rem; line-height: 1.5; max-height: 4.5em; }
     .cookie-consent-actions { display: flex; gap: 8px; }
     .cookie-consent-actions .cookie-consent-btn { flex: 1; padding-block: 8px; }
+}
+
+/* Mobile logo: the header logo is the trimmed artwork (no transparent
+   margin), so on phones it can be drawn larger and the wordmark stays
+   readable. Header height is 68px here. */
+@media (max-width: 768px) {
+    .logo img, .header.scrolled .logo img { height: 54px; }
 }
