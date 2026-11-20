@@ -1757,7 +1757,7 @@ section {
     min-width: 0;
 }
 
-.projects-3d-stage .project-info-main h4 {
+.projects-3d-stage .project-info-main h3, .projects-3d-stage .project-info-main h4 {
     font-size: 1.35rem;
     line-height: 1.25;
     margin: 0 0 4px;
@@ -1876,7 +1876,7 @@ section {
         gap: 14px;
         flex-wrap: wrap;
     }
-    .projects-3d-stage .project-info-main h4 { font-size: 1.2rem; }
+    .projects-3d-stage .project-info-main h3, .projects-3d-stage .project-info-main h4 { font-size: 1.2rem; }
     .projects-3d-stage .project-info .project-stat-value { font-size: 1.3rem; }
 }
 
@@ -1988,7 +1988,7 @@ section {
     padding: 20px;
 }
 
-.project-info h4 {
+.project-info h3, .project-info h4 {
     color: var(--navy);
     font-size: 1.05rem;
     margin-bottom: 6px;
@@ -2127,7 +2127,7 @@ section {
     color: var(--white);
 }
 
-.commitment-card h4 {
+.commitment-card h3, .commitment-card h4 {
     color: var(--navy);
     font-size: 1.02rem;
     font-weight: 600;
@@ -4132,7 +4132,7 @@ h3, h4 { font-family: var(--font-body); font-weight: 700; }
     border-radius: 0 !important;
 }
 .commitment-icon svg { width: 20px !important; height: 20px !important; }
-.commitment-card h4 { font-size: 1.05rem !important; font-weight: 600 !important; margin: 0 !important; line-height: 1.5; }
+.commitment-card h3, .commitment-card h4 { font-size: 1.05rem !important; font-weight: 600 !important; margin: 0 !important; line-height: 1.5; }
 @media (max-width: 768px) { .commitments-grid { grid-template-columns: 1fr !important; } }
 
 /* Cards: less rounding, no glow, no pill tags */
